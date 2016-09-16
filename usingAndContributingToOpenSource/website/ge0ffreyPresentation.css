@@ -1,0 +1,197 @@
+/*
+ * Copyright 2013 Red Hat, Inc. and/or its affiliates.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+footer {
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+}
+
+.reveal .attribution {
+    margin: 5px 0;
+    text-align: center;
+    font-size: small;
+    color: #BABDB6;
+}
+
+.reveal h1, .reveal h2, .reveal h3, .reveal h4, .reveal h5 {
+    line-height: 1.2em;
+}
+
+.reveal sup {
+    font-size: 50%;
+}
+
+.reveal .math {
+    margin: 20px 0;
+    font-size: 22px;
+    font-family: monospace;
+}
+
+.reveal .demo {
+    margin: 100px 0;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 40px;
+}
+
+.reveal .slides ul, ol {
+    text-align: left;
+    display: block;
+}
+
+.reveal .watermark {
+    position: absolute;
+    bottom: 0;
+    font-size: 14px;
+    z-index: -100;
+}
+
+.reveal .watermark-left {
+    left: 10px;
+    right: auto;
+}
+
+.reveal .watermark-right {
+    left: auto;
+    right: 10px;
+}
+
+.reveal .watermark p {
+    text-align: center;
+}
+
+.reveal .watermark p img {
+    vertical-align: middle;
+    -webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    filter: grayscale(100%);
+}
+
+/******************************************************************************
+* Images
+******************************************************************************/
+
+/* Remove reveal border around images */
+.reveal section img {
+    border: none;
+    box-shadow: none;
+}
+
+/* Make images bigger */
+.reveal .slides section {
+    height: 100%;
+}
+
+.reveal .fullImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+}
+
+.reveal .vrpPresumptionTopPara {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: 5px;
+}
+
+.reveal .vrpPresumptionImage {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    top: 75px;
+}
+
+.reveal .vrpPresumptionBottomPara {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    bottom: 5px;
+}
+
+.reveal figure img {
+    max-width: 70%;
+    max-height: 70%;
+}
+
+.reveal .fullImagePara {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.reveal .sourceUrl {
+    font-size: x-small;
+}
+
+.reveal li img {
+    vertical-align: middle;
+    margin: 0;
+}
+
+table.links tr th {
+    border: 0;
+}
+
+.reveal td img {
+    vertical-align: middle;
+    margin: 0;
+}
+
+/******************************************************************************
+* Tables
+******************************************************************************/
+
+.reveal table {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.reveal thead {
+    margin: 0;
+    padding: 0;
+}
+.reveal th {
+    margin: 0;
+    border-bottom: thin solid black;
+    padding: 5px 10px;
+    text-align: center;
+}
+.reveal tbody {
+    margin: 0;
+    padding: 0;
+}
+.reveal tr {
+    margin: 0;
+    padding: 0;
+}
+.reveal td {
+    margin: 0;
+    padding: 5px 10px;
+    text-align: right;
+}
