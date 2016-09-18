@@ -57,12 +57,54 @@
         <h2>Coder</h2>
     </section>
 
+    <!--
     <section>
         <h2>"Hello World"<br/>in 1999</h2>
     </section>
 
     <section>
         <img src="intro/helloWorldScreenshot.png" class="fullImage">
+    </section>
+    <section>
+        <h3>HelloWorld.java</h3>
+        <pre xml:space="preserve"><code class="java">import java.lang.System;
+import java.lang.String;
+
+public class HelloWorld {
+
+    public static void main(String[] args) {
+        System.out.println("Hello world!");
+    }
+
+}</code></pre>
+    </section>-->
+    <section>
+        <img src="intro/logoAppScreenshot.png">
+    </section>
+    <section>
+        <pre xml:space="preserve"><code class="java">import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class LogoApp extends JFrame {
+    ...
+
+    public LogoApp() {
+        super("Logo");
+        ImageIcon image = new ImageIcon(getClass().getResource("logo.png"));
+        getContentPane().add(new JLabel(image));
+    }
+
+}</code></pre>
+    </section>
+
+
+
+    <section>
+        <img src="license/licenceGoodNotEvil.png" class="fullImage">
+    </section>
+    <section>
+        <img src="license/licenceGoodNotEvilNotOpenSource.png" class="fullImage">
     </section>
 
     <section>
@@ -110,7 +152,7 @@
             maxScale: 100.0
         });
     </script>
-    <script src="website/highlight/highlight.js"></script>
+    <script src="../website/highlight/highlight.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
 
 </body>
