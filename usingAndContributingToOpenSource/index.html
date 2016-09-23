@@ -101,9 +101,9 @@ public class LogoApp extends JFrame {
 import javax.swing.JFrame;
 import javax.swing.JLabel;</code></pre>
         <p class="fragment">⇒ my dependencies</p>
-        <p class="fragment">which have dependencies too</p>
     </section>
     <section>
+        <h3>Show an image on the screen</h3>
         <pre xml:space="preserve"><code class="java">import javax.swing.ImageIcon;</code></pre>
         <br/>
         <table>
@@ -128,13 +128,13 @@ import javax.swing.JLabel;</code></pre>
                     Tested by millions</td>
                 <td class="negative">Low<br/>
                     Only PNG (no JPG)<br/>
-                    Exploits, scaling, ...
+                    Exploits, slow, ...
                 </td>
             </tr>
             <tr>
                 <td>Maintenance time</td>
-                <td class="positive">low</td>
-                <td class="negative">high</td>
+                <td class="positive">low (upgrades)</td>
+                <td class="negative">high (rewrites)</td>
             </tr>
             <tr>
                 <td>Dependencies?</td>
@@ -143,6 +143,43 @@ import javax.swing.JLabel;</code></pre>
             </tr>
             </tbody>
         </table>
+        <br/>
+        <p class="fragment">An extra dependency is the lesser evil.</p>
+    </section>
+    <section>
+        <img src="use/dependencyTreeSimple_0.png" class="fullImage">
+        <img src="use/dependencyTreeSimple_1.png" class="fullImage fragment">
+        <img src="use/dependencyTreeSimple_2.png" class="fullImage fragment">
+        <img src="use/dependencyTreeSimple_3.png" class="fullImage fragment">
+        <img src="use/dependencyTreeSimple_4.png" class="fullImage fragment">
+        <img src="use/dependencyTreeSimple_5.png" class="fullImage fragment">
+    </section>
+    <section>
+        <img src="use/openSourceCommunismJoke.jpg">
+    </section>
+    <section>
+        <h3>
+           Programming languages
+        </h3>
+        <ul>
+            <li>Java is Open Source
+                <ul>
+                    <li>http://openjdk.java.net/</li>
+                </ul>
+            </li>
+            <li class="fragment">C++: GNU's GCC is Open Source
+                <ul>
+                    <li>https://gcc.gnu.org/</li>
+                </ul>
+            </li>
+            <li class="fragment">.NET Core is Open Source (2016)
+                <ul>
+                    <li>https://github.com/Microsoft/dotnet</li>
+                </ul>
+            </li>
+        </ul>
+        <br/>
+        <p class="fragment">You're already using Open Source.</p>
     </section>
     <section>
         <h2>
@@ -156,8 +193,7 @@ import javax.swing.JLabel;</code></pre>
     </section>
     <section>
         <h2>
-            Anything you depend upon<br/>
-            (directly or indirectly)<br/>
+            Each dependency<br/>
             can harm you.
         </h2>
     </section>
