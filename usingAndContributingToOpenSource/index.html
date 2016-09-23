@@ -39,7 +39,9 @@
 
     <section>
         <h2>
-            Using and contributing to Open Source
+            Using and<br/>
+            contributing to<br/>
+            Open Source
         </h2>
         <div style="margin-top: 80px;">
             <p>
@@ -52,20 +54,23 @@
     <section>
         <h3>Who am I?</h3>
         <ul>
-            <li>1999: Hello World</li>
-            <li>2003: Graduated</li>
-            <li>2006: Started OptaPlanner hobby</li>
-            <li>2010: Hired by Red Hat</li>
-            <li>2013+: OptaPlanner is mature
+            <li>Java developer (graduated in 2003)</li>
+            <li>OptaPlanner Founder/Lead
                 <ul>
-                    <li>Used across the globe</li>
+                    <li>Customers and users around the world</li>
                     <li>1k+ downloads per month</li>
-                    <li>12k+ optaplanner.org sessions per month</li>
                     <li>255k lines of code</li>
-                    <li>Dedicated team of developers, QA, support, ...</li>
                 </ul>
             </li>
         </ul>
+    </section>
+    <section>
+        <h2>
+            Reusing code<br/>
+            is better than<br/>
+            writing it
+        </h2>
+        <p>(99% of the time)</p>
     </section>
     <section>
         <img src="intro/logoAppScreenshot.png">
@@ -80,11 +85,81 @@ public class LogoApp extends JFrame {
 
     public LogoApp() {
         super("Logo");
-        ImageIcon image = new ImageIcon(getClass().getResource("logo.png"));
+        ImageIcon image = new ImageIcon(
+                getClass().getResource("logo.png"));
         getContentPane().add(new JLabel(image));
     }
 
 }</code></pre>
+    </section>
+    <section>
+        <img src="intro/logoAppScreenshotAnnotated.png">
+    </section>
+    <section>
+        <h3>Use other people's code</h3>
+        <pre xml:space="preserve"><code class="java">import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;</code></pre>
+        <p class="fragment">⇒ my dependencies</p>
+        <p class="fragment">which have dependencies too</p>
+    </section>
+    <section>
+        <pre xml:space="preserve"><code class="java">import javax.swing.ImageIcon;</code></pre>
+        <br/>
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                <th>To reuse</th>
+                <th>Not to reuse</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Development time</td>
+                <td class="positive">1 minute</td>
+                <td class="negative">2 years</td>
+            </tr>
+            <tr>
+                <td>Quality</td>
+                <td class="positive">
+                    High<br/>
+                    Written by specialists<br/>
+                    Tested by millions</td>
+                <td class="negative">Low<br/>
+                    Only PNG (no JPG)<br/>
+                    Exploits, scaling, ...
+                </td>
+            </tr>
+            <tr>
+                <td>Maintenance time</td>
+                <td class="positive">low</td>
+                <td class="negative">high</td>
+            </tr>
+            <tr>
+                <td>Dependencies?</td>
+                <td class="negative">Yes</td>
+                <td class="positive">No</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+    <section>
+        <h2>
+            Typical web application has<br/>
+            100+ dependencies
+        </h2>
+        <p>and millions of imports</p>
+    </section>
+    <section>
+        <img src="use/dependencyTree.png" class="fullImage">
+    </section>
+    <section>
+        <h2>
+            Anything you depend upon<br/>
+            (directly or indirectly)<br/>
+            can harm you.
+        </h2>
     </section>
 
     <section>
