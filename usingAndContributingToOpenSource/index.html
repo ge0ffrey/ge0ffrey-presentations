@@ -64,12 +64,14 @@
             </li>
         </ul>
     </section>
+
+
     <section>
-        <h2>
+        <h3>
             Reusing code<br/>
             is better than<br/>
             writing it
-        </h2>
+        </h3>
         <p>(99% of the time)</p>
     </section>
     <section>
@@ -159,7 +161,7 @@ import javax.swing.JLabel;</code></pre>
     </section>
     <section>
         <h3>
-           Programming languages
+           No longer the 90's
         </h3>
         <ul>
             <li>Java is Open Source
@@ -172,7 +174,7 @@ import javax.swing.JLabel;</code></pre>
                     <li>https://gcc.gnu.org/</li>
                 </ul>
             </li>
-            <li class="fragment">.NET Core is Open Source (2016)
+            <li class="fragment">.NET Core is Open Source
                 <ul>
                     <li>https://github.com/Microsoft/dotnet</li>
                 </ul>
@@ -182,21 +184,108 @@ import javax.swing.JLabel;</code></pre>
         <p class="fragment">You're already using Open Source.</p>
     </section>
     <section>
-        <h2>
+        <h3>
             Typical web application has<br/>
             100+ dependencies
-        </h2>
+        </h3>
         <p>and millions of imports</p>
     </section>
     <section>
-        <img src="use/dependencyTree.png" class="fullImage">
+        <img src="use/dependencyTree_0.png" class="fullImage">
+        <img src="use/dependencyTree_1.png" class="fullImage fragment">
     </section>
     <section>
-        <h2>
-            Each dependency<br/>
+        <h3>
+            Every dependency<br/>
             can harm you.
-        </h2>
+        </h3>
     </section>
+    <section>
+        <img src="use/dependencyTree_1.png" class="fullImage">
+        <img src="use/dependencyTree_2.png" class="fullImage fragment">
+        <img src="use/dependencyTree_3.png" class="fullImage fragment">
+        <img src="use/dependencyTree_4.png" class="fullImage fragment">
+    </section>
+
+    <section>
+        <h3>Depend only<br/> on <b>mature</b> projects</h3>
+    </section>
+    <section>
+        <h3>What makes<br/> (Open Source) projects<br/> mature?</h3>
+    </section>
+
+    <section>
+        <p>What makes (Open Source) projects mature?</p>
+        <h3>1. License</h3>
+        <br/>
+        <p style="font-size: small">IANAL</p>
+    </section>
+
+    <section>
+        <h3>What is Open Source?</h3>
+        <ul>
+            <li>Free redistribution</li>
+            <li>Source code included</li>
+            <li>Right to modify</li>
+            <li>No fields of use restrictions</li>
+            <li>... (see opensource.org)</li>
+        </ul>
+        <br/>
+        <p>⇒ Formalized by a License</p>
+    </section>
+
+    <section>
+        <img src="license/licenceGoodNotEvil.png" class="fullImage">
+    </section>
+    <section>
+        <figure>
+            <img src="license/aliceCooper.png">
+        </figure>
+        <p>Don't sell Alice Cooper merchandise!</p>
+    </section>
+    <section>
+        <img src="license/licenceGoodNotEvilNotOpenSource.png" class="fullImage">
+    </section>
+
+    <section>
+        <h3>Common Open Source licenses</h3>
+        <ul>
+            <li>BSD</li>
+            <li>MIT</li>
+            <li>ASL: Apache License</li>
+            <li>MPL: Mozilla Public License</li>
+            <li>EPL: Eclipse Public License</li>
+            <li>LGPL: Lesser General Public License</li>
+            <li>GPL: General Public License</li>
+            <li>AGPL</li>
+        </ul>
+        <br/>
+        <p><b>Avoid other Open Source licenses.</b></p>
+    </section>
+
+    <section>
+        <img src="use/dependencyTreeLicense_0.png" class="fullImage">
+        <img src="use/dependencyTreeLicense_1.png" class="fullImage fragment">
+        <img src="use/dependencyTreeLicense_2.png" class="fullImage fragment">
+    </section>
+
+    <section>
+        <h3>IANAL</h3>
+        <p class="fragment">I am not a lawyer</p>
+    </section>
+    <section>
+        <p>Richard Fontana (Open Source lawyer)<br/> on forum:</p>
+        <h3>IAAL IAMYL TINLA</h3>
+        <p class="fragment">
+            I am a lawyer.<br/>
+            I am not <i>your</i> lawyer.<br/>
+            This is not legal advice.
+        </p>
+    </section>
+
+
+
+
 
     <section>
         <h3>Long tail of contributors</h3>
@@ -207,9 +296,6 @@ import javax.swing.JLabel;</code></pre>
         </ul>
     </section>
 
-    <section>
-        <h2>Use mature (Open Source) software</h2>
-    </section>
 
     <section>
         <h2>Ways to determine maturity</h2>
