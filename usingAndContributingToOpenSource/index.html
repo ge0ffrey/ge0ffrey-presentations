@@ -385,7 +385,6 @@ import javax.swing.JLabel;</code></pre>
         <p>What makes (Open Source) projects mature?</p>
         <h3>3. Source control</h3>
     </section>
-
     <section>
         <h3>Source Control</h3>
         <ul>
@@ -415,7 +414,68 @@ import javax.swing.JLabel;</code></pre>
     </section>
     <section>
         <h3>Easy to build from source</h3>
-
+        <pre xml:space="preserve"><code class="sh">$ git clone https://github.com/droolsjbpm/optaplanner.git
+...
+$ cd optaplanner
+$ mvn clean install -DskipTests
+...</code></pre>
+    </section>
+    <section>
+        <h3>Fork it!</h3>
+        <img src="sourceControl/forkMeOnGithub.png">
+        <br/>
+        <p>My fork = my personal sandbox</p>
+    </section>
+    <section>
+        <h3>Easy to fork</h3>
+        <p>Blessed (official releases):</p>
+        <img src="sourceControl/githubBlessed.png">
+        <br/>
+        <div class="fragment">
+            <p>My fork:</p>
+            <img src="sourceControl/githubMyFork.png">
+            <p class="fragment">My changes do <i>not</i> affect <i>blessed</i>.</p>
+            <p class="fragment">Easy to pull new commits from <i>blessed</i>.</p>
+        </div>
+    </section>
+    <section>
+        <h3>Why share your modifications?</h3>
+        <ul>
+            <li>Reduce maintenance
+                <ul>
+                    <li>Your modifications are in all future releases</li>
+                    <li>No merging with upstream changes</li>
+                    <li>No need to do releases</li>
+                </ul>
+            </li>
+            <li class="fragment">Get feedback from project committers</li>
+            <li class="fragment">Gain respect (= power in a meritocracy)</li>
+        </ul>
+    </section>
+    <section>
+        <h3>How do you share your modifications?</h3>
+        <ul>
+            <li class="negative">Patch file
+                <ul>
+                    <li>Goes stale</li>
+                    <li>No review support</li>
+                </ul>
+            </li>
+            <li class="positive"><b>Pull Request</b>
+                <ul>
+                    <li>Send Pull Request</li>
+                    <li>Committers review it</li>
+                    <li>Fix review comments</li>
+                    <li>Committers merge it in <i>blessed</i></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <img src="sourceControl/pullRequest.png" class="fullImage">
+    </section>
+    <section>
+        <img src="sourceControl/pullRequestReview.png" class="fullImage">
     </section>
 
 
