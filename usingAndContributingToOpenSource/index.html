@@ -227,7 +227,6 @@ import javax.swing.JLabel;</code></pre>
     <section>
         <img src="license/licenseOnHomepage.png" class="fullImage">
     </section>
-
     <section>
         <h3>What is Open Source?</h3>
         <ul>
@@ -240,7 +239,6 @@ import javax.swing.JLabel;</code></pre>
         <br/>
         <p>⇒ Formalized by a License</p>
     </section>
-
     <section>
         <img src="license/licenceGoodNotEvil.png" class="fullImage">
     </section>
@@ -253,7 +251,6 @@ import javax.swing.JLabel;</code></pre>
     <section>
         <img src="license/licenceGoodNotEvilNotOpenSource.png" class="fullImage">
     </section>
-
     <section>
         <h3>Normal Open Source licenses</h3>
         <ul>
@@ -269,13 +266,11 @@ import javax.swing.JLabel;</code></pre>
         <br/>
         <p><b>Avoid other Open Source licenses.</b></p>
     </section>
-
     <section>
         <img src="use/dependencyTreeLicense_0.png" class="fullImage">
         <img src="use/dependencyTreeLicense_1.png" class="fullImage fragment">
         <img src="use/dependencyTreeLicense_2.png" class="fullImage fragment">
     </section>
-
     <section>
         <h3>Make 2 lists of licenses</h3>
         <ul>
@@ -284,7 +279,6 @@ import javax.swing.JLabel;</code></pre>
             <li>Other: ask legal before importing</li>
         </ul>
     </section>
-
     <section>
         <img src="license/commercialFriendliness_0.png" class="fullImage">
         <img src="license/commercialFriendliness_1.png" class="fullImage fragment">
@@ -294,7 +288,6 @@ import javax.swing.JLabel;</code></pre>
         <img src="license/commercialFriendliness_5.png" class="fullImage fragment">
         <img src="license/commercialFriendliness_6.png" class="fullImage fragment">
     </section>
-
     <section>
         <h3>FAQ</h3>
         <ul>
@@ -487,7 +480,7 @@ $ mvn clean install -DskipTests
         <img src="sourceControl/squashAndMerge.png" style="width: 100%; height: auto;">
     </section>
     <section>
-        <h3>gitk</h3>
+        <h3>Fork merged to blessed</h3>
         <img src="sourceControl/gitkForkMerge.png" style="width: 100%; height: auto;">
     </section>
 
@@ -496,40 +489,172 @@ $ mvn clean install -DskipTests
         <h3>4. Business model</h3>
     </section>
     <section>
-        <h3>Governance</h3>
-        <p>TODO</p>
+        <p>Governance</p>
+        <h3>Who controls an Open Source project?</h3>
     </section>
     <section>
-        <h3>Apache/Eclipse model</h3>
-        <p>TODO</p>
-    </section>
-    <section>
-        <h3>Open Source Company model</h3>
-        <p>TODO</p>
-    </section>
-
-
-
-    <section>
-        <h3>Long tail of contributors</h3>
-        <ul>
-            <li>10K+ projects that use it</li>
-            <li>95 contributors</li>
-            <li>95% of code by core team</li>
-        </ul>
-        <p>TODO</p>
+        <img src="businessModel/meritocracy_0.png" class="fullImage">
+        <img src="businessModel/meritocracy_1.png" class="fullImage fragment">
+        <img src="businessModel/meritocracy_2.png" class="fullImage fragment">
+        <img src="businessModel/meritocracy_3.png" class="fullImage fragment">
     </section>
     <section>
         <h3>Communication</h3>
         <ul>
             <li>Issue tracker</li>
-            <li>Mailing list</li>
-            <li>IRC</li>
+            <li>Mailing list
+                <ul>
+                    <li>Use gmane.org (NNTP or web) to avoid flood</li>
+                </ul>
+            </li>
+            <li><b>IRC</b> (90's chat, like Slack)
+                <ul>
+                    <li>Most Open Source projects are on Freenode</li>
+                    <li>Bot mentions new commits/issues ⇒ sparks discussions</li>
+                    <li>Video conferencing for complex discussions</li>
+                </ul>
+            </li>
         </ul>
-        <p>TODO</p>
     </section>
-
-
+    <section>
+        <img src="businessModel/longTailOfContributors.png" class="fullImage">
+    </section>
+    <section>
+        <h3>Healthy Open Source project</h3>
+        <ul>
+            <li><b>Some of the committers needs to be payed<br/>to work on it full time.</b></li>
+            <li>Possible to buy support</li>
+        </ul>
+    </section>
+    <section>
+        <h3>Governance models</h3>
+        <ul>
+            <li>Multi-company model
+                <ul>
+                    <li>Apache Foundation</li>
+                    <li>Eclipse Community</li>
+                </ul>
+            </li>
+            <li>One-company model
+                <ul>
+                    <li>Red Hat</li>
+                    <li>Pivotal</li>
+                    <li>Oracle</li>
+                    <li>Docker Inc.</li>
+                    <li>...</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <h3>Apache Foundation / Eclipse Community</h3>
+        <ul>
+            <li class="positive">Neutral ground</li>
+            <li class="positive">Infrastructure sponsored</li>
+            <li class="positive">No dictator</li>
+            <li>Voting system:
+                <ul>
+                    <li>+1: Do the change</li>
+                    <li>+0: I don't care</li>
+                    <li>-1: I veto the change (requires motivation)</li>
+                </ul>
+            </li>
+            <li class="negative">Politics can kill successful projects
+                <ul>
+                    <li>Log4J 1.x died when main committer got veto'ed</li>
+                    <li>Maven 3 flatlined after dispute<br/> with main contributing company (now mostly fixed)</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <h3>One company model</h3>
+        <ul>
+            <li class="positive">Clear, sustainable business model
+                <ul>
+                    <li>Paid full-time committers</li>
+                </ul>
+            </li>
+            <li class="positive">Fear of fork reduces power abuse
+            <ul>
+                <li>OpenOffice got forked as LibreOffice</li>
+                <li>Hudson got forked as Jenkins</li>
+            </ul>
+            </li>
+            <li>Often benevolent dictator (project lead)
+                <ul>
+                    <li>Listens to company and community</li>
+                </ul>
+            </li>
+            <li class="negative">Potential conflict of interest
+                <ul>
+                    <li>Depends on the business model</li>
+                    <li>Balancing act for project lead</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <h3>Open Source business models</h3>
+        <ul>
+            <li>Dual-licensing (GPL/proprietary)
+                <ul>
+                    <li>MySQL</li>
+                </ul>
+            </li>
+            <li>Sell proprietary enterprise features
+                <ul>
+                    <li>IntelliJ</li>
+                </ul>
+            </li>
+            <li>Sell support/consultancy
+                <ul>
+                    <li>All Red Hat projects</li>
+                    <li>IBM projects</li>
+                    <li>Most Apache projects</li>
+                </ul>
+            </li>
+            <li>Get contributions on not core business software
+                <ul>
+                    <li>Google projects</li>
+                    <li>Facebook projects</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <p>What makes (Open Source) projects mature?</p>
+        <h3>5. Everything that makes proprietary projects mature</h3>
+    </section>
+    <section>
+        <h3>Typical quality indicators</h3>
+        <ul class="fragment">
+            <li>Unit tests</li>
+            <li>Test coverage</li>
+            <li>Continuous integration</li>
+            <li>Documentation</li>
+        </ul>
+    </section>
+    <section>
+        <h3>Is Open Source better than proprietary?</h3>
+        <br/>
+        <h3 class="fragment"><b>Depends on the project!</b></h3>
+    </section>
+    <section>
+        <h2>Summary</h2>
+    </section>
+    <section>
+        <h3>Summary</h3>
+        <ul>
+            <li>Reuse is better than writing it yourself</li>
+            <li>Have only mature projects in your dependency tree</li>
+            <li>Look for maturity indicators
+                <ul>
+                    <li>Open Source projects can't hide them</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
 
     <section>
         <h3>Q &amp; A</h3>
