@@ -55,13 +55,14 @@
         <h3>Who am I?</h3>
         <ul>
             <li>Java developer (graduated in 2003)</li>
-            <li>OptaPlanner Founder/Lead
+            <li>Founder/lead of Open Source project <b>OptaPlanner</b>
                 <ul>
                     <li>Customers and users around the world</li>
-                    <li>1k+ downloads per month</li>
+                    <li>1k+ zip downloads per month</li>
                     <li>255k lines of code</li>
                 </ul>
             </li>
+            <li>Contributor to 23+ Open Source projects</li>
         </ul>
     </section>
 
@@ -113,16 +114,16 @@ import javax.swing.JLabel;</code></pre>
             <tr>
                 <th></th>
                 <th>To reuse</th>
-                <th>Not to reuse</th>
+                <th>Not to reuse (NIH)</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr class="fragment">
                 <td>Development time</td>
                 <td class="positive">1 minute</td>
                 <td class="negative">2 years</td>
             </tr>
-            <tr>
+            <tr class="fragment">
                 <td>Quality</td>
                 <td class="positive">
                     High<br/>
@@ -133,12 +134,12 @@ import javax.swing.JLabel;</code></pre>
                     Exploits, slow, ...
                 </td>
             </tr>
-            <tr>
+            <tr class="fragment">
                 <td>Maintenance time</td>
                 <td class="positive">low (upgrades)</td>
                 <td class="negative">high (rewrites)</td>
             </tr>
-            <tr>
+            <tr class="fragment">
                 <td>Dependencies?</td>
                 <td class="negative">Yes</td>
                 <td class="positive">No</td>
@@ -155,6 +156,18 @@ import javax.swing.JLabel;</code></pre>
         <img src="use/dependencyTreeSimple_3.png" class="fullImage fragment">
         <img src="use/dependencyTreeSimple_4.png" class="fullImage fragment">
         <img src="use/dependencyTreeSimple_5.png" class="fullImage fragment">
+    </section>
+    <section>
+        <h3>What is Open Source?</h3>
+        <ul>
+            <li>Source code included</li>
+            <li>Right to modify</li>
+            <li><b>Free redistribution</b></li>
+            <li>No fields of use restrictions</li>
+            <li>... (see opensource.org)</li>
+        </ul>
+        <br/>
+        <p>⇒ Formalized by a License</p>
     </section>
     <section>
         <img src="use/openSourceCommunismJoke.jpg">
@@ -228,18 +241,6 @@ import javax.swing.JLabel;</code></pre>
         <img src="license/licenseOnHomepage.png" class="fullImage">
     </section>
     <section>
-        <h3>What is Open Source?</h3>
-        <ul>
-            <li>Source code included</li>
-            <li>Free redistribution</li>
-            <li>Right to modify</li>
-            <li>No fields of use restrictions</li>
-            <li>... (see opensource.org)</li>
-        </ul>
-        <br/>
-        <p>⇒ Formalized by a License</p>
-    </section>
-    <section>
         <img src="license/licenceGoodNotEvil.png" class="fullImage">
     </section>
     <section>
@@ -252,7 +253,9 @@ import javax.swing.JLabel;</code></pre>
         <img src="license/licenceGoodNotEvilNotOpenSource.png" class="fullImage">
     </section>
     <section>
-        <h3>Normal Open Source licenses</h3>
+        <h3>Avoid exotic licenses</h3>
+        <br/>
+        <p>Normal Open Source licenses</p>
         <ul>
             <li>MIT</li>
             <li>BSD</li>
@@ -264,7 +267,6 @@ import javax.swing.JLabel;</code></pre>
             <li>AGPL</li>
         </ul>
         <br/>
-        <p><b>Avoid other Open Source licenses.</b></p>
     </section>
     <section>
         <img src="use/dependencyTreeLicense_0.png" class="fullImage">
@@ -286,7 +288,6 @@ import javax.swing.JLabel;</code></pre>
         <img src="license/commercialFriendliness_3.png" class="fullImage fragment">
         <img src="license/commercialFriendliness_4.png" class="fullImage fragment">
         <img src="license/commercialFriendliness_5.png" class="fullImage fragment">
-        <img src="license/commercialFriendliness_6.png" class="fullImage fragment">
     </section>
     <section>
         <h3>FAQ</h3>
@@ -308,6 +309,8 @@ import javax.swing.JLabel;</code></pre>
     <section>
         <h3>IANAL</h3>
         <p class="fragment">I am not a lawyer</p>
+        <h3 class="fragment">TINLA</h3>
+        <p class="fragment">This is not legal advice</p>
         <br/>
         <p class="fragment">
             All licenses (open source or proprietary)<br/>
@@ -367,6 +370,8 @@ import javax.swing.JLabel;</code></pre>
         </ul>
         <br/>
         <p class="fragment">Similar to Android's Play store, IPhone's App store,<br/> Fedora's rpm repository, Ubuntu's deb repository, ..</p>
+        <br/>
+        <p class="fragment">Easy to consume updates (bugfixes, ...)</p>
     </section>
     <section>
         <h3>search.maven.org / mvnrepository.com</h3>
@@ -394,9 +399,10 @@ import javax.swing.JLabel;</code></pre>
             </li>
             <li>Hosted on
                 <ul>
-                    <li class="positive"><b>GitHub.com</b></li>
+                    <li class="positive"><b>GitHub.com</b> (10m+ repositories)</li>
                     <li class="positive">Bitbucket.org</li>
                     <li class="positive">GitLab.com</li>
+                    <li class="negative">SourceForge.net</li>
                 </ul>
             </li>
         </ul>
@@ -404,14 +410,6 @@ import javax.swing.JLabel;</code></pre>
     <section>
         <h3>GitHub commit history</h3>
         <img src="sourceControl/commitHistory.png">
-    </section>
-    <section>
-        <h3>Easy to build from source</h3>
-        <pre xml:space="preserve"><code class="sh">$ git clone https://github.com/droolsjbpm/optaplanner.git
-...
-$ cd optaplanner
-$ mvn clean install -DskipTests
-...</code></pre>
     </section>
     <section>
         <h3>Fork it!</h3>
@@ -428,27 +426,33 @@ $ mvn clean install -DskipTests
             <p>My fork:</p>
             <img src="sourceControl/githubMyFork.png">
             <p class="fragment">My changes do <i>not</i> affect <i>blessed</i>.</p>
-            <p class="fragment">Easy to pull new commits from <i>blessed</i>.</p>
+            <p class="fragment">Easy to pull upstream changes from <i>blessed</i>.</p>
         </div>
+    </section>
+    <section>
+        <h3>Easy to build from source</h3>
+        <pre xml:space="preserve"><code class="sh">$ git clone https://github.com/droolsjbpm/optaplanner.git
+...
+$ cd optaplanner
+$ mvn clean install -DskipTests
+...</code></pre>
     </section>
     <section>
         <h3>Why share your modifications?</h3>
         <ul>
-            <li>Reduce maintenance
+            <li>Feedback/review from project committers</li>
+            <li class="fragment">Reduce maintenance if accepted
                 <ul>
-                    <li>Your modifications are in all future releases</li>
-                    <li>No merging with upstream changes</li>
-                    <li>No need to do releases</li>
+                    <li>Fixed in all future releases</li>
+                    <li>No need to pull upstream changes (no merge conflicts)</li>
                 </ul>
             </li>
-            <li class="fragment">Get feedback from project committers</li>
-            <li class="fragment">Gain respect (= power in a meritocracy)</li>
         </ul>
     </section>
     <section>
         <h3>How do you share your modifications?</h3>
         <ul>
-            <li class="negative">Patch file
+            <li class="negative">Patch file (diff)
                 <ul>
                     <li>Goes stale</li>
                     <li>No review support</li>
@@ -457,8 +461,11 @@ $ mvn clean install -DskipTests
             <li class="positive"><b>Pull Request</b>
                 <ul>
                     <li>Send Pull Request</li>
-                    <li>Committers review it</li>
-                    <li>Fix review comments</li>
+                    <li>Committers review it
+                        <ul>
+                            <li>Fix any review comments</li>
+                        </ul>
+                    </li>
                     <li>Committers merge it in <i>blessed</i></li>
                 </ul>
             </li>
@@ -499,12 +506,22 @@ $ mvn clean install -DskipTests
         <img src="businessModel/meritocracy_3.png" class="fullImage fragment">
     </section>
     <section>
+        <img src="businessModel/longTailOfContributors.png" class="fullImage">
+    </section>
+    <section>
+        <h3>Healthy Open Source project</h3>
+        <ul>
+            <li><b>Some of the committers needs to be payed<br/>to work on it full time.</b></li>
+            <li>Possible to buy support</li>
+        </ul>
+    </section>
+    <section>
         <h3>Communication</h3>
         <ul>
             <li>Issue tracker</li>
             <li>Mailing list
                 <ul>
-                    <li>Use gmane.org (NNTP or web) to avoid flood</li>
+                    <li>gmane.org (NNTP or web) avoids inbox flood</li>
                 </ul>
             </li>
             <li><b>IRC</b> (90's chat, like Slack)
@@ -514,16 +531,6 @@ $ mvn clean install -DskipTests
                     <li>Video conferencing for complex discussions</li>
                 </ul>
             </li>
-        </ul>
-    </section>
-    <section>
-        <img src="businessModel/longTailOfContributors.png" class="fullImage">
-    </section>
-    <section>
-        <h3>Healthy Open Source project</h3>
-        <ul>
-            <li><b>Some of the committers needs to be payed<br/>to work on it full time.</b></li>
-            <li>Possible to buy support</li>
         </ul>
     </section>
     <section>
@@ -547,22 +554,21 @@ $ mvn clean install -DskipTests
         </ul>
     </section>
     <section>
-        <h3>Apache Foundation / Eclipse Community</h3>
+        <h3>Apache Foundation</h3>
         <ul>
             <li class="positive">Neutral ground</li>
             <li class="positive">Infrastructure sponsored</li>
-            <li class="positive">No dictator</li>
             <li>Voting system:
                 <ul>
                     <li>+1: Do the change</li>
                     <li>+0: I don't care</li>
-                    <li>-1: I veto the change (requires motivation)</li>
+                    <li>-1: I <b>veto</b> the change (requires motivation)</li>
                 </ul>
             </li>
             <li class="negative">Politics can kill successful projects
                 <ul>
                     <li>Log4J 1.x died when main committer got veto'ed</li>
-                    <li>Maven 3 flatlined after dispute<br/> with main contributing company (now mostly fixed)</li>
+                    <li>Maven 3 flatlined after dispute<br/> with main committing company (now mostly fixed)</li>
                 </ul>
             </li>
         </ul>
@@ -575,24 +581,33 @@ $ mvn clean install -DskipTests
                     <li>Paid full-time committers</li>
                 </ul>
             </li>
-            <li class="positive">Fear of fork reduces power abuse
+            <li class="positive">(Perceived) power abuse ⇒ Fork
             <ul>
-                <li>OpenOffice got forked as LibreOffice</li>
-                <li>Hudson got forked as Jenkins</li>
+                <li>OpenOffice ⇒ LibreOffice</li>
+                <li>Hudson ⇒ Jenkins</li>
             </ul>
             </li>
-            <li>Often benevolent dictator (project lead)
-                <ul>
-                    <li>Listens to company and community</li>
-                </ul>
-            </li>
+            <li>Company hierarchy between committers</li>
             <li class="negative">Potential conflict of interest
                 <ul>
                     <li>Depends on the business model</li>
-                    <li>Balancing act for project lead</li>
+                    <li>Project lead balances community vs company needs</li>
                 </ul>
             </li>
         </ul>
+    </section>
+    <section>
+        <h3>Open Source business models</h3>
+        <ul>
+            <li>Dual-licensing (GPL/proprietary)
+                <ul>
+                    <li>MySQL</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <img src="license/commercialFriendliness_6.png" class="fullImage">
     </section>
     <section>
         <h3>Open Source business models</h3>
@@ -607,17 +622,16 @@ $ mvn clean install -DskipTests
                     <li>IntelliJ</li>
                 </ul>
             </li>
-            <li>Sell support/consultancy
+            <li class="fragment">Sell support/consultancy
                 <ul>
-                    <li>All Red Hat projects</li>
-                    <li>IBM projects</li>
+                    <li>Red Hat</li>
                     <li>Most Apache projects</li>
                 </ul>
             </li>
-            <li>Get contributions on not core business software
+            <li class="fragment">Get external input (on not core business software)
                 <ul>
-                    <li>Google projects</li>
-                    <li>Facebook projects</li>
+                    <li>Google</li>
+                    <li>Facebook</li>
                 </ul>
             </li>
         </ul>
@@ -629,8 +643,13 @@ $ mvn clean install -DskipTests
     <section>
         <h3>Typical quality indicators</h3>
         <ul class="fragment">
-            <li>Unit tests</li>
-            <li>Test coverage</li>
+            <li>Test coverage
+                <ul>
+                    <li>Unit tests</li>
+                    <li>Integration tests</li>
+                    <li>Stress tests</li>
+                </ul>
+            </li>
             <li>Continuous integration</li>
             <li>Documentation</li>
         </ul>
@@ -639,6 +658,7 @@ $ mvn clean install -DskipTests
         <h3>Is Open Source better than proprietary?</h3>
         <br/>
         <h3 class="fragment"><b>Depends on the project!</b></h3>
+        <p class="fragment">(but it helps a bit)</p>
     </section>
     <section>
         <h2>Summary</h2>
