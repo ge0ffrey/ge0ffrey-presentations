@@ -42,7 +42,6 @@ public class EvilDataApp {
         System.out.println();
     }
 
-
     private static void doubleIncrement() {
         System.out.println("Double increment");
         System.out.println("================\n");
