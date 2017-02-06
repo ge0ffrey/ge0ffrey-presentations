@@ -47,6 +47,7 @@ public class EvilDataApp {
         System.out.println("================\n");
         double a = 9_007_199_254_740_992.0;
         System.out.println("    a == (a + 1.0): " + (a == (a + 1.0))); // true
+        System.out.println("    a + 3.0 - a == 4.0: " + (a + 3.0 - a == 4.0)); // true
         double b = a + 1.0;
         System.out.printf("\n   %18.1f\n + %18.1f\n = %18.1f\n", a, 1.0, b);
         double c = a + 3.0;

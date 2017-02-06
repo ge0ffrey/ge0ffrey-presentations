@@ -509,9 +509,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.81333333"
-     inkscape:cx="400"
-     inkscape:cy="300"
+     inkscape:zoom="1.150227"
+     inkscape:cx="205.8692"
+     inkscape:cy="230.19955"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -786,9 +786,13 @@
          style="font-size:15px;line-height:150%;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1"
          id="flowPara3711">System.<flowSpan
    style="font-size:15px;fill:#5c3566"
-   id="flowSpan3713">out</flowSpan>.println(a == (a + <flowSpan
-   style="font-size:15px;fill:#204a87"
-   id="flowSpan3715">1.0</flowSpan>));</flowPara></flowRoot>    <flowRoot
+   id="flowSpan3713">out</flowSpan>.println(</flowPara><flowPara
+         style="font-size:15px;line-height:150%;text-align:start;text-anchor:start;fill:#000000;fill-opacity:1"
+         id="flowPara3591">        a + <flowSpan
+   style="fill:#204a87"
+   id="flowSpan3593">3.0</flowSpan> - a == <flowSpan
+   style="fill:#204a87"
+   id="flowSpan3595">4.0</flowSpan>);</flowPara></flowRoot>    <flowRoot
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:Arial;-inkscape-font-specification:Arial;text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none"
        id="flowRoot3717"
        xml:space="preserve"
