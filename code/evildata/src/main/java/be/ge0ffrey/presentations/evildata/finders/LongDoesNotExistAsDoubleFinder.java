@@ -16,7 +16,7 @@
 
 package be.ge0ffrey.presentations.evildata.finders;
 
-public class DoubleIncrementApp {
+public class LongDoesNotExistAsDoubleFinder {
 
     public static void main(String[] args) {
         // 9007199254740992
@@ -24,12 +24,12 @@ public class DoubleIncrementApp {
         for (int i = 0; ; i++) {
             double nextTotal = total + 1.0;
             if ((long) nextTotal != ((long) total + 1L)) {
-                System.out.println(total + " +  1.0 = " + nextTotal);
-                System.out.println((long) total + " +  1 != " + (long) nextTotal);
+                System.out.println(">>> NOT OK " + total + " + 1.0 != " + ((long) total + 1L) + " <<<");
+                System.out.println("The number " +((long) total + 1L) + " exists as a long, but not as a double.");
                 break;
             }
             if (i % 1000000 == 0) {
-                System.out.println("  ok: " + total + " +  1.0 = " + nextTotal);
+                System.out.println("    OK: " + total + " +  1.0 = " + ((long) total + 1L));
             }
             total = nextTotal;
         }
