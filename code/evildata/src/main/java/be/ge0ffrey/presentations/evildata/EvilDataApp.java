@@ -64,8 +64,8 @@ public class EvilDataApp {
         String japaneseValidName = "有効名";
         String japaneseInvalidName = "無効/名";
 
-        String badRegex = "^\\w+$";
-        String goodRegex = "(?U)^\\w+$";
+        String badRegex = "\\w+";
+        String goodRegex = "(?U)\\w+";
 
         System.out.println("I18n in regular expressions");
         System.out.println("===========================\n");

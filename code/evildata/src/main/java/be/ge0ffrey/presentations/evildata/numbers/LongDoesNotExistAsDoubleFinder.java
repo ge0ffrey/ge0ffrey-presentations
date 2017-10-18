@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package be.ge0ffrey.presentations.evildata.finders;
+package be.ge0ffrey.presentations.evildata.numbers;
 
 public class LongDoesNotExistAsDoubleFinder {
 

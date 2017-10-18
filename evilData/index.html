@@ -1,0 +1,127 @@
+<!doctype html>
+<!--
+  ~ Copyright 2017 JBoss Inc
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Using and contributing to Open Source</title>
+    <meta name="description" content="Introduction to Open Source">
+    <link href="file:///home/ge0ffrey/projects/other/ge0ffrey-presentations/usingAndContributingToOpenSource/" rel="canonical">
+
+    <link rel="stylesheet" href="../website/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../website/reveal/css/reveal.min.css">
+    <link rel="stylesheet" href="../website/reveal/css/theme/simple.css" id="theme">
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            document.write('<link rel="stylesheet" href="../website/reveal/css/print/pdf.css">');
+        }
+    </script>
+    <link rel="stylesheet" href="../website/highlight/highlight.css">
+    <link rel="stylesheet" href="../website/ge0ffreyPresentation.css">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="reveal">
+<div class="watermark watermark-left">
+    <p>
+        <img src="common/twitterLogo.png"/>
+        @GeoffreyDeSmet
+    </p>
+</div>
+<div class="slides">
+
+    <section>
+        <br/>
+        <br/>
+        <h2>
+            0.01 + 0.09 != 0.10
+        </h2>
+        <p>
+            <br/>
+            And other evil data...
+        </p>
+        <div style="margin-top: 80px;">
+            <p>
+                <span style="font-size: smaller">by</span> Geoffrey De Smet<br/>
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <h3>Who am I?</h3>
+        <ul>
+            <li>Java developer (graduated in 2003)</li>
+            <li>Founder/lead of <b>OptaPlanner</b>
+                <ul>
+                    <li>Leading Open Source Constraint Solver in Java</li>
+                </ul>
+            </li>
+            <li>Contributor to 23+ Open Source projects</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>Q &amp; A</h3>
+        <table class="links">
+            <tr>
+                <th>Slides</th>
+                <td><a href="https://ge0ffrey.github.io/ge0ffrey-presentations/">ge0ffrey.github.io/ge0ffrey-presentations/</a></td>
+            </tr>
+            <tr>
+                <th>Feedback</th>
+                <td><img src="../common/twitterLogo64x64.png"/><a href="https://twitter.com/GeoffreyDeSmet">@GeoffreyDeSmet</a></td>
+            </tr>
+        </table>
+    </section>
+
+</div></div>
+
+    <script src="../website/reveal/js/reveal.min.js"></script>
+
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var slides = document.querySelector('.reveal .slides');
+            var excludeFromPrintPdfSlide = slides.querySelector('section.excludeFromPrintPdf');
+            slides.removeChild(excludeFromPrintPdfSlide);
+        }
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: false,
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'linear', // page/linear/fade/none
+
+            margin: 0.05,
+            minScale: 0.2,
+            maxScale: 100.0
+        });
+    </script>
+    <script src="../website/highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
