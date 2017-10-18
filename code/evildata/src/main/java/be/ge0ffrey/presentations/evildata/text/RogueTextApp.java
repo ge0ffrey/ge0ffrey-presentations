@@ -14,48 +14,16 @@
  * limitations under the License.
  */
 
-package be.ge0ffrey.presentations.evildata;
+package be.ge0ffrey.presentations.evildata.text;
 
-import java.util.regex.Pattern;
-
-public class EvilDataApp {
+public class RogueTextApp {
 
     public static void main(String[] args) {
-        doubleRounding();
-        doubleAssociate();
-        doubleIncrement();
+        all();
+    }
+
+    public static void all() {
         regexI18n();
-    }
-
-    private static void doubleRounding() {
-        System.out.println("Double rounding");
-        System.out.println("================\n");
-        System.out.println("    0.01 + 0.09 == 0.10: " + ((0.01 + 0.09) == 0.10)); // false
-        System.out.printf("\n   %s\n + %s\n = %s\n", 0.01, 0.09, 0.01 + 0.09);
-        System.out.printf("\n   %s\n + %s\n = %s\n", 0.01, 0.05, 0.01 + 0.05);
-        System.out.println();
-    }
-
-    private static void doubleAssociate() {
-        System.out.println("Double associative");
-        System.out.println("==================\n");
-        System.out.println("    (0.01 + 0.02) + 0.03 == 0.01 + (0.02 + 0.03): " + ((0.01 + 0.02) + 0.03 == 0.01 + (0.02 + 0.03))); // false
-        System.out.printf("\n   %s\n + %s\n + %s\n = %s\n", 0.01, 0.02, 0.03, 0.01 + 0.02 + 0.03);
-        System.out.printf("\n   %s\n + %s\n + %s\n = %s\n", 0.03, 0.02, 0.01, 0.03 + 0.02 + 0.01);
-        System.out.println();
-    }
-
-    private static void doubleIncrement() {
-        System.out.println("Double increment");
-        System.out.println("================\n");
-        double a = 9_007_199_254_740_992.0;
-        System.out.println("    a == (a + 1.0): " + (a == (a + 1.0))); // true
-        System.out.println("    a + 3.0 - a == 4.0: " + (a + 3.0 - a == 4.0)); // true
-        double b = a + 1.0;
-        System.out.printf("\n   %18.1f\n + %18.1f\n = %18.1f\n", a, 1.0, b);
-        double c = a + 3.0;
-        System.out.printf("\n   %18.1f\n + %18.1f\n = %18.1f\n", a, 3.0, c);
-        System.out.println();
     }
 
     private static void regexI18n() {
