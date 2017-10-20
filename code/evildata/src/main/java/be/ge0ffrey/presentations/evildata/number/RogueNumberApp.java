@@ -70,6 +70,7 @@ public class RogueNumberApp {
         System.out.printf("\n   %18.1f\n + %18.1f\n = %18.1f\n", a, 1.0, b);
         double c = a + 3.0;
         System.out.printf("\n   %18.1f\n + %18.1f\n = %18.1f\n", a, 3.0, c);
+        System.out.printf("\n   (double) %dL = %18.1f\n", 9_007_199_254_740_993L, (double) 9_007_199_254_740_993L);
         System.out.println();
     }
 

@@ -108,13 +108,33 @@
     double c = (a + b) / 2.0;
     return (int) c;
 }</code></pre>
-        <p class="fragment">Tests</p>
-        <pre class="fragment"><code class="java">average(1000, 2000);
+        <p class="fragment">Input</p>
+        <pre class="fragment"><code class="java">average(1000, 2000)
 <span class="fragment">1500</span></code></pre>
-        <pre class="fragment"><code class="java">average(1000000, 2000000);
+        <pre class="fragment"><code class="java">average(1000000, 2000000)
 <span class="fragment">1500000</span></code></pre>
-        <pre class="fragment"><code class="java">average(1000000000, 2000000000); <span class="fragment">// Corner case
+        <pre class="fragment"><code class="java">average(1000000000, 2000000000) <span class="fragment">// Corner case
 -647483648 // Overflow on a + b</span></code></pre>
+    </section>
+    <section>
+        <h3>Ariane 5 (1996)</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <figure>
+                    <img src="numbers/ariane5LiftOff.gif" style="height: 250px; width: auto;"/>
+                    <p>Lift off</p>
+                </figure>
+            </div>
+            <div class="col-md-6 fragment">
+                <figure>
+                    <img src="numbers/ariane5Crash.jpg" style="height: 250px; width: auto;"/>
+                    <p>Overflow</p>
+                </figure>
+            </div>
+        </div>
+        <p class="fragment"><i>The horizontal bias variable was unprotected from overflow
+            because it was thought that it was "physically limited
+            or that there was a large margin of error".</i></p>
     </section>
     <section>
         <h3>Integer overflow</h3>
@@ -129,9 +149,84 @@
     double c = (<span class="positive">(double)</span> a + b) / 2.0;
     return (int) c;
 }</code></pre>
-        <pre><code class="java">average(1000000000, 2000000000);
+        <pre><code class="java">average(1000000000, 2000000000)
 1500000000</code></pre>
         </div>
+    </section>
+
+
+    <section>
+        <h3>1 and 9 cent</h3>
+        <p>Input</p>
+        <pre class="fragment"><code class="java">1.0 + 9.0
+<span class="fragment">10.0</span></code></pre>
+        <pre class="fragment"><code class="java">0.1 + 0.9
+<span class="fragment">1.0</span></code></pre>
+        <pre class="fragment"><code class="java">0.01 + 0.09 <span class="fragment">// Corner case
+0.09999999999999999 // Compound rounding error</span></code></pre>
+    </section>
+    <section>
+        <h3>Failure rate</h3>
+        <p>Sum of 2 numbers between 0.00 and 1.00</p>
+        <pre><code class="java">
+  0.01 + 0.05 != 0.06
+  0.01 + 0.06 != 0.07
+  0.01 + 0.09 != 0.1
+  0.01 + 0.14 != 0.15
+  0.01 + 0.17 != 0.18
+  0.01 + 0.20 != 0.21
+  0.01 + 0.23 != 0.24
+  0.01 + 0.28 != 0.29
+  ...
+  0.99 + 0.87 != 1.86
+  0.99 + 0.90 != 1.89
+  0.99 + 0.92 != 1.91
+
+2106 failures (21%) out of 10000 sums</code></pre>
+        <p><b>Failure rate: 21%</b></p>
+    </section>
+
+
+    <section>
+        <h2>Cheat sheet</h2>
+        <table>
+            <tr>
+                <th>Expression</th>
+                <th>Actual result</th>
+            </tr>
+            <tr>
+                <td>1000000000 + 2000000000</td>
+                <td>-1294967296</td>
+            </tr>
+            <tr>
+                <td>0.01 + 0.09</td>
+                <td>0.09999999999999999</td>
+            </tr>
+            <tr>
+                <td>0.01 + 0.05</td>
+                <td>0.060000000000000005</td>
+            </tr>
+            <tr>
+                <td>0.01 + 0.02 + 0.03</td>
+                <td>0.06</td>
+            </tr>
+            <tr>
+                <td>0.03 + 0.02 + 0.01</td>
+                <td>0.060000000000000005</td>
+            </tr>
+            <tr>
+                <td>(double) 9007199254740993L</td>
+                <td>9007199254740992.0</td>
+            </tr>
+            <tr>
+                <td>9007199254740992.0 + 1.0</td>
+                <td>9007199254740992.0</td>
+            </tr>
+            <tr>
+                <td>9007199254740992.0 + 3.0</td>
+                <td>9007199254740996.0</td>
+            </tr>
+        </table>
     </section>
 
     <section>
