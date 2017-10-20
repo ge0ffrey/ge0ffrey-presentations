@@ -23,9 +23,23 @@ public class RogueNumberApp {
     }
 
     public static void all() {
+        intOverflow();
         doubleRounding();
         doubleAssociate();
         doubleIncrement();
+    }
+
+    private static void intOverflow() {
+        System.out.println("Int overflow");
+        System.out.println("================\n");
+        System.out.println("    (1000000000 + 200000000) / 2 == 1500000000: " + ((1_000_000_000 + 2_000_000_000) / 2 == 1_500_000_000)); // false
+        System.out.printf("\n    %s\n +  %s\n = %s\n", 1_000_000_000, 2_000_000_000, 1_000_000_000 + 2_000_000_000);
+        System.out.println();
+    }
+
+    public static int average(int a, int b) {
+        double c = (a + b) / 2.0;
+        return (int) c;
     }
 
     private static void doubleRounding() {

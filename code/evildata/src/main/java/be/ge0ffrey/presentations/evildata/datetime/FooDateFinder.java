@@ -14,18 +14,16 @@
  * limitations under the License.
  */
 
-package be.ge0ffrey.presentations.evildata;
+package be.ge0ffrey.presentations.evildata.datetime;
 
-import be.ge0ffrey.presentations.evildata.datetime.RogueDateTimeApp;
-import be.ge0ffrey.presentations.evildata.number.RogueNumberApp;
-import be.ge0ffrey.presentations.evildata.text.RogueTextApp;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
-public class RogueDataApp {
+public class FooDateFinder {
 
     public static void main(String[] args) {
-        RogueNumberApp.all();
-        RogueDateTimeApp.all();
-        RogueTextApp.all();
+        Calendar.getInstance(Locale.UK);
     }
 
 }

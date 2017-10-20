@@ -18,7 +18,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Using and contributing to Open Source</title>
+    <title>Corner case data in Java</title>
     <meta name="description" content="Introduction to Open Source">
     <link href="file:///home/ge0ffrey/projects/other/ge0ffrey-presentations/usingAndContributingToOpenSource/" rel="canonical">
 
@@ -47,7 +47,7 @@
 <div class="reveal">
 <div class="watermark watermark-left">
     <p>
-        <img src="common/twitterLogo.png"/>
+        <img src="../common/twitterLogo.png"/>
         @GeoffreyDeSmet
     </p>
 </div>
@@ -61,7 +61,8 @@
         </h2>
         <p>
             <br/>
-            And other rogue data...
+            A corner case cheat sheet<br/>
+            for Java and JVM languages
         </p>
         <div style="margin-top: 80px;">
             <p>
@@ -84,15 +85,61 @@
     </section>
 
     <section>
-        <h2>Rogue numbers</h2>
+        <h2>Definition</h2>
+        <p style="margin-top: 50px;">
+            <i>A <b>corner case</b> is a bug<br/>
+            that only manifests itself<br/>
+            with a specific combination of input values.</i>
+        </p>
+        <p class="fragment" style="margin-top: 50px;">
+            A <b>corner case cheat sheet</b> is a list of input values<br/>
+            that tend to trigger corner cases,<br/>
+            useful for automated and manual testing.
+        </p>
     </section>
 
     <section>
-        <h2>Rogue dates</h2>
+        <h2>Numbers</h2>
     </section>
 
     <section>
-        <h2>Rogue text</h2>
+        <h3>Average of 2 numbers</h3>
+        <pre xml:space="preserve"><code class="java">public int average(int a, int b) {
+    double c = (a + b) / 2.0;
+    return (int) c;
+}</code></pre>
+        <p class="fragment">Tests</p>
+        <pre class="fragment"><code class="java">average(1000, 2000);
+<span class="fragment">1500</span></code></pre>
+        <pre class="fragment"><code class="java">average(1000000, 2000000);
+<span class="fragment">1500000</span></code></pre>
+        <pre class="fragment"><code class="java">average(1000000000, 2000000000); <span class="fragment">// Corner case
+-647483648 // Overflow on a + b</span></code></pre>
+    </section>
+    <section>
+        <h3>Integer overflow</h3>
+        <p>Problem</p>
+        <pre xml:space="preserve"><code class="java">public int average(int a, int b) {
+    double c = (<span class="negative">a + b</span>) / 2.0;
+    return (int) c;
+}</code></pre>
+        <div class="fragment">
+        <p>Solution</p>
+        <pre xml:space="preserve"><code class="java">public int average(int a, int b) {
+    double c = (<span class="positive">(double)</span> a + b) / 2.0;
+    return (int) c;
+}</code></pre>
+        <pre><code class="java">average(1000000000, 2000000000);
+1500000000</code></pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>Dates</h2>
+    </section>
+
+    <section>
+        <h2>Text</h2>
     </section>
 
     <section>
