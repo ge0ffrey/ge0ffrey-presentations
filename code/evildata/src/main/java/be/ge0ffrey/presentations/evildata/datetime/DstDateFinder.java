@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class DstDateFinder {
 
@@ -46,19 +47,36 @@ public class DstDateFinder {
         Locale defaultLocale = Locale.getDefault();
         System.out.println("java.util.Date (deprecated)");
         System.out.println("===========================");
-        for (Locale locale : Arrays.asList(null, Locale.US, Locale.UK, Locale.FRANCE)) {
-            if (locale != null) {
-                Locale.setDefault(locale);
-            }
+        // Changing Locale.setDefault() does not impact the timezone!
+        TimeZone defaultTimeZone = TimeZone.getDefault();
+        for (String timeZoneId : Arrays.asList("US/Eastern", "Europe/London", "Europe/Paris")) {
+            TimeZone.setDefault(TimeZone.getTimeZone(timeZoneId));
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date a = dateFormat.parse("2017-03-25");
             Date b = dateFormat.parse("2017-03-27");
             long hours = (b.getTime() - a.getTime()) / 3_600_000L;
-            System.out.printf("  In locale %s, there are %d hours between 2017-03-25 and 2017-03-27\n",
-                    Locale.getDefault(), hours);
+            System.out.printf("  In time zone %s, there are %d hours between 2017-03-25 and 2017-03-27\n",
+                    timeZoneId, hours);
         }
         System.out.println();
-        Locale.setDefault(defaultLocale);
+        TimeZone.setDefault(defaultTimeZone);
+
+        for (String input : Arrays.asList("2017-03-25", "2017-03-26", "2017-03-27")) {
+            for (String timeZoneId1 : Arrays.asList("US/Eastern", "Europe/London", "Europe/Paris")) {
+                for (String timeZoneId2 : Arrays.asList("US/Eastern", "Europe/London", "Europe/Paris")) {
+                    TimeZone.setDefault(TimeZone.getTimeZone(timeZoneId1));
+                    SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+                    Date date = dateFormat1.parse(input);
+                    TimeZone.setDefault(TimeZone.getTimeZone(timeZoneId2));
+                    SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
+                    String output = dateFormat2.format(date);
+                    if (!input.equals(output)) {
+                        System.out.printf("  Parsed in time zone %s and formatted in time zone %s, the string %s becomes %s.\n",
+                                timeZoneId1, timeZoneId2, input, output);
+                    }
+                }
+            }
+        }
     }
 
     private static void javaTime() {
