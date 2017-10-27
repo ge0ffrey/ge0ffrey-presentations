@@ -204,8 +204,8 @@
             <pre xml:space="preserve"><code class="java">public long sum(long aMillis, long bMillis) {
     return a + b; // Faster than BigDecimal.add()
 }</code></pre>
-            <pre><code class="java">sum(10, 90) // 10 millis is 0.1 and 90 millis is 0.9
-100 // 100 millis is 0.1</code></pre>
+            <pre><code class="java">sum(10, 90) // 10 millis is 0.010 and 90 millis is 0.090
+100 // 100 millis is 0.100</code></pre>
         </div>
     </section>
     <section>
@@ -328,13 +328,21 @@ public long daysBetween(<span class="negative">Date</span> a, Date b) {
     return ChronoUnit.DAYS.between(a, b);
 }</code></pre>
             <pre><code class="java">TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
-daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
-1</code></pre>
-            <pre><code class="java">TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
+daysBetween(LocalDate.of(2017, 3, 12), LocalDate.of(2017, 3, 13))
+1
 daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
 1</code></pre>
             <p>Always use java.time classes.</p>
         </div>
+    </section>
+    <section>
+        <h3>Tip</h3>
+        <p>Run all your tests in a different timezone</p>
+        <pre xml:space="preserve"><code class="java">java -Duser.timezone=America/New_York ...</code></pre>
+        <pre xml:space="preserve"><code class="java">java -Duser.timezone=Europe/Paris ...</code></pre>
+        <figure>
+            <img src="date/timezoneChangeIntelliJRunConfiguration.png" style="height: 300px; width: auto;"/>
+        </figure>
     </section>
 
     <section>
