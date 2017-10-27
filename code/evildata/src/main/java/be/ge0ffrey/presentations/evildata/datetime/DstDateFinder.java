@@ -49,21 +49,24 @@ public class DstDateFinder {
         System.out.println("===========================");
         // Changing Locale.setDefault() does not impact the timezone!
         TimeZone defaultTimeZone = TimeZone.getDefault();
-        for (String timeZoneId : Arrays.asList("US/Eastern", "Europe/London", "Europe/Paris")) {
-            TimeZone.setDefault(TimeZone.getTimeZone(timeZoneId));
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date a = dateFormat.parse("2017-03-25");
-            Date b = dateFormat.parse("2017-03-27");
-            long hours = (b.getTime() - a.getTime()) / 3_600_000L;
-            System.out.printf("  In time zone %s, there are %d hours between 2017-03-25 and 2017-03-27\n",
-                    timeZoneId, hours);
+        for (String[] inputs : new String[][]{{"2017-02-01", "2017-02-02"}, {"2017-03-12", "2017-03-13"}, {"2017-03-26", "2017-03-27"}}) {
+            for (String timeZoneId : Arrays.asList("US/Eastern", "Europe/London", "Europe/Paris")) {
+                TimeZone.setDefault(TimeZone.getTimeZone(timeZoneId));
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                Date a = dateFormat.parse(inputs[0]);
+                Date b = dateFormat.parse(inputs[1]);
+                long hours = (b.getTime() - a.getTime()) / 3_600_000L;
+                if (hours % 24 != 0) {
+                    System.out.printf("  In time zone %16s, there are %d hours between %s and %s.\n",
+                            timeZoneId, hours, inputs[0], inputs[1]);
+                }
+            }
         }
         System.out.println();
-        TimeZone.setDefault(defaultTimeZone);
 
-        for (String input : Arrays.asList("2017-03-25", "2017-03-26", "2017-03-27")) {
-            for (String timeZoneId1 : Arrays.asList("US/Eastern", "Europe/London", "Europe/Paris")) {
-                for (String timeZoneId2 : Arrays.asList("US/Eastern", "Europe/London", "Europe/Paris")) {
+        for (String input : Arrays.asList("2017-01-01", "2017-03-25", "2017-03-26", "2017-03-27")) {
+            for (String timeZoneId1 : Arrays.asList("America/New_York", "Europe/London", "Europe/Paris")) {
+                for (String timeZoneId2 : Arrays.asList("America/New_York", "Europe/London", "Europe/Paris")) {
                     TimeZone.setDefault(TimeZone.getTimeZone(timeZoneId1));
                     SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
                     Date date = dateFormat1.parse(input);
@@ -71,12 +74,14 @@ public class DstDateFinder {
                     SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd");
                     String output = dateFormat2.format(date);
                     if (!input.equals(output)) {
-                        System.out.printf("  Parsed in time zone %s and formatted in time zone %s, the string %s becomes %s.\n",
+                        System.out.printf("  Parsed in time zone %16s and formatted in time zone %16s, %s becomes %s.\n",
                                 timeZoneId1, timeZoneId2, input, output);
                     }
                 }
             }
         }
+        System.out.println();
+        TimeZone.setDefault(defaultTimeZone);
     }
 
     private static void javaTime() {

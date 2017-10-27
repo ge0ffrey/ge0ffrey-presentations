@@ -146,7 +146,7 @@
         <div class="fragment">
         <p>Solution</p>
         <pre xml:space="preserve"><code class="java">public int average(int a, int b) {
-    double c = (<span class="positive">(double)</span> a + b) / 2.0;
+    double c = (<span class="positive">((double) a)</span> + b) / 2.0;
     return (int) c;
 }</code></pre>
         <pre><code class="java">average(1000000000, 2000000000)
@@ -186,9 +186,8 @@
         <p><b>Failure rate: 21%</b></p>
     </section>
 
-
     <section>
-        <h2>Cheat sheet</h2>
+        <h2>Cheat sheet numbers</h2>
         <table>
             <tr>
                 <th>Expression</th>
@@ -229,8 +228,80 @@
         </table>
     </section>
 
+
     <section>
-        <h2>Dates</h2>
+        <h2>Dates and time</h2>
+    </section>
+    <section>
+        <h3>Days between 2 dates</h3>
+        <pre xml:space="preserve"><code class="java">private static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
+
+public long daysBetween(Date a, Date b) {
+    return (b.getTime() - a.getTime()) / MILLISECONDS_IN_DAY;
+}</code></pre>
+        <p class="fragment">Input</p>
+        <pre class="fragment"><code class="java">daysBetween(parse("2017-02-01"), parse("2017-02-02"))
+<span class="fragment">1</span></code></pre>
+        <pre class="fragment"><code class="java">daysBetween(parse("2017-03-12"), parse("2017-03-13"))
+<span class="fragment">1</span> <span class="fragment">// In UK and France
+0 // In US, because of Daylight Saving Time</span></code></pre>
+        <pre class="fragment"><code class="java">daysBetween(parse("2017-03-26"), parse("2017-03-27"))
+<span class="fragment">0 // In UK and France because of Daylight Saving Time
+1 // In US</span></code></pre>
+    </section>
+    <section>
+        <br/>
+        <br/>
+        <br/>
+        <p style="text-decoration: line-through;">One day is 24 hours.</p>
+        <p class="fragment">One day is <i>usually</i> 24 hours.</p>
+    </section>
+    <section>
+        <img src="date/daylightSavingTimeChanges_0.png" class="fullImage">
+        <img src="date/daylightSavingTimeChanges_1.png" class="fullImage fragment">
+        <img src="date/daylightSavingTimeChanges_2.png" class="fullImage fragment">
+    </section>
+    <section>
+        <h3>Days are not a multiple of hours</h3>
+        <p>Problem</p>
+        <pre xml:space="preserve"><code class="java">private static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
+
+public long daysBetween(<span class="negative">Date</span> a, Date b) {
+    return (b.getTime() - a.getTime()) / MILLISECONDS_IN_DAY;
+}</code></pre>
+        <div class="fragment">
+            <p>Solution: Never use java.util.Date!</p>
+            <pre xml:space="preserve"><code class="java">public long daysBetween(<span class="positive">LocalDate</span> a, LocalDate b) {
+    return ChronoUnit.DAYS.between(a, b);
+}</code></pre>
+            <pre><code class="java">TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
+daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
+1</code></pre>
+            <pre><code class="java">TimeZone.setDefault(TimeZone.getTimeZone("Europe/Paris"));
+daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
+1</code></pre>
+            <p>Always use java.time classes.</p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Cheat sheet dates and time</h2>
+        <table>
+            <tr>
+                <th>Expression</th>
+                <th>Actual result</th>
+            </tr>
+            <tr>
+                <td>From 2017-03-12 00:00<br/>
+                    to 2017-03-13 00:00 </td>
+                <td>23 hours in America/New_York</td>
+            </tr>
+            <tr>
+                <td>From 2017-03-26 00:00<br/>
+                    to 2017-03-27 00:00 </td>
+                <td>23 hours in Europe/Paris</td>
+            </tr>
+        </table>
     </section>
 
     <section>

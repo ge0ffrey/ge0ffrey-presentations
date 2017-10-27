@@ -27,6 +27,9 @@ public class RogueTextApp {
     }
 
     private static void regexI18n() {
+        System.out.println("I18n in regular expressions");
+        System.out.println("===========================\n");
+
         String validName = "ValidName";
         String invalidName = "Invalid/name";
         String japaneseValidName = "有効名";
@@ -35,9 +38,6 @@ public class RogueTextApp {
         String badRegex = "\\w+";
         String goodRegex = "(?U)\\w+";
 
-        System.out.println("I18n in regular expressions");
-        System.out.println("===========================\n");
-        System.out.println();
         System.out.println("    Regular expression \"" + badRegex + "\"");
         System.out.println("        \"" + validName + "\" (valid): " + validName.matches(badRegex));
         System.out.println("        \"" + invalidName + "\" (invalid): " + invalidName.matches(badRegex));

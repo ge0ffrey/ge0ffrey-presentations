@@ -16,6 +16,13 @@
 
 package be.ge0ffrey.presentations.evildata.datetime;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class RogueDateTimeApp {
 
     public static void main(String[] args) {
@@ -23,33 +30,44 @@ public class RogueDateTimeApp {
     }
 
     public static void all() {
-        regexI18n();
+        dstJavaUtilDate();
     }
 
-    private static void regexI18n() {
-        String validName = "ValidName";
-        String invalidName = "Invalid/name";
-        String japaneseValidName = "有効名";
-        String japaneseInvalidName = "無効/名";
+    private static void dstJavaUtilDate() {
+        TimeZone defaultTimeZone = TimeZone.getDefault();
 
-        String badRegex = "\\w+";
-        String goodRegex = "(?U)\\w+";
+        System.out.println("Daylight saving time and java.util.Date");
+        System.out.println("=======================================\n");
 
-        System.out.println("I18n in regular expressions");
-        System.out.println("===========================\n");
+        printDaysBetween("America/New_York", "2017-02-01", "2017-02-02");
+        printDaysBetween("America/New_York", "2017-03-12", "2017-03-13");
+        printDaysBetween("America/New_York", "2017-03-26", "2017-03-27");
+        printDaysBetween("Europe/London", "2017-02-01", "2017-02-02");
+        printDaysBetween("Europe/London", "2017-03-12", "2017-03-13");
+        printDaysBetween("Europe/London", "2017-03-26", "2017-03-27");
         System.out.println();
-        System.out.println("    Regular expression \"" + badRegex + "\"");
-        System.out.println("        \"" + validName + "\" (valid): " + validName.matches(badRegex));
-        System.out.println("        \"" + invalidName + "\" (invalid): " + invalidName.matches(badRegex));
-        System.out.println("        \"" + japaneseValidName + " (valid)\": " + japaneseValidName.matches(badRegex) + " <---------- false negative");
-        System.out.println("        \"" + japaneseInvalidName + "\" (invalid): " + japaneseInvalidName.matches(badRegex));
-        System.out.println();
-        System.out.println("    Regular expression \"" + goodRegex + "\"");
-        System.out.println("        \"" + validName + "\" (valid): " + validName.matches(goodRegex));
-        System.out.println("        \"" + invalidName + "\" (invalid): " + invalidName.matches(goodRegex));
-        System.out.println("        \"" + japaneseValidName + "\" (valid): " + japaneseValidName.matches(goodRegex));
-        System.out.println("        \"" + japaneseInvalidName + "\" (invalid): " + japaneseInvalidName.matches(goodRegex));
-        System.out.println();
+
+        TimeZone.setDefault(defaultTimeZone);
     }
+
+    private static void printDaysBetween(String timeZoneId, String fromDateString, String toDateString) {
+        final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
+        final long MILLISECONDS_IN_HOUR = 60L * 60L * 1000L;
+        // Changing Locale.setDefault() does not impact the timezone!
+        TimeZone.setDefault(TimeZone.getTimeZone(timeZoneId));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date fromDate = dateFormat.parse(fromDateString);
+            Date toDate = dateFormat.parse(toDateString);
+            System.out.printf("    %d days (or %d hours) between %s and %s in timezone %s.\n",
+                    (toDate.getTime() - fromDate.getTime()) / MILLISECONDS_IN_DAY,
+                    (toDate.getTime() - fromDate.getTime()) / MILLISECONDS_IN_HOUR,
+                    fromDateString, toDateString, timeZoneId);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
