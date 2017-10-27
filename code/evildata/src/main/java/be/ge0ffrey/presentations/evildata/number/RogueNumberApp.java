@@ -25,7 +25,7 @@ public class RogueNumberApp {
     public static void all() {
         intOverflow();
         doubleRounding();
-        doubleAssociate();
+        doubleAssociative();
         doubleIncrement();
     }
 
@@ -51,13 +51,20 @@ public class RogueNumberApp {
         System.out.println();
     }
 
-    private static void doubleAssociate() {
+    private static void doubleAssociative() {
         System.out.println("Double associative");
         System.out.println("==================\n");
         System.out.println("    (0.01 + 0.02) + 0.03 == 0.01 + (0.02 + 0.03): " + ((0.01 + 0.02) + 0.03 == 0.01 + (0.02 + 0.03))); // false
         System.out.printf("\n   %s\n + %s\n + %s\n = %s\n", 0.01, 0.02, 0.03, 0.01 + 0.02 + 0.03);
         System.out.printf("\n   %s\n + %s\n + %s\n = %s\n", 0.03, 0.02, 0.01, 0.03 + 0.02 + 0.01);
         System.out.println();
+
+//        double a = 0.0;
+//        for (int i = 0; i < 100000; i++) {
+//            a += 0.03 + 0.02 + 0.01;
+//            System.out.println(a);
+//            a -= 0.01 + 0.02 + 0.03;
+//        }
     }
 
     private static void doubleIncrement() {

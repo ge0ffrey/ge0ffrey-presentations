@@ -168,7 +168,7 @@
     <section>
         <h3>Failure rate</h3>
         <p>Sum of 2 numbers between 0.00 and 1.00</p>
-        <pre><code class="java">
+        <pre xml:space="preserve"><code class="java">
   0.01 + 0.05 != 0.06
   0.01 + 0.06 != 0.07
   0.01 + 0.09 != 0.10
@@ -184,6 +184,60 @@
 
 2106 failures (21%) out of 10000 sums</code></pre>
         <p><b>Failure rate: 21%</b></p>
+    </section>
+    <section>
+        <h3>Compound rounding error</h3>
+        <p>Problem</p>
+        <pre xml:space="preserve"><code class="java">public double sum(double a, double b) {
+    return a + b;
+}</code></pre>
+        <div class="fragment">
+            <p>Solution</p>
+            <pre xml:space="preserve"><code class="java">public BigDecimal sum(BigDecimal a, BigDecimal b) {
+    return a.add(b);
+}</code></pre>
+            <pre><code class="java">sum(new BigDecimal("0.01"), new BigDecimal("0.09"))
+0.10</code></pre>
+        </div>
+        <div class="fragment">
+            <p>or</p>
+            <pre xml:space="preserve"><code class="java">public long sum(long aMillis, long bMillis) {
+    return a + b; // Faster than BigDecimal.add()
+}</code></pre>
+            <pre><code class="java">sum(10, 90) // 10 millis is 0.1 and 90 millis is 0.9
+100 // 100 millis is 0.1</code></pre>
+        </div>
+    </section>
+    <section>
+        <h3>Side effect</h3>
+        <p>Floating point arithmetic is not associative</p>
+        <pre xml:space="preserve"><code class="java">double a = 0.0;
+for (int i = 0; i < 1000000; i++) {
+    a += 0.03 + 0.02 + 0.01;
+    System.out.println(a);
+    a -= 0.01 + 0.02 + 0.03;
+}</code></pre>
+        <pre xml:space="preserve"><code class="java">0.060000000000000005
+0.06000000000000001
+0.06000000000000002
+0.060000000000000026
+0.06000000000000003
+0.06000000000000004
+...
+0.06000000000069386
+0.060000000000693866
+0.06000000000069387
+0.06000000000069388
+0.06000000000069389</code></pre>
+    </section>
+    <section>
+        <h3>Patriot Missle Failure (1991)</h3>
+        <figure>
+            <img src="numbers/patriotMissileLaunch.jpg" style="height: 250px; width: auto;"/>
+        </figure>
+        <p class="fragment"><i>The small chopping error, when multiplied by the large number giving the time in tenths of a second, led to a significant error.</i></p>
+        <p class="fragment"><i>The Patriot missile battery had been in operation for 100 hours, by which time the system's internal clock had drifted by one-third of a second.
+            Due to the missile's speed this was equivalent to a miss distance of 600 meters.</i></p>
     </section>
 
     <section>
@@ -253,8 +307,7 @@ public long daysBetween(Date a, Date b) {
         <br/>
         <br/>
         <br/>
-        <p style="text-decoration: line-through;">One day is 24 hours.</p>
-        <p class="fragment">One day is <i>usually</i> 24 hours.</p>
+        <p>One day is <span class="fragment"><i>usually</i></span> 24 hours.</p>
     </section>
     <section>
         <img src="date/daylightSavingTimeChanges_0.png" class="fullImage">
@@ -301,6 +354,16 @@ daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
                     to 2017-03-27 00:00 </td>
                 <td>23 hours in Europe/Paris</td>
             </tr>
+            <tr>
+                <td>From 2017-10-29 00:00<br/>
+                    to 2017-10-30 00:00 </td>
+                <td>25 hours in Europe/Paris</td>
+            </tr>
+            <tr>
+                <td>From 2017-11-05 00:00<br/>
+                    to 2017-11-06 00:00 </td>
+                <td>25 hours in America/New_York</td>
+            </tr>
         </table>
     </section>
 
@@ -309,11 +372,89 @@ daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
     </section>
 
     <section>
+        <h3>Valid name</h3>
+        <pre xml:space="preserve"><code class="java">private static final Pattern PATTERN = Pattern.compile("\w+");
+
+public boolean isValidFirstName(String firstName) {
+    return PATTERN.matcher(firstName).matches();
+}</code></pre>
+        <p class="fragment">Input</p>
+        <pre class="fragment"><code class="java">isValidFirstName("Alexander")
+<span class="fragment">true</span></code></pre>
+        <pre class="fragment"><code class="java">isValidFirstName("4l3x4nd3r")
+<span class="fragment">false</span></code></pre>
+        <pre class="fragment"><code class="java">isValidFirstName("Chloé")) // French name
+<span class="fragment">false</span></code></pre>
+        <pre class="fragment"><code class="java">isValidFirstName("りく")) // Riku (Japanese name)
+<span class="fragment">false</span></code></pre>
+    </section>
+    <section>
+        <h3>Regular expressions for non-english</h3>
+        <p>Problem</p>
+        <pre xml:space="preserve"><code class="java">private static final Pattern PATTERN = Pattern.compile("<span class="negative">\w</span>+");
+
+public boolean isValidFirstName(String firstName) {
+    return PATTERN.matcher(firstName).matches();
+}</code></pre>
+        <div class="fragment">
+            <p>Solution</p>
+            <pre xml:space="preserve"><code class="java">private static final Pattern PATTERN = Pattern.compile("<span class="positive">(?U)</span>\w+");
+
+public boolean isValidFirstName(String firstName) {
+    return PATTERN.matcher(firstName).matches();
+}</code></pre>
+            <pre><code class="java">isValidFirstName("Chloé")) // French name Chloe
+true</code></pre>
+            <pre><code class="java">isValidFirstName("りく")) // Japanese name Riku
+true</code></pre>
+        </div>
+    </section>
+
+    <section>
         <h3>Digital TV</h3>
         <figure>
             <img src="text/digitalTvScreenshot.jpg">
         </figure>
         <p>Imagine Me &amp;amp; You</p>
+    </section>
+
+
+    <section>
+        <h2>Cheat sheet text</h2>
+        <table>
+            <tr>
+                <th>String</th>
+                <th>Why</th>
+            </tr>
+            <tr>
+                <td>Hallå</td>
+                <td>Hello in Swedish</td>
+            </tr>
+            <tr>
+                <td>こんにちは</td>
+                <td>Hello in Japanese</td>
+            </tr>
+            <tr>
+                <td>Здравствуйте</td>
+                <td>Hello in Russian</td>
+            </tr>
+            <tr>
+                <td>€ (euro)</td>
+                <td>Only appeared in 1996</td>
+            </tr>
+            <tr>
+                <td>\ (backslash) " (double) ' (single)</td>
+                <td>Java/SQL/... special chars</td>
+            </tr>
+            <tr>
+                <td>&amp; (ampersand) &lt; (lower than)</td>
+                <td>XML special chars</td>
+            </tr>
+            <tr>
+                <td>` (slant) # (number sign) $ (dollar)</td>
+                <td>Shell special chars</td>
+            </tr>
+        </table>
     </section>
 
     <section>
