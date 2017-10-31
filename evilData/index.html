@@ -421,6 +421,58 @@ true</code></pre>
     </section>
 
     <section>
+        <h3>Typical encoding issues</h3>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ReadUtf8.png" class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ConvertedAscii.png" class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ConvertedIso8859.png" class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ConvertedWindows1252.png" class="fullImage"/>
+    </section>
+    <section>
+        <h3>Default encoding</h3>
+        <ul>
+            <li>Linux: UTF-8</li>
+            <li>Windows (Western Europe): windows-1252</li>
+        </ul>
+    </section>
+    <section>
+        <img src="text/writtenWindows1252ReadUtf8.png" class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ReadWindows1252.png" class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/dutchIdeasGoogle.png" class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/dutchIdeasAmazon.png" class="fullImage"/>
+    </section>
+
+    <section>
+        <h2>Escape characters</h2>
+        <p style="margin-top: 50px;">
+            <i>An <b>escape character</b> is a character<br/>
+                which invokes an alternative interpretation<br/>
+                on subsequent characters in a character sequence.</i>
+        </p>
+        <ul class="fragment" style="margin-top: 50px;">
+            <li>XML: &amp; (ampersand)</li>
+            <li>Java string literal: \ (backslash)</li>
+
+        </ul>
+        <p class="fragment" style="margin-top: 50px;">
+            Failure to handle escape characters correctly<br/>
+            often causes security issues (SQL inject, XSS. ...)
+        </p>
+    </section>
+    <section>
         <h3>Digital TV</h3>
         <figure>
             <img src="text/digitalTvScreenshot.jpg"/>
@@ -472,28 +524,6 @@ true</code></pre>
                 <td>Shell special chars</td>
             </tr>
         </table>
-    </section>
-
-    <section>
-        <img src="text/writtenUtf8ReadUtf8.png"  class="fullImage"/>
-    </section>
-    <section>
-        <img src="text/writtenUtf8ConvertedAscii.png"  class="fullImage"/>
-    </section>
-    <section>
-        <img src="text/writtenUtf8ConvertedIso8859.png"  class="fullImage"/>
-    </section>
-    <section>
-        <img src="text/writtenUtf8ConvertedWindows1252.png"  class="fullImage"/>
-    </section>
-    <section>
-        <img src="text/writtenUtf8ConvertedWindows1252.png"  class="fullImage"/>
-    </section>
-    <section>
-        <img src="text/writtenWindows1252ReadUtf8.png"  class="fullImage"/>
-    </section>
-    <section>
-        <img src="text/writtenUtf8ReadWindows1252.png"  class="fullImage"/>
     </section>
 
     <section>
