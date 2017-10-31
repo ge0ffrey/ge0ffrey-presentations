@@ -105,8 +105,7 @@
     <section>
         <h3>Average of 2 numbers</h3>
         <pre xml:space="preserve"><code class="java">public int average(int a, int b) {
-    double c = (a + b) / 2.0;
-    return (int) c;
+    return (a + b) / 2;
 }</code></pre>
         <p class="fragment">Input</p>
         <pre class="fragment"><code class="java">average(1000, 2000)
@@ -140,13 +139,16 @@
         <h3>Integer overflow</h3>
         <p>Problem</p>
         <pre xml:space="preserve"><code class="java">public int average(int a, int b) {
+    return (<span class="negative">a + b</span>) / 2;
+}</code></pre>
+        <pre class="fragment" xml:space="preserve"><code class="java">public int average(int a, int b) {
     double c = (<span class="negative">a + b</span>) / 2.0;
     return (int) c;
 }</code></pre>
         <div class="fragment">
         <p>Solution</p>
         <pre xml:space="preserve"><code class="java">public int average(int a, int b) {
-    double c = (<span class="positive">((double) a)</span> + b) / 2.0;
+    long c = (<span class="positive">((long) a)</span> + b) / 2L;
     return (int) c;
 }</code></pre>
         <pre><code class="java">average(1000000000, 2000000000)
@@ -310,9 +312,9 @@ public long daysBetween(Date a, Date b) {
         <p>One day is <span class="fragment"><i>usually</i></span> 24 hours.</p>
     </section>
     <section>
-        <img src="date/daylightSavingTimeChanges_0.png" class="fullImage">
-        <img src="date/daylightSavingTimeChanges_1.png" class="fullImage fragment">
-        <img src="date/daylightSavingTimeChanges_2.png" class="fullImage fragment">
+        <img src="date/daylightSavingTimeChanges_0.png" class="fullImage"/>
+        <img src="date/daylightSavingTimeChanges_1.png" class="fullImage fragment"/>
+        <img src="date/daylightSavingTimeChanges_2.png" class="fullImage fragment"/>
     </section>
     <section>
         <h3>Days are not a multiple of hours</h3>
@@ -392,9 +394,9 @@ public boolean isValidFirstName(String firstName) {
         <pre class="fragment"><code class="java">isValidFirstName("4l3x4nd3r")
 <span class="fragment">false</span></code></pre>
         <pre class="fragment"><code class="java">isValidFirstName("Chloé")) // French name
-<span class="fragment">false</span></code></pre>
+<span class="fragment">false // Wrong</span></code></pre>
         <pre class="fragment"><code class="java">isValidFirstName("りく")) // Riku (Japanese name)
-<span class="fragment">false</span></code></pre>
+<span class="fragment">false // Wrong</span></code></pre>
     </section>
     <section>
         <h3>Regular expressions for non-english</h3>
@@ -421,11 +423,10 @@ true</code></pre>
     <section>
         <h3>Digital TV</h3>
         <figure>
-            <img src="text/digitalTvScreenshot.jpg">
+            <img src="text/digitalTvScreenshot.jpg"/>
         </figure>
         <p>Imagine Me &amp;amp; You</p>
     </section>
-
 
     <section>
         <h2>Cheat sheet text</h2>
@@ -435,20 +436,28 @@ true</code></pre>
                 <th>Why</th>
             </tr>
             <tr>
-                <td>Hallå</td>
-                <td>Hello in Swedish</td>
-            </tr>
-            <tr>
-                <td>こんにちは</td>
-                <td>Hello in Japanese</td>
-            </tr>
-            <tr>
-                <td>Здравствуйте</td>
-                <td>Hello in Russian</td>
+                <td>Allô (French telephone hello)</td>
+                <td>ISO 8859-1</td>
             </tr>
             <tr>
                 <td>€ (euro)</td>
-                <td>Only appeared in 1996</td>
+                <td>Since 1996, not in 8859-1</td>
+            </tr>
+            <tr>
+                <td>Hallå (Swedish hello)</td>
+                <td>Mostly ASCII</td>
+            </tr>
+            <tr>
+                <td>Здравствуйте (Russian hello)</td>
+                <td>Looks a bit like ASCII</td>
+            </tr>
+            <tr>
+                <td>こんにちは (Japanese hello)</td>
+                <td>No ASCII whatsoever</td>
+            </tr>
+            <tr>
+                <td>≠ (different) ⇔ (iff) ∑ (sum)</td>
+                <td>Math symbols</td>
             </tr>
             <tr>
                 <td>\ (backslash) " (double) ' (single)</td>
@@ -463,6 +472,28 @@ true</code></pre>
                 <td>Shell special chars</td>
             </tr>
         </table>
+    </section>
+
+    <section>
+        <img src="text/writtenUtf8ReadUtf8.png"  class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ConvertedAscii.png"  class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ConvertedIso8859.png"  class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ConvertedWindows1252.png"  class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ConvertedWindows1252.png"  class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenWindows1252ReadUtf8.png"  class="fullImage"/>
+    </section>
+    <section>
+        <img src="text/writtenUtf8ReadWindows1252.png"  class="fullImage"/>
     </section>
 
     <section>
