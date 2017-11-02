@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package be.ge0ffrey.presentations.evildata;
+package be.ge0ffrey.presentations.cornercasecheatsheet;
 
-import be.ge0ffrey.presentations.evildata.datetime.RogueDateTimeApp;
-import be.ge0ffrey.presentations.evildata.number.RogueNumberApp;
-import be.ge0ffrey.presentations.evildata.text.RogueTextApp;
+import be.ge0ffrey.presentations.cornercasecheatsheet.datetime.RogueDateTimeApp;
+import be.ge0ffrey.presentations.cornercasecheatsheet.number.RogueNumberApp;
+import be.ge0ffrey.presentations.cornercasecheatsheet.text.RogueTextApp;
 
 public class RogueDataApp {
 

@@ -14,17 +14,14 @@
  * limitations under the License.
  */
 
-package be.ge0ffrey.presentations.evildata.datetime;
+package be.ge0ffrey.presentations.cornercasecheatsheet.datetime;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;

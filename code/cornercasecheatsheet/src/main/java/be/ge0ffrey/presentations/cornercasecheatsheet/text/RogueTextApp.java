@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package be.ge0ffrey.presentations.evildata.text;
+package be.ge0ffrey.presentations.cornercasecheatsheet.text;
 
 public class RogueTextApp {
 

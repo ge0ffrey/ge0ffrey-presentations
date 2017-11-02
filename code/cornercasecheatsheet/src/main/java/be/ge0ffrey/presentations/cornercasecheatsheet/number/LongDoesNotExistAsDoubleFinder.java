@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package be.ge0ffrey.presentations.evildata.number;
+package be.ge0ffrey.presentations.cornercasecheatsheet.number;
 
 public class LongDoesNotExistAsDoubleFinder {
 
