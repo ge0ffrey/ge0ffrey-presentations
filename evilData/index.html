@@ -232,13 +232,28 @@ for (int i = 0; i < 1000000; i++) {
 0.06000000000069389</code></pre>
     </section>
     <section>
-        <h3>Patriot Missle Failure (1991)</h3>
+        <h3>Patriot Missile Failure (1991)</h3>
         <figure>
             <img src="numbers/patriotMissileLaunch.jpg" style="height: 250px; width: auto;"/>
         </figure>
         <p class="fragment"><i>The small chopping error, when multiplied by the large number giving the time in tenths of a second, led to a significant error.</i></p>
         <p class="fragment"><i>The Patriot missile battery had been in operation for 100 hours, by which time the system's internal clock had drifted by one-third of a second.
             Due to the missile's speed this was equivalent to a miss distance of 600 meters.</i></p>
+    </section>
+
+    <section>
+        <h3>Long and double are 64-bit</h3>
+        <p>Input</p>
+        <pre class="fragment"><code class="java">double a = 9000L;
+<span class="fragment">9000.0</span></code></pre>
+        <pre class="fragment"><code class="java">double a = 9000000000L;
+<span class="fragment">9000000000.0</span></code></pre>
+        <pre class="fragment"><code class="java">double a = 9007199254740993L; <span class="fragment">// Corner case, no casting needed
+900719925474099<span class="negative">2</span>.0 // Rounding error</span></code></pre>
+        <pre class="fragment"><code class="java">double a = 9007199254740992.0;
+a == a + 1.0 <span class="fragment">// Corner case
+true // Wrong</span></code></pre>
+        <p class="fragment">Not every long fits in a double.</p>
     </section>
 
     <section>
@@ -371,7 +386,7 @@ true</code></pre>
         <img src="text/dataConversions_4.png" class="fullImage fragment"/>
     </section>
     <section>
-        <h2>Escape characters too</h2>
+        <h2>Escape characters</h2>
         <p style="margin-top: 50px;">
             <i>An <b>escape character</b> is a character<br/>
                 which invokes an alternative interpretation<br/>
