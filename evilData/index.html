@@ -285,98 +285,6 @@ for (int i = 0; i < 1000000; i++) {
 
 
     <section>
-        <h2>Dates and time</h2>
-    </section>
-    <section>
-        <h3>Days between 2 dates</h3>
-        <pre xml:space="preserve"><code class="java">private static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
-
-public long daysBetween(Date a, Date b) {
-    return (b.getTime() - a.getTime()) / MILLISECONDS_IN_DAY;
-}</code></pre>
-        <p class="fragment">Input</p>
-        <pre class="fragment"><code class="java">daysBetween(parse("2017-02-01"), parse("2017-02-02"))
-<span class="fragment">1</span></code></pre>
-        <pre class="fragment"><code class="java">daysBetween(parse("2017-03-12"), parse("2017-03-13"))
-<span class="fragment">1</span> <span class="fragment">// In UK and France
-0 // In US, because of Daylight Saving Time</span></code></pre>
-        <pre class="fragment"><code class="java">daysBetween(parse("2017-03-26"), parse("2017-03-27"))
-<span class="fragment">0 // In UK and France because of Daylight Saving Time
-1 // In US</span></code></pre>
-    </section>
-    <section>
-        <br/>
-        <br/>
-        <br/>
-        <p>One day is <span class="fragment"><i>usually</i></span> 24 hours.</p>
-    </section>
-    <section>
-        <img src="date/daylightSavingTimeChanges_0.png" class="fullImage"/>
-        <img src="date/daylightSavingTimeChanges_1.png" class="fullImage fragment"/>
-        <img src="date/daylightSavingTimeChanges_2.png" class="fullImage fragment"/>
-    </section>
-    <section>
-        <h3>Days are not a multiple of hours</h3>
-        <p>Problem</p>
-        <pre xml:space="preserve"><code class="java">private static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
-
-public long daysBetween(<span class="negative">Date</span> a, Date b) {
-    return (b.getTime() - a.getTime()) / MILLISECONDS_IN_DAY;
-}</code></pre>
-        <div class="fragment">
-            <p>Solution: Never use java.util.Date!</p>
-            <pre xml:space="preserve"><code class="java">public long daysBetween(<span class="positive">LocalDate</span> a, LocalDate b) {
-    return ChronoUnit.DAYS.between(a, b);
-}</code></pre>
-            <pre><code class="java">TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
-daysBetween(LocalDate.of(2017, 3, 12), LocalDate.of(2017, 3, 13))
-1
-daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
-1</code></pre>
-            <p>Always use java.time classes.</p>
-        </div>
-    </section>
-    <section>
-        <h3>Tip</h3>
-        <p>Run all your tests in a different timezone</p>
-        <pre xml:space="preserve"><code class="java">java -Duser.timezone=America/New_York ...</code></pre>
-        <pre xml:space="preserve"><code class="java">java -Duser.timezone=Europe/Paris ...</code></pre>
-        <figure>
-            <img src="date/timezoneChangeIntelliJRunConfiguration.png" style="height: 300px; width: auto;"/>
-        </figure>
-    </section>
-
-    <section>
-        <h2>Cheat sheet dates and time</h2>
-        <table>
-            <tr>
-                <th>Expression</th>
-                <th>Actual result</th>
-            </tr>
-            <tr>
-                <td>From 2017-03-12 00:00<br/>
-                    to 2017-03-13 00:00 </td>
-                <td>23 hours in America/New_York</td>
-            </tr>
-            <tr>
-                <td>From 2017-03-26 00:00<br/>
-                    to 2017-03-27 00:00 </td>
-                <td>23 hours in Europe/Paris</td>
-            </tr>
-            <tr>
-                <td>From 2017-10-29 00:00<br/>
-                    to 2017-10-30 00:00 </td>
-                <td>25 hours in Europe/Paris</td>
-            </tr>
-            <tr>
-                <td>From 2017-11-05 00:00<br/>
-                    to 2017-11-06 00:00 </td>
-                <td>25 hours in America/New_York</td>
-            </tr>
-        </table>
-    </section>
-
-    <section>
         <h2>Text</h2>
     </section>
 
@@ -527,6 +435,99 @@ true</code></pre>
             <tr>
                 <td>` (slant) # (number sign) $ (dollar)</td>
                 <td>Shell special chars</td>
+            </tr>
+        </table>
+    </section>
+
+
+    <section>
+        <h2>Dates and time</h2>
+    </section>
+    <section>
+        <h3>Days between 2 dates</h3>
+        <pre xml:space="preserve"><code class="java">private static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
+
+public long daysBetween(Date a, Date b) {
+    return (b.getTime() - a.getTime()) / MILLISECONDS_IN_DAY;
+}</code></pre>
+        <p class="fragment">Input</p>
+        <pre class="fragment"><code class="java">daysBetween(parse("2017-02-01"), parse("2017-02-02"))
+<span class="fragment">1</span></code></pre>
+        <pre class="fragment"><code class="java">daysBetween(parse("2017-03-12"), parse("2017-03-13"))
+<span class="fragment">1</span> <span class="fragment">// In UK and France
+0 // In US, because of Daylight Saving Time</span></code></pre>
+        <pre class="fragment"><code class="java">daysBetween(parse("2017-03-26"), parse("2017-03-27"))
+<span class="fragment">0 // In UK and France because of Daylight Saving Time
+1 // In US</span></code></pre>
+    </section>
+    <section>
+        <br/>
+        <br/>
+        <br/>
+        <p>One day is <span class="fragment"><i>usually</i></span> 24 hours.</p>
+    </section>
+    <section>
+        <img src="date/daylightSavingTimeChanges_0.png" class="fullImage"/>
+        <img src="date/daylightSavingTimeChanges_1.png" class="fullImage fragment"/>
+        <img src="date/daylightSavingTimeChanges_2.png" class="fullImage fragment"/>
+    </section>
+    <section>
+        <h3>Days are not a multiple of hours</h3>
+        <p>Problem</p>
+        <pre xml:space="preserve"><code class="java">private static final long MILLISECONDS_IN_DAY = 24L * 60L * 60L * 1000L;
+
+public long daysBetween(<span class="negative">Date</span> a, Date b) {
+    return (b.getTime() - a.getTime()) / MILLISECONDS_IN_DAY;
+}</code></pre>
+        <div class="fragment">
+            <p>Solution: Never use java.util.Date!</p>
+            <pre xml:space="preserve"><code class="java">public long daysBetween(<span class="positive">LocalDate</span> a, LocalDate b) {
+    return ChronoUnit.DAYS.between(a, b);
+}</code></pre>
+            <pre><code class="java">TimeZone.setDefault(TimeZone.getTimeZone("America/New_York"));
+daysBetween(LocalDate.of(2017, 3, 12), LocalDate.of(2017, 3, 13))
+1
+daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
+1</code></pre>
+            <p>Always use java.time classes.</p>
+        </div>
+    </section>
+    <section>
+        <h3>Tip</h3>
+        <p>Run all your tests in a different timezone</p>
+        <pre xml:space="preserve"><code class="java">java -Duser.timezone=America/New_York ...</code></pre>
+        <pre xml:space="preserve"><code class="java">java -Duser.timezone=Europe/Paris ...</code></pre>
+        <figure>
+            <img src="date/timezoneChangeIntelliJRunConfiguration.png" style="height: 300px; width: auto;"/>
+        </figure>
+    </section>
+
+    <section>
+        <h2>Cheat sheet dates and time</h2>
+        <table>
+            <tr>
+                <th>Expression</th>
+                <th>Actual result</th>
+            </tr>
+            <tr>
+                <td>From 2017-03-12 00:00<br/>
+                    to 2017-03-13 00:00 </td>
+                <td>23 hours in America/New_York</td>
+            </tr>
+            <tr>
+                <td>From 2017-03-26 00:00<br/>
+                    to 2017-03-27 00:00 </td>
+                <td>23 hours in Europe/Paris</td>
+            </tr>
+            <tr>
+                <td>From 2017-10-29 00:00<br/>
+                    to 2017-10-30 00:00 </td>
+                <td>25 hours in Europe/Paris</td>
+            </tr>
+            <tr>
+                <td>From 2017-11-05 00:00<br/>
+                    to 2017-11-06 00:00 </td>
+                <td>25 hours in America/New_York</td>
             </tr>
         </table>
     </section>
