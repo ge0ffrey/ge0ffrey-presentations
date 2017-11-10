@@ -16,6 +16,8 @@
 
 package be.ge0ffrey.presentations.cornercasecheatsheet.number;
 
+import java.math.BigDecimal;
+
 public class RogueNumberApp {
 
     public static void main(String[] args) {
@@ -37,11 +39,6 @@ public class RogueNumberApp {
         System.out.println();
     }
 
-    public static int average(int a, int b) {
-        double c = (a + b) / 2.0;
-        return (int) c;
-    }
-
     private static void doubleRounding() {
         System.out.println("Double rounding");
         System.out.println("================\n");
@@ -49,6 +46,15 @@ public class RogueNumberApp {
         System.out.printf("\n   %s\n + %s\n = %s\n", 0.01, 0.09, 0.01 + 0.09);
         System.out.printf("\n   %s\n + %s\n = %s\n", 0.01, 0.05, 0.01 + 0.05);
         System.out.println();
+
+
+        System.out.println();
+        System.out.println("                   0.01 = " + new BigDecimal(0.01).toString());
+        System.out.println();
+        System.out.println("                   0.09 = " + new BigDecimal(0.09).toString());
+        System.out.println();
+        System.out.println("            0.01 + 0.09 = " + new BigDecimal(0.01 + 0.09).toString());
+        System.out.println("                   0.10 = " + new BigDecimal(0.10).toString());
     }
 
     private static void doubleAssociative() {
