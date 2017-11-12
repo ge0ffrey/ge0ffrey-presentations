@@ -23,12 +23,160 @@
 
     <link rel="stylesheet" href="../website/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../website/highlight/highlight.css">
+    <style>
+        table {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        thead {
+            margin: 0;
+            padding: 0;
+        }
+        th {
+            margin: 0;
+            border-bottom: thin solid black;
+            padding: 5px 10px;
+            text-align: center;
+        }
+        tbody {
+            margin: 0;
+            padding: 0;
+        }
+        tr {
+            margin: 0;
+            padding: 0;
+        }
+        td {
+            margin: 0;
+            padding: 5px 10px;
+            text-align: right;
+        }
+    </style>
 </head>
 
 <body>
+<div class="container">
+    <h1>Corner case cheat sheet in Java</h1>
+    <div>
+        <h2>Cheat sheet numbers</h2>
+        <table>
+            <tr>
+                <th>Expression</th>
+                <th>Actual result</th>
+            </tr>
+            <tr>
+                <td>1000000000 + 2000000000</td>
+                <td>-1294967296</td>
+            </tr>
+            <tr>
+                <td>0.01 + 0.09</td>
+                <td>0.09999999999999999</td>
+            </tr>
+            <tr>
+                <td>0.01 + 0.05</td>
+                <td>0.060000000000000005</td>
+            </tr>
+            <tr>
+                <td>0.01 + 0.02 + 0.03</td>
+                <td>0.06</td>
+            </tr>
+            <tr>
+                <td>0.03 + 0.02 + 0.01</td>
+                <td>0.060000000000000005</td>
+            </tr>
+            <tr>
+                <td>(double) 9007199254740993L</td>
+                <td>9007199254740992.0</td>
+            </tr>
+            <tr>
+                <td>9007199254740992.0 + 1.0</td>
+                <td>9007199254740992.0</td>
+            </tr>
+            <tr>
+                <td>9007199254740992.0 + 3.0</td>
+                <td>9007199254740996.0</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2>Cheat sheet text</h2>
+        <table>
+            <tr>
+                <th>String</th>
+                <th>Why</th>
+            </tr>
+            <tr>
+                <td>Allô (French telephone hello)</td>
+                <td>ISO 8859-1</td>
+            </tr>
+            <tr>
+                <td>€ (euro)</td>
+                <td>Since 1996, not in 8859-1</td>
+            </tr>
+            <tr>
+                <td>Hallå (Swedish hello)</td>
+                <td>Mostly ASCII</td>
+            </tr>
+            <tr>
+                <td>Здравствуйте (Russian hello)</td>
+                <td>Looks a bit like ASCII</td>
+            </tr>
+            <tr>
+                <td>こんにちは (Japanese hello)</td>
+                <td>No ASCII whatsoever</td>
+            </tr>
+            <tr>
+                <td>≠ (different) ⇔ (iff) ∑ (sum)</td>
+                <td>Math symbols</td>
+            </tr>
+            <tr>
+                <td>\ (backslash) " (double) ' (single)</td>
+                <td>Java/SQL/... special chars</td>
+            </tr>
+            <tr>
+                <td>&amp; (ampersand) &lt; (lower than)</td>
+                <td>XML special chars</td>
+            </tr>
+            <tr>
+                <td>` (slant) # (number sign) $ (dollar)</td>
+                <td>Shell special chars</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <h2>Cheat sheet dates and time</h2>
+        <table>
+            <tr>
+                <th>Expression</th>
+                <th>Actual result</th>
+            </tr>
+            <tr>
+                <td>From 2017-03-12 00:00<br/>
+                    to 2017-03-13 00:00 </td>
+                <td>23 hours in America/New_York</td>
+            </tr>
+            <tr>
+                <td>From 2017-03-26 00:00<br/>
+                    to 2017-03-27 00:00 </td>
+                <td>23 hours in Europe/Paris</td>
+            </tr>
+            <tr>
+                <td>From 2017-10-29 00:00<br/>
+                    to 2017-10-30 00:00 </td>
+                <td>25 hours in Europe/Paris</td>
+            </tr>
+            <tr>
+                <td>From 2017-11-05 00:00<br/>
+                    to 2017-11-06 00:00 </td>
+                <td>25 hours in America/New_York</td>
+            </tr>
+        </table>
+    </div>
+</div>
 
-    <p>TODO</p>
-
-    <img src="../common/twitterLogo64x64.png"/><a href="https://twitter.com/GeoffreyDeSmet">@GeoffreyDeSmet</a>
+    <div>
+        <img src="../common/twitterLogo64x64.png"/><a href="https://twitter.com/GeoffreyDeSmet">@GeoffreyDeSmet</a>
+    </div>
 </body>
 </html>
