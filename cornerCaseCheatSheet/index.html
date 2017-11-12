@@ -271,7 +271,6 @@ for (int i = 0; i < 1000000; i++) {
         <pre class="fragment"><code class="java">double a = 9007199254740992.0;
 a == a + 1.0 <span class="fragment">// Corner case
 true // Wrong</span></code></pre>
-        <p class="fragment">Not every long fits in a double.</p>
     </section>
 
     <section>
@@ -326,10 +325,8 @@ true // Wrong</span></code></pre>
 
     <section>
         <h3>Valid name</h3>
-        <pre xml:space="preserve"><code class="java">private static final Pattern PATTERN = Pattern.compile("\w+");
-
-public boolean isValidFirstName(String firstName) {
-    return PATTERN.matcher(firstName).matches();
+        <pre xml:space="preserve"><code class="java">public boolean isValidFirstName(String firstName) {
+    return firstName.matches("\w+");
 }</code></pre>
         <p class="fragment">Input</p>
         <pre class="fragment"><code class="java">isValidFirstName("Alexander")
@@ -344,17 +341,13 @@ public boolean isValidFirstName(String firstName) {
     <section>
         <h3>Regular expressions for non-english</h3>
         <p>Problem</p>
-        <pre xml:space="preserve"><code class="java">private static final Pattern PATTERN = Pattern.compile("<span class="negative">\w</span>+");
-
-public boolean isValidFirstName(String firstName) {
-    return PATTERN.matcher(firstName).matches();
+        <pre xml:space="preserve"><code class="java">public boolean isValidFirstName(String firstName) {
+    return firstName.matches("<span class="negative">\w</span>+");
 }</code></pre>
         <div class="fragment">
             <p>Solution</p>
-            <pre xml:space="preserve"><code class="java">private static final Pattern PATTERN = Pattern.compile("<span class="positive">(?U)</span>\w+");
-
-public boolean isValidFirstName(String firstName) {
-    return PATTERN.matcher(firstName).matches();
+            <pre xml:space="preserve"><code class="java">public boolean isValidFirstName(String firstName) {
+    return firstName.matches("<span class="positive">(?U)</span>\w+");
 }</code></pre>
             <pre><code class="java">isValidFirstName("Chloé")) // French name Chloe
 true</code></pre>
