@@ -23,7 +23,30 @@ public class RogueTextApp {
     }
 
     public static void all() {
+        zeroWidthCharacters();
         regexI18n();
+    }
+
+    private static void zeroWidthCharacters() {
+        System.out.println("Zero width characters");
+        System.out.println("=====================\n");
+
+        String normal = "Hello";
+        String zeroWidthNonJoiner = "Hel\u200Clo";
+        String zeroWidthSpace = "Hel\u200Blo";
+        String both = "Hel\u200C\u200Blo";
+        System.out.println("  normal:             \"" + normal + "\"");
+        System.out.println("  zeroWidthNonJoiner: \"" + zeroWidthNonJoiner + "\"");
+        System.out.println("  zeroWidthSpace:     \"" + zeroWidthSpace + "\"");
+        System.out.println("  both:               \"" + both + "\"");
+        System.out.println();
+        System.out.println("  normal vs zeroWidthNonJoiner:         \"" + normal + "\".equals(\"" + zeroWidthNonJoiner + "\") = " + normal.equals(zeroWidthNonJoiner));
+        System.out.println("  normal vs zeroWidthSpace:             \"" + normal + "\".equals(\"" + zeroWidthSpace + "\") = " + normal.equals(zeroWidthSpace));
+        System.out.println("  normal vs both:                       \"" + normal + "\".equals(\"" + both + "\") = " + normal.equals(both));
+        System.out.println("  zeroWidthNonJoiner vs zeroWidthSpace: \"" + zeroWidthNonJoiner + "\".equals(\"" + zeroWidthSpace + "\") = " + zeroWidthNonJoiner.equals(zeroWidthSpace));
+        System.out.println("  zeroWidthNonJoiner vs both:           \"" + zeroWidthNonJoiner + "\".equals(\"" + both + "\") = " + zeroWidthNonJoiner.equals(both));
+        System.out.println("  zeroWidthSpace vs both:               \"" + zeroWidthSpace + "\".equals(\"" + both + "\") = " + zeroWidthSpace.equals(both));
+        System.out.println();
     }
 
     private static void regexI18n() {
