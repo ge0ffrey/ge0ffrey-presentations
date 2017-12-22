@@ -28,11 +28,26 @@
 
   <artifactId>fasterreflection-client</artifactId>
 
+  <properties>
+    <version.org.openjdk.jmh>1.19</version.org.openjdk.jmh>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>be.ge0ffrey.presentations</groupId>
       <artifactId>fasterreflection-framework</artifactId>
-      <version>${project.version</version>
+      <version>${project.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-core</artifactId>
+      <version>${version.org.openjdk.jmh}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjdk.jmh</groupId>
+      <artifactId>jmh-generator-annprocess</artifactId>
+      <version>${version.org.openjdk.jmh}</version>
     </dependency>
   </dependencies>
 
