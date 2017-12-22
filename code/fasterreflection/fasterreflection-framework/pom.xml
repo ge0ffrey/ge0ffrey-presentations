@@ -22,10 +22,10 @@
 
   <parent>
     <groupId>be.ge0ffrey.presentations</groupId>
-    <artifactId>presentations</artifactId>
+    <artifactId>fasterreflection</artifactId>
     <version>0.1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>cornercasecheatsheet</artifactId>
+  <artifactId>fasterreflection-framework</artifactId>
 
 </project>
