@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Red Hat, Inc. and/or its affiliates.
+ * Copyright 2018 Red Hat, Inc. and/or its affiliates.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,39 +16,23 @@
 
 package be.ge0ffrey.presentations.fasterreflection.client.model;
 
-public class Cat implements Animal {
+public class Company {
 
     private String name;
-    private Person owner;
 
-    public Cat() {
+    public Company() {
     }
 
-    public Cat(String name) {
+    public Company(String name) {
         this.name = name;
     }
 
-    public Cat(String name, Person owner) {
-        this.name = name;
-        this.owner = owner;
-    }
-
-    @Override
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @Override
-    public Person getOwner() {
-        return owner;
-    }
-
-    public void setOwner(Person owner) {
-        this.owner = owner;
     }
 
 }

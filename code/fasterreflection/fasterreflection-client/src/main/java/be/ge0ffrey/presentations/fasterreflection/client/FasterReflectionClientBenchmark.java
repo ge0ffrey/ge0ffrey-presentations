@@ -23,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import be.ge0ffrey.presentations.fasterreflection.client.model.Person;
 import be.ge0ffrey.presentations.fasterreflection.framework.BeanPropertyReader;
 import be.ge0ffrey.presentations.fasterreflection.framework.MethodHandleBeanPropertyReader;
+import be.ge0ffrey.presentations.fasterreflection.framework.MethodHandleFieldReader;
 import be.ge0ffrey.presentations.fasterreflection.framework.ReflectionBeanPropertyReader;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
@@ -36,7 +37,7 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
-@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(3)
 @BenchmarkMode(Mode.AverageTime)
@@ -46,9 +47,11 @@ public class FasterReflectionClientBenchmark {
 
     private Person person;
 
-    private final BeanPropertyReader reflectionBeanPropertyReader = new ReflectionBeanPropertyReader(Person.class, "name");
-    private final BeanPropertyReader methodHandleBeanPropertyReader = new MethodHandleBeanPropertyReader(Person.class, "name");
     private static final BeanPropertyReader staticMethodHandleBeanPropertyReader = new MethodHandleBeanPropertyReader(Person.class, "name");
+
+    private final BeanPropertyReader methodHandleFieldReader = new MethodHandleFieldReader(Person.class, "name");
+    private final BeanPropertyReader methodHandleBeanPropertyReader = new MethodHandleBeanPropertyReader(Person.class, "name");
+    private final BeanPropertyReader reflectionBeanPropertyReader = new ReflectionBeanPropertyReader(Person.class, "name");
 
     @Setup
     public void setup() {
@@ -56,23 +59,28 @@ public class FasterReflectionClientBenchmark {
     }
 
     @Benchmark
-    public String getNamePlain() {
+    public String _0_normal() {
         return person.getName();
     }
 
     @Benchmark
-    public String getNameReflection() {
-        return (String) reflectionBeanPropertyReader.executeGetter(person);
+    public String _1_fieldHandle() {
+        return (String) methodHandleFieldReader.executeGetter(person);
     }
 
     @Benchmark
-    public String getNameMethodHandle() {
+    public String _2_staticMethodHandle() {
+        return (String) staticMethodHandleBeanPropertyReader.executeGetter(person);
+    }
+
+    @Benchmark
+    public String _3_methodHandle() {
         return (String) methodHandleBeanPropertyReader.executeGetter(person);
     }
 
-    @Benchmark
-    public String getNameStaticMethodHandle() {
-        return (String) staticMethodHandleBeanPropertyReader.executeGetter(person);
+    @Benchmark()
+    public String _4_reflection() {
+        return (String) reflectionBeanPropertyReader.executeGetter(person);
     }
 
 }
