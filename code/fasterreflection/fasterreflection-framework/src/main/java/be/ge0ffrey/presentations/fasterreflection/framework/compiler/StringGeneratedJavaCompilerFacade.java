@@ -57,9 +57,10 @@ public final class StringGeneratedJavaCompilerFacade {
                     null, null, Collections.singletonList(fileObject));
             boolean success = task.call();
             if (!success) {
+                final Pattern linePattern = Pattern.compile("\n");
                 String compilationMessages = diagnosticCollector.getDiagnostics().stream()
                         .map(d -> d.getKind() + ":[" + d.getLineNumber() + "," + d.getColumnNumber() +"] " + d.getMessage(null)
-                        + "\n        " + Pattern.compile("\n").splitAsStream(javaSource).skip(d.getLineNumber() - 1).findFirst().orElse(""))
+                        + "\n        " + (d.getLineNumber() <= 0 ? "" : linePattern.splitAsStream(javaSource).skip(d.getLineNumber() - 1).findFirst().orElse("")))
                         .collect(Collectors.joining("\n"));
                 throw new IllegalStateException("The generated class (" + fullClassName + ") failed to compile.\n"
                         + compilationMessages);
