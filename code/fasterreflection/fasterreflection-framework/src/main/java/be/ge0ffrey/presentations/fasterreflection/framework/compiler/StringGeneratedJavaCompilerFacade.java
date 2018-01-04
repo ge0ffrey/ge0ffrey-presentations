@@ -16,8 +16,12 @@
 
 package be.ge0ffrey.presentations.fasterreflection.framework.compiler;
 
+import java.io.IOException;
 import java.util.Collections;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import javax.tools.DiagnosticCollector;
+import javax.tools.ForwardingJavaFileManager;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaCompiler.CompilationTask;
 import javax.tools.JavaFileManager;
@@ -31,7 +35,6 @@ public final class StringGeneratedJavaCompilerFacade {
     private final StringGeneratedClassLoader classLoader;
     private final JavaCompiler compiler;
     private final DiagnosticCollector<JavaFileObject> diagnosticCollector;
-    private final StringGeneratedJavaFileManager javaFileManager;
 
     public StringGeneratedJavaCompilerFacade(ClassLoader loader) {
         compiler = ToolProvider.getSystemJavaCompiler();
@@ -42,23 +45,28 @@ public final class StringGeneratedJavaCompilerFacade {
         }
         classLoader = new StringGeneratedClassLoader(loader);
         diagnosticCollector = new DiagnosticCollector<>();
-        JavaFileManager fileManager = compiler.getStandardFileManager(diagnosticCollector, null, null);
-        javaFileManager = new StringGeneratedJavaFileManager(fileManager, classLoader);
     }
 
-    public synchronized <T> Class<? extends T> compile(String packageName, String simpleClassName,
-            String javaSource, Class<T> superType) {
-        String fullClassName = packageName + "." + simpleClassName;
-        String fileName = simpleClassName + Kind.SOURCE.extension;
+    public synchronized <T> Class<? extends T> compile(String fullClassName, String javaSource, Class<T> superType) {
         StringGeneratedSourceFileObject fileObject;
         fileObject = new StringGeneratedSourceFileObject(fullClassName, javaSource);
-        javaFileManager.putFileForInput(StandardLocation.SOURCE_PATH, packageName, fileName, fileObject);
-        CompilationTask task = compiler.getTask(null, javaFileManager, diagnosticCollector,
-                null, null, Collections.singletonList(fileObject));
-        boolean success = task.call();
-        if (!success) {
-            // TODO include compile errors in exception message
-            throw new IllegalStateException("The generated class (" + fullClassName + ") failed to compile.");
+
+        JavaFileManager standardFileManager = compiler.getStandardFileManager(diagnosticCollector, null, null);
+        try (StringGeneratedJavaFileManager javaFileManager = new StringGeneratedJavaFileManager(standardFileManager, classLoader)) {
+            CompilationTask task = compiler.getTask(null, javaFileManager, diagnosticCollector,
+                    null, null, Collections.singletonList(fileObject));
+            boolean success = task.call();
+            if (!success) {
+                String compilationMessages = diagnosticCollector.getDiagnostics().stream()
+                        .map(d -> d.getKind() + ":[" + d.getLineNumber() + "," + d.getColumnNumber() +"] " + d.getMessage(null)
+                        + "\n        " + Pattern.compile("\n").splitAsStream(javaSource).skip(d.getLineNumber() - 1).findFirst().orElse(""))
+                        .collect(Collectors.joining("\n"));
+                throw new IllegalStateException("The generated class (" + fullClassName + ") failed to compile.\n"
+                        + compilationMessages);
+            }
+        } catch (IOException e) {
+            throw new IllegalStateException("The generated class (" + fullClassName + ") failed to compile because the "
+                    + JavaFileManager.class.getSimpleName() + " didn't close.", e);
         }
         Class<T> compiledClass;
         try {

@@ -23,6 +23,7 @@
   <groupId>be.ge0ffrey.presentations</groupId>
   <artifactId>presentations</artifactId>
   <version>0.1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
   <licenses>
     <license>

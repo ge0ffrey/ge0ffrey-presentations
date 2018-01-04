@@ -34,35 +34,10 @@ import javax.tools.StandardLocation;
 public final class StringGeneratedJavaFileManager extends ForwardingJavaFileManager<JavaFileManager> {
 
     private final StringGeneratedClassLoader classLoader;
-    private final Map<URI, JavaFileObject> fileObjectMap = new HashMap<>();
 
     public StringGeneratedJavaFileManager(JavaFileManager fileManager, StringGeneratedClassLoader classLoader) {
         super(fileManager);
         this.classLoader = classLoader;
-    }
-
-    @Override
-    public FileObject getFileForInput(Location location, String packageName, String relativeName) throws IOException {
-        JavaFileObject fileObject = fileObjectMap.get(concatUri(location, packageName, relativeName));
-        if (fileObject != null) {
-            return fileObject;
-        }
-        return super.getFileForInput(location, packageName, relativeName);
-    }
-
-    public void putFileForInput(StandardLocation location, String packageName, String relativeName,
-            JavaFileObject fileObject) {
-        fileObjectMap.put(concatUri(location, packageName, relativeName), fileObject);
-    }
-
-    private URI concatUri(Location location, String packageName, String relativeName) {
-        String uriValue = location.getName() + '/' + packageName + '/' + relativeName;
-        try {
-            return new URI(uriValue);
-        } catch (URISyntaxException e) {
-            throw new IllegalStateException("Impossible state: the generated class (" + packageName + "." + relativeName
-                    + ") has an invalid URI (" + uriValue + ").", e);
-        }
     }
 
     @Override
@@ -78,40 +53,6 @@ public final class StringGeneratedJavaFileManager extends ForwardingJavaFileMana
     @Override
     public ClassLoader getClassLoader(Location location) {
         return classLoader;
-    }
-
-    @Override
-    public String inferBinaryName(Location location, JavaFileObject fileObject) {
-        if (fileObject instanceof StringGeneratedClassFileObject) {
-            return fileObject.getName();
-        } else {
-            return super.inferBinaryName(location, fileObject);
-        }
-    }
-
-    @Override
-    public Iterable<JavaFileObject> list(Location location, String packageName, Set<Kind> kindSet, boolean recurse)
-            throws IOException {
-        List<JavaFileObject> fileObjectList = new ArrayList<>();
-        if (location == StandardLocation.CLASS_PATH && kindSet.contains(Kind.CLASS)) {
-            for (JavaFileObject fileObject : fileObjectMap.values()) {
-                if (fileObject.getKind() == Kind.CLASS && fileObject.getName().startsWith(packageName)) {
-                    fileObjectList.add(fileObject);
-                }
-            }
-            fileObjectList.addAll(classLoader.files());
-        } else if (location == StandardLocation.SOURCE_PATH && kindSet.contains(Kind.SOURCE)) {
-            for (JavaFileObject fileObject : fileObjectMap.values()) {
-                if (fileObject.getKind() == Kind.SOURCE && fileObject.getName().startsWith(packageName)) {
-                    fileObjectList.add(fileObject);
-                }
-            }
-        }
-        Iterable<JavaFileObject> parentFileObjectList = super.list(location, packageName, kindSet, recurse);
-        for (JavaFileObject fileObject : parentFileObjectList) {
-            fileObjectList.add(fileObject);
-        }
-        return fileObjectList;
     }
 
 }

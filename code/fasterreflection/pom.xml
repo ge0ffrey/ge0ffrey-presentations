@@ -27,6 +27,7 @@
   </parent>
 
   <artifactId>fasterreflection</artifactId>
+  <packaging>pom</packaging>
 
   <modules>
     <module>fasterreflection-framework</module>

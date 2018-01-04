@@ -26,16 +26,8 @@ public final class StringGeneratedClassLoader extends ClassLoader {
 
     private final Map<String, StringGeneratedClassFileObject> fileObjectMap = new HashMap<>();
 
-    public StringGeneratedClassLoader(ClassLoader parentClassLoader) {
-        super(parentClassLoader);
-    }
-
-    public Collection<JavaFileObject> files() {
-        return Collections.unmodifiableCollection(fileObjectMap.values());
-    }
-
-    public void addJavaFileObject(String fullClassName, StringGeneratedClassFileObject fileObject) {
-        fileObjectMap.put(fullClassName, fileObject);
+    public StringGeneratedClassLoader(ClassLoader parent) {
+        super(parent);
     }
 
     @Override
@@ -46,6 +38,10 @@ public final class StringGeneratedClassLoader extends ClassLoader {
             return defineClass(fullClassName, classBytes, 0, classBytes.length);
         }
         return super.findClass(fullClassName);
+    }
+
+    public void addJavaFileObject(String qualifiedName, StringGeneratedClassFileObject fileObject) {
+        fileObjectMap.put(qualifiedName, fileObject);
     }
 
 }
