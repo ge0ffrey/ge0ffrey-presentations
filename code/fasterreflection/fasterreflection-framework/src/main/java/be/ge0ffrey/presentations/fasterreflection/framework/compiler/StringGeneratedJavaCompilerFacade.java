@@ -1,0 +1,78 @@
+/*
+ * Copyright 2018 Red Hat, Inc. and/or its affiliates.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package be.ge0ffrey.presentations.fasterreflection.framework.compiler;
+
+import java.util.Collections;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaCompiler;
+import javax.tools.JavaCompiler.CompilationTask;
+import javax.tools.JavaFileManager;
+import javax.tools.JavaFileObject;
+import javax.tools.JavaFileObject.Kind;
+import javax.tools.StandardLocation;
+import javax.tools.ToolProvider;
+
+public final class StringGeneratedJavaCompilerFacade {
+
+    private final StringGeneratedClassLoader classLoader;
+    private final JavaCompiler compiler;
+    private final DiagnosticCollector<JavaFileObject> diagnosticCollector;
+    private final StringGeneratedJavaFileManager javaFileManager;
+
+    public StringGeneratedJavaCompilerFacade(ClassLoader loader) {
+        compiler = ToolProvider.getSystemJavaCompiler();
+        if (compiler == null) {
+            throw new IllegalStateException("Cannot find the system Java compiler.\n"
+                    + "Maybe you're using the JRE without the JDK: either the classpath lacks a jar (tools.jar)"
+                    + " xor the modulepath lacks a module (java.compiler).");
+        }
+        classLoader = new StringGeneratedClassLoader(loader);
+        diagnosticCollector = new DiagnosticCollector<>();
+        JavaFileManager fileManager = compiler.getStandardFileManager(diagnosticCollector, null, null);
+        javaFileManager = new StringGeneratedJavaFileManager(fileManager, classLoader);
+    }
+
+    public synchronized <T> Class<? extends T> compile(String packageName, String simpleClassName,
+            String javaSource, Class<T> superType) {
+        String fullClassName = packageName + "." + simpleClassName;
+        String fileName = simpleClassName + Kind.SOURCE.extension;
+        StringGeneratedSourceFileObject fileObject;
+        fileObject = new StringGeneratedSourceFileObject(fullClassName, javaSource);
+        javaFileManager.putFileForInput(StandardLocation.SOURCE_PATH, packageName, fileName, fileObject);
+        CompilationTask task = compiler.getTask(null, javaFileManager, diagnosticCollector,
+                null, null, Collections.singletonList(fileObject));
+        boolean success = task.call();
+        if (!success) {
+            // TODO include compile errors in exception message
+            throw new IllegalStateException("The generated class (" + fullClassName + ") failed to compile.");
+        }
+        Class<T> compiledClass;
+        try {
+            compiledClass = (Class<T>) classLoader.loadClass(fullClassName);
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("The generated class (" + fullClassName
+                    + ") compiled, but failed to load.", e);
+        }
+        if (!superType.isAssignableFrom(compiledClass)) {
+            throw new ClassCastException("The generated compiledClass (" + compiledClass
+                    + ") cannot be assigned to the superclass/interface (" + superType + ").");
+        }
+        return compiledClass;
+    }
+
+}
+

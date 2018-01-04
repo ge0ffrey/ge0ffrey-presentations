@@ -30,6 +30,7 @@ public class ReflectionBeanPropertyReader implements BeanPropertyReader {
         } catch (NoSuchMethodException e) {
             throw new IllegalArgumentException(e);
         }
+        getterMethod.setAccessible(true);
     }
 
     public Object executeGetter(Object bean) {
