@@ -21,6 +21,7 @@ import be.ge0ffrey.presentations.fasterreflection.framework.compiler.StringGener
 public class JavaCompilerBeanPropertyReaderFactory {
 
     public static BeanPropertyReader generate(Class<?> beanClass, String propertyName) {
+        // Not 100% according to Java Beans spec, contains a bug for getHTTP() IIRC
         String getterName = "get" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
         String packageName = JavaCompilerBeanPropertyReaderFactory.class.getPackage().getName()
                 + ".generated." + beanClass.getPackage().getName();

@@ -24,6 +24,7 @@ public class ReflectionBeanPropertyReader implements BeanPropertyReader {
     private final Method getterMethod;
 
     public ReflectionBeanPropertyReader(Class<?> beanClass, String propertyName) {
+        // Not 100% according to Java Beans spec, contains a bug for getHTTP() IIRC
         String getterName = "get" + propertyName.substring(0, 1).toUpperCase() + propertyName.substring(1);
         try {
             getterMethod = beanClass.getMethod(getterName);
