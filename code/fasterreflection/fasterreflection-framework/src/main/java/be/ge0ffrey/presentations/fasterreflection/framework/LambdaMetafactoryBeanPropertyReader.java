@@ -19,16 +19,14 @@ package be.ge0ffrey.presentations.fasterreflection.framework;
 import java.lang.invoke.CallSite;
 import java.lang.invoke.LambdaConversionException;
 import java.lang.invoke.LambdaMetafactory;
-import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Method;
-import java.util.function.IntBinaryOperator;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 public class LambdaMetafactoryBeanPropertyReader implements BeanPropertyReader {
 
-    private final GetterFunction getterFunction;
+    private final Function getterFunction;
 
     public LambdaMetafactoryBeanPropertyReader(Class<?> beanClass, String propertyName) {
         // Not 100% according to Java Beans spec, contains a bug for getHTTP() IIRC
@@ -46,8 +44,8 @@ public class LambdaMetafactoryBeanPropertyReader implements BeanPropertyReader {
         CallSite site;
         try {
             site = LambdaMetafactory.metafactory(lookup,
-                    "invoke",
-                    MethodType.methodType(GetterFunction.class),
+                    "apply",
+                    MethodType.methodType(Function.class),
                     MethodType.methodType(Object.class, Object.class),
                     lookup.findVirtual(beanClass, getterName, MethodType.methodType(returnType)),
                     MethodType.methodType(returnType, beanClass));
@@ -55,21 +53,14 @@ public class LambdaMetafactoryBeanPropertyReader implements BeanPropertyReader {
             throw new IllegalArgumentException("Lambda creation failed for method (" + getterMethod + ").", e);
         }
         try {
-            getterFunction = (GetterFunction) site.getTarget().invokeExact();
+            getterFunction = (Function) site.getTarget().invokeExact();
         } catch (Throwable e) {
             throw new IllegalArgumentException("Lambda creation failed for method (" + getterMethod + ").", e);
         }
     }
 
     public Object executeGetter(Object bean) {
-        return getterFunction.invoke(bean);
-    }
-
-    @FunctionalInterface
-    private interface GetterFunction {
-
-        Object invoke(Object bean);
-
+        return getterFunction.apply(bean);
     }
 
 }
