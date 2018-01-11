@@ -33,7 +33,8 @@ public class MethodHandleBeanPropertyReader implements BeanPropertyReader {
         try {
             getterMethod = beanClass.getMethod(getterName);
         } catch (NoSuchMethodException e) {
-            throw new IllegalArgumentException(e);
+            throw new IllegalArgumentException("The class (" + beanClass + ") has doesn't have the getter method ("
+                    + getterName + ").", e);
         }
         Class<?> returnType = getterMethod.getReturnType();
         MethodHandles.Lookup lookup = MethodHandles.lookup();
@@ -42,8 +43,12 @@ public class MethodHandleBeanPropertyReader implements BeanPropertyReader {
             temp = temp.asType(temp.type().changeParameterType(0 , Object.class));
             getterMethodHandle = temp.asType(temp.type().changeReturnType(Object.class));
         } catch (IllegalAccessException | NoSuchMethodException e) {
-            throw new IllegalArgumentException(e);
+            throw new IllegalArgumentException("MethodHandle creation failed for method (" + getterMethod + ").", e);
         }
+    }
+
+    public MethodHandle getGetterMethodHandle() {
+        return getterMethodHandle;
     }
 
     public Object executeGetter(Object bean) {

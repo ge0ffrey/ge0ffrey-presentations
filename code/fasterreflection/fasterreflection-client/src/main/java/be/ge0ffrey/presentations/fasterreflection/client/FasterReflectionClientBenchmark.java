@@ -16,11 +16,13 @@
 
 package be.ge0ffrey.presentations.fasterreflection.client;
 
+import java.lang.invoke.MethodHandle;
 import java.util.concurrent.TimeUnit;
 
 import be.ge0ffrey.presentations.fasterreflection.client.model.Person;
 import be.ge0ffrey.presentations.fasterreflection.framework.BeanPropertyReader;
 import be.ge0ffrey.presentations.fasterreflection.framework.JavaCompilerBeanPropertyReaderFactory;
+import be.ge0ffrey.presentations.fasterreflection.framework.LambdaMetafactoryBeanPropertyReader;
 import be.ge0ffrey.presentations.fasterreflection.framework.MethodHandleBeanPropertyReader;
 import be.ge0ffrey.presentations.fasterreflection.framework.ReflectionBeanPropertyReader;
 import org.openjdk.jmh.annotations.Benchmark;
@@ -47,8 +49,8 @@ public class FasterReflectionClientBenchmark {
     private final BeanPropertyReader reflectionBeanPropertyReader = new ReflectionBeanPropertyReader(Person.class, "name");
 
     private final BeanPropertyReader methodHandleBeanPropertyReader = new MethodHandleBeanPropertyReader(Person.class, "name");
-    private static final BeanPropertyReader staticMethodHandleBeanPropertyReader = new MethodHandleBeanPropertyReader(Person.class, "name");
-//    private final BeanPropertyReader methodHandleFieldReader = new MethodHandleFieldReader(Person.class, "name");
+    private static final MethodHandle staticMethodHandle = new MethodHandleBeanPropertyReader(Person.class, "name").getGetterMethodHandle();
+    private final BeanPropertyReader lambdaMetafactoryBeanPropertyReader = new LambdaMetafactoryBeanPropertyReader(Person.class, "name");
 
     private final BeanPropertyReader javaCompilerBeanPropertyReader = JavaCompilerBeanPropertyReaderFactory.generate(Person.class, "name");
 
@@ -59,32 +61,36 @@ public class FasterReflectionClientBenchmark {
     }
 
     @Benchmark
-    public String _000_normal() {
+    public String _000_DirectAccess() {
         return person.getName();
     }
 
     @Benchmark()
-    public String _100_reflection() {
+    public String _100_Reflection() {
         return (String) reflectionBeanPropertyReader.executeGetter(person);
     }
 
     @Benchmark
-    public String _200_methodHandle() {
+    public String _200_MethodHandle() {
         return (String) methodHandleBeanPropertyReader.executeGetter(person);
     }
 
     @Benchmark
-    public String _201_staticMethodHandle() {
-        return (String) staticMethodHandleBeanPropertyReader.executeGetter(person);
+    public String _201_StaticMethodHandleButUseless() {
+        try {
+            return (String) staticMethodHandle.invokeExact(person);
+        } catch (Throwable e) {
+            throw new IllegalStateException(e);
+        }
     }
 
-//    @Benchmark
-//    public String _210_fieldHandle() {
-//        return (String) methodHandleFieldReader.executeGetter(person);
-//    }
+    @Benchmark
+    public String _300_LamdbaMetafactory() {
+        return (String) lambdaMetafactoryBeanPropertyReader.executeGetter(person);
+    }
 
     @Benchmark
-    public String _300_javaCompiler() {
+    public String _400_JavaCompiler() {
         return (String) javaCompilerBeanPropertyReader.executeGetter(person);
     }
 
