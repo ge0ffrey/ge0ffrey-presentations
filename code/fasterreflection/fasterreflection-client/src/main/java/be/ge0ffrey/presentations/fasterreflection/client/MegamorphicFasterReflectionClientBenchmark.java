@@ -103,7 +103,10 @@ public class MegamorphicFasterReflectionClientBenchmark {
     }
 
     public Object workWith(BeanPropertyReader reader, Object target) {
-        return reader.executeGetter(target); // <--- megamorphic call-site, HotSpot's profile bound to this bytecode index
+        // Call from here, in case there are different subtypes of BeanPropertyReader.
+        // If the same subtype of BeanPropertyReader comes here, chances are the
+        // megamorphic call-site would be somewhere in BeanPropertyReader's executeGetter().
+        return reader.executeGetter(target);
     }
 
 }
