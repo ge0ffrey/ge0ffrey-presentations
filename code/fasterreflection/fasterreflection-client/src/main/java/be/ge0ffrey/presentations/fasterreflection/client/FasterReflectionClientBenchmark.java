@@ -75,8 +75,9 @@ public class FasterReflectionClientBenchmark {
         return (String) methodHandleBeanPropertyReader.executeGetter(person);
     }
 
+    // USELESS for frameworks, unless you want to provision 200 static fields for Person.getName(), Person.getAge(), Company.getName(), ...
     @Benchmark
-    public String _201_StaticMethodHandleButUseless() {
+    public String _201_StaticMethodHandle() {
         try {
             return (String) staticMethodHandle.invokeExact(person);
         } catch (Throwable e) {
