@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
 import be.ge0ffrey.presentations.fasterreflection.client.model.Company;
 import be.ge0ffrey.presentations.fasterreflection.client.model.Person;
 import be.ge0ffrey.presentations.fasterreflection.framework.BeanPropertyReader;
-import be.ge0ffrey.presentations.fasterreflection.framework.LambdaMetafactoryBeanPropertyReader;
+import be.ge0ffrey.presentations.fasterreflection.framework.*;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -42,37 +42,68 @@ import org.openjdk.jmh.infra.Blackhole;
 @State(Scope.Thread)
 public class MegamorphicFasterReflectionClientBenchmark {
 
-    private Person person1;
-    private Person person2;
-    private Company company1;
+    private Person person;
+    private Company company;
 
-    private final BeanPropertyReader personNameLambdaReader = new LambdaMetafactoryBeanPropertyReader(Person.class, "name");
-    private final BeanPropertyReader personAgeLambdaReader = new LambdaMetafactoryBeanPropertyReader(Person.class, "age");
-    private final BeanPropertyReader companyNameLambdaReader = new LambdaMetafactoryBeanPropertyReader(Company.class, "name");
+    private final BeanPropertyReader lmf_personName   = new LambdaMetafactoryBeanPropertyReader(Person.class, "name");
+    private final BeanPropertyReader lmf_personAge    = new LambdaMetafactoryBeanPropertyReader(Person.class, "age");
+    private final BeanPropertyReader lmf_companyName  = new LambdaMetafactoryBeanPropertyReader(Company.class, "name");
+
+    private final BeanPropertyReader refl_personName  = new ReflectionBeanPropertyReader(Person.class, "name");
+    private final BeanPropertyReader refl_personAge   = new ReflectionBeanPropertyReader(Person.class, "age");
+    private final BeanPropertyReader refl_companyName = new ReflectionBeanPropertyReader(Company.class, "name");
+
+    private final BeanPropertyReader mh_personName    = new MethodHandleBeanPropertyReader(Person.class, "name");
+    private final BeanPropertyReader mh_personAge     = new MethodHandleBeanPropertyReader(Person.class, "age");
+    private final BeanPropertyReader mh_companyName   = new MethodHandleBeanPropertyReader(Company.class, "name");
+
+    private final BeanPropertyReader jc_personName    = JavaCompilerBeanPropertyReaderFactory.generate(Person.class, "name");
+    private final BeanPropertyReader jc_personAge     = JavaCompilerBeanPropertyReaderFactory.generate(Person.class, "age");
+    private final BeanPropertyReader jc_companyName   = JavaCompilerBeanPropertyReaderFactory.generate(Company.class, "name");
 
     @Setup
     public void setup() {
-        person1 = new Person("Ann", 30);
-        person2 = new Person("Beth", 31);
-        company1 = new Company("Acme Corporation");
+        person = new Person("Ann", 30);
+        company = new Company("Acme Corporation");
     }
 
     @Benchmark
-    public void _000_DirectAccess(Blackhole blackhole) {
-        blackhole.consume(person1.getName());
-        blackhole.consume(person1.getAge());
-        blackhole.consume(person2.getName());
-        blackhole.consume(person2.getAge());
-        blackhole.consume(company1.getName());
+    public void _000_DirectAccess(Blackhole bh) {
+        bh.consume(person.getName());
+        bh.consume(person.getAge());
+        bh.consume(company.getName());
     }
 
     @Benchmark
-    public void _400_LamdbaMetafactory(Blackhole blackhole) {
-        blackhole.consume(personNameLambdaReader.executeGetter(person1));
-        blackhole.consume(personAgeLambdaReader.executeGetter(person1));
-        blackhole.consume(personNameLambdaReader.executeGetter(person2));
-        blackhole.consume(personAgeLambdaReader.executeGetter(person2));
-        blackhole.consume(companyNameLambdaReader.executeGetter(company1));
+    public void _100_Reflection(Blackhole bh) {
+        bh.consume(workWith(refl_personName,  person));
+        bh.consume(workWith(refl_personAge,   person));
+        bh.consume(workWith(refl_companyName, company));
+    }
+
+    @Benchmark
+    public void _200_MethodHandle(Blackhole bh) {
+        bh.consume(workWith(mh_personName,  person));
+        bh.consume(workWith(mh_personAge,   person));
+        bh.consume(workWith(mh_companyName, company));
+    }
+
+    @Benchmark
+    public void _300_JavaCompiler(Blackhole bh) {
+        bh.consume(workWith(jc_personName,  person));
+        bh.consume(workWith(jc_personAge,   person));
+        bh.consume(workWith(jc_companyName, company));
+    }
+
+    @Benchmark
+    public void _400_LamdbaMetafactory(Blackhole bh) {
+        bh.consume(workWith(lmf_personName,  person));
+        bh.consume(workWith(lmf_personAge,   person));
+        bh.consume(workWith(lmf_companyName, company));
+    }
+
+    public Object workWith(BeanPropertyReader reader, Object target) {
+        return reader.executeGetter(target); // <--- megamorphic call-site, HotSpot's profile bound to this bytecode index
     }
 
 }
