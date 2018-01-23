@@ -124,7 +124,7 @@ public class MethodHandleBenchmark {
     }
 
     @Benchmark
-    public Object _000_VirtualStaticMethodHandle() {
+    public Object _100_VirtualStaticMethodHandle() {
         try {
             return ((Object) virtualStaticMethodHandle.invokeExact(person));
         } catch (Throwable e) {
@@ -133,7 +133,7 @@ public class MethodHandleBenchmark {
     }
 
     @Benchmark
-    public Object _000_UnreflectStaticMethodHandle() {
+    public Object _101_UnreflectStaticMethodHandle() {
         try {
             return ((Object) unreflectStaticMethodHandle.invokeExact(person));
         } catch (Throwable e) {
@@ -142,7 +142,7 @@ public class MethodHandleBenchmark {
     }
 
     @Benchmark
-    public Object _000_VirtualMethodHandle() {
+    public Object _200_VirtualMethodHandle() {
         try {
             return ((Object) virtualMethodHandle.invokeExact(person));
         } catch (Throwable e) {
@@ -151,7 +151,7 @@ public class MethodHandleBenchmark {
     }
 
     @Benchmark
-    public Object _000_UnreflectMethodHandle() {
+    public Object _201_UnreflectMethodHandle() {
         try {
             return ((Object) unreflectMethodHandle.invokeExact(person));
         } catch (Throwable e) {
