@@ -19,7 +19,6 @@ package be.ge0ffrey.presentations.fasterreflection.framework;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class MethodHandleBeanPropertyReader implements BeanPropertyReader {
@@ -39,9 +38,8 @@ public class MethodHandleBeanPropertyReader implements BeanPropertyReader {
         Class<?> returnType = getterMethod.getReturnType();
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         try {
-            MethodHandle temp = lookup.findVirtual(getterMethod.getDeclaringClass(), getterMethod.getName(), MethodType.methodType(returnType));
-            temp = temp.asType(temp.type().changeParameterType(0 , Object.class));
-            getterMethodHandle = temp.asType(temp.type().changeReturnType(Object.class));
+            getterMethodHandle = lookup.findVirtual(getterMethod.getDeclaringClass(), getterMethod.getName(), MethodType.methodType(returnType))
+                    .asType(MethodType.methodType(Object.class, Object.class));
         } catch (IllegalAccessException | NoSuchMethodException e) {
             throw new IllegalArgumentException("MethodHandle creation failed for method (" + getterMethod + ").", e);
         }

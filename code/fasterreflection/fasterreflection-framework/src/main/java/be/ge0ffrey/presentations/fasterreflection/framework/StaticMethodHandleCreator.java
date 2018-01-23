@@ -36,9 +36,8 @@ public class StaticMethodHandleCreator {
         Class<?> returnType = getterMethod.getReturnType();
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         try {
-            MethodHandle temp = lookup.findVirtual(getterMethod.getDeclaringClass(), getterMethod.getName(), MethodType.methodType(returnType));
-            temp = temp.asType(temp.type().changeParameterType(0 , Object.class));
-            return temp.asType(temp.type().changeReturnType(Object.class));
+            return lookup.findVirtual(getterMethod.getDeclaringClass(), getterMethod.getName(), MethodType.methodType(returnType))
+                    .asType(MethodType.methodType(Object.class, Object.class));
         } catch (IllegalAccessException | NoSuchMethodException e) {
             throw new IllegalArgumentException("MethodHandle creation failed for method (" + getterMethod + ").", e);
         }

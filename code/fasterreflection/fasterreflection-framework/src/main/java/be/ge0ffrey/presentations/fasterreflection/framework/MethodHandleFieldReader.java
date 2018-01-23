@@ -20,7 +20,6 @@ import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodType;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 public class MethodHandleFieldReader implements BeanPropertyReader {
 
@@ -37,9 +36,8 @@ public class MethodHandleFieldReader implements BeanPropertyReader {
         Class<?> returnType = field.getType();
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         try {
-            MethodHandle temp = lookup.unreflectGetter(field);
-            temp = temp.asType(temp.type().changeParameterType(0 , Object.class));
-            fieldMethodHandle = temp.asType(temp.type().changeReturnType(Object.class));
+            fieldMethodHandle = lookup.unreflectGetter(field)
+                    .asType(MethodType.methodType(Object.class, Object.class));
         } catch (IllegalAccessException e) {
             throw new IllegalArgumentException(e);
         }
