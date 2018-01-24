@@ -35,8 +35,16 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
-@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@Measurement(iterations = 20, time = 1, timeUnit = TimeUnit.SECONDS)
+// Benchmark on Geoffrey's machine                               Mode  Cnt  Score   Error  Units
+// MethodHandleBenchmark._000_DirectAccess                       avgt   15  2.788 ± 0.022  ns/op
+// MethodHandleBenchmark._101_StaticVirtualAsTypeMethodHandle    avgt   15  2.830 ± 0.032  ns/op
+// MethodHandleBenchmark._110_VirtualBareMethodHandle            avgt   15  5.434 ± 0.073  ns/op // Slow
+// MethodHandleBenchmark._111_VirtualAsTypeMethodHandle          avgt   15  5.214 ± 0.095  ns/op // Slow
+// MethodHandleBenchmark._201_StaticUnreflectAsTypeMethodHandle  avgt   15  2.798 ± 0.026  ns/op
+// MethodHandleBenchmark._210_UnreflectBareMethodHandle          avgt   15  5.527 ± 0.095  ns/op // Slow
+// MethodHandleBenchmark._211_UnreflectAsTypeMethodHandle        avgt   15  5.244 ± 0.109  ns/op // Slow
+@Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(3)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
@@ -45,8 +53,8 @@ public class MethodHandleBenchmark {
 
     private static final MethodHandles.Lookup LOOKUP = MethodHandles.lookup();
 
-    private static final MethodHandle virtualStaticMethodHandle;
-    private static final MethodHandle unreflectStaticMethodHandle;
+    private static final MethodHandle staticVirtualAsTypeMethodHandle;
+    private static final MethodHandle staticUnreflectAsTypeMethodHandle;
 
     static {
         Field field;
@@ -65,21 +73,24 @@ public class MethodHandleBenchmark {
         Class<?> returnType = getterMethod.getReturnType();
 
         try {
-            virtualStaticMethodHandle = LOOKUP.findVirtual(getterMethod.getDeclaringClass(), getterMethod.getName(), MethodType.methodType(returnType))
+            staticVirtualAsTypeMethodHandle = LOOKUP.findVirtual(getterMethod.getDeclaringClass(), getterMethod.getName(), MethodType.methodType(returnType))
                     .asType(MethodType.methodType(Object.class, Object.class));
         } catch (NoSuchMethodException | IllegalAccessException e) {
             throw new IllegalStateException(e);
         }
         try {
-            unreflectStaticMethodHandle = LOOKUP.unreflectGetter(field)
+            staticUnreflectAsTypeMethodHandle = LOOKUP.unreflectGetter(field)
                     .asType(MethodType.methodType(Object.class, Object.class));
         } catch (IllegalAccessException e) {
             throw new IllegalStateException(e);
         }
     }
 
-    private final MethodHandle virtualMethodHandle;
-    private final MethodHandle unreflectMethodHandle;
+    private final MethodHandle virtualBareMethodHandle;
+    private final MethodHandle virtualAsTypeMethodHandle;
+
+    private final MethodHandle unreflectBareMethodHandle;
+    private final MethodHandle unreflectAsTypeMethodHandle;
 
     private Object person;
 
@@ -100,13 +111,24 @@ public class MethodHandleBenchmark {
         Class<?> returnType = getterMethod.getReturnType();
 
         try {
-            virtualMethodHandle = LOOKUP.findVirtual(getterMethod.getDeclaringClass(), getterMethod.getName(), MethodType.methodType(returnType))
-                    .asType(MethodType.methodType(Object.class, Object.class));
+            virtualBareMethodHandle = LOOKUP.findVirtual(getterMethod.getDeclaringClass(), getterMethod.getName(), MethodType.methodType(returnType));
         } catch (NoSuchMethodException | IllegalAccessException e) {
             throw new IllegalStateException(e);
         }
         try {
-            unreflectMethodHandle = LOOKUP.unreflectGetter(field)
+            virtualAsTypeMethodHandle = LOOKUP.findVirtual(getterMethod.getDeclaringClass(), getterMethod.getName(), MethodType.methodType(returnType))
+                    .asType(MethodType.methodType(Object.class, Object.class));
+        } catch (NoSuchMethodException | IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+
+        try {
+            unreflectBareMethodHandle = LOOKUP.unreflectGetter(field);
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+        try {
+            unreflectAsTypeMethodHandle = LOOKUP.unreflectGetter(field)
                     .asType(MethodType.methodType(Object.class, Object.class));
         } catch (IllegalAccessException e) {
             throw new IllegalStateException(e);
@@ -124,36 +146,56 @@ public class MethodHandleBenchmark {
     }
 
     @Benchmark
-    public Object _100_VirtualStaticMethodHandle() {
+    public Object _101_StaticVirtualAsTypeMethodHandle() {
         try {
-            return ((Object) virtualStaticMethodHandle.invokeExact(person));
+            return staticVirtualAsTypeMethodHandle.invokeExact(person);
         } catch (Throwable e) {
             throw new IllegalStateException(e);
         }
     }
 
     @Benchmark
-    public Object _101_UnreflectStaticMethodHandle() {
+    public Object _110_VirtualBareMethodHandle() {
         try {
-            return ((Object) unreflectStaticMethodHandle.invokeExact(person));
+            // Unusable: the framework needs the class Person and the return type at compile time
+            return ((String) virtualBareMethodHandle.invokeExact((Person) person));
         } catch (Throwable e) {
             throw new IllegalStateException(e);
         }
     }
 
     @Benchmark
-    public Object _200_VirtualMethodHandle() {
+    public Object _111_VirtualAsTypeMethodHandle() {
         try {
-            return ((Object) virtualMethodHandle.invokeExact(person));
+            return virtualAsTypeMethodHandle.invokeExact(person);
         } catch (Throwable e) {
             throw new IllegalStateException(e);
         }
     }
 
     @Benchmark
-    public Object _201_UnreflectMethodHandle() {
+    public Object _201_StaticUnreflectAsTypeMethodHandle() {
         try {
-            return ((Object) unreflectMethodHandle.invokeExact(person));
+            return staticUnreflectAsTypeMethodHandle.invokeExact(person);
+        } catch (Throwable e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Benchmark
+    public Object _210_UnreflectBareMethodHandle() {
+        try {
+            // Unusable: the framework needs the class Person and the return type at compile time
+            return ((String) unreflectBareMethodHandle.invokeExact((Person) person));
+        } catch (Throwable e) {
+            throw new IllegalStateException(e);
+        }
+    }
+
+    @Benchmark
+    public Object _211_UnreflectAsTypeMethodHandle() {
+        try {
+            return unreflectAsTypeMethodHandle.invokeExact(person);
         } catch (Throwable e) {
             throw new IllegalStateException(e);
         }
