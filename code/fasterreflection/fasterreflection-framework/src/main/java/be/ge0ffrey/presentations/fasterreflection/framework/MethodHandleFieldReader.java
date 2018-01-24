@@ -33,7 +33,6 @@ public class MethodHandleFieldReader implements BeanPropertyReader {
             throw new IllegalArgumentException(e);
         }
         field.setAccessible(true);
-        Class<?> returnType = field.getType();
         MethodHandles.Lookup lookup = MethodHandles.lookup();
         try {
             fieldMethodHandle = lookup.unreflectGetter(field)
