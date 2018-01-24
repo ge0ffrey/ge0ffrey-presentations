@@ -39,6 +39,13 @@ import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
+// Benchmark on Geoffrey's machine                                 Mode  Cnt      Score      Error  Units
+// BootstrapBareBenchmark._100_reflectionBootstrap                 avgt   15    111.997 ±    9.334  ns/op
+// BootstrapBareBenchmark._101_reflectionBootstrapWithCall         avgt   15    111.375 ±    3.935  ns/op
+// BootstrapBareBenchmark._200_methodHandleBootstrap               avgt   15    981.229 ±   50.187  ns/op
+// BootstrapBareBenchmark._201_methodHandleBootstrapWithCall       avgt   15    945.566 ±   38.642  ns/op
+// BootstrapBareBenchmark._300_lamdbaMetafactoryBootstrap          avgt   15  35656.313 ± 2049.546  ns/op
+// BootstrapBareBenchmark._301_lamdbaMetafactoryBootstrapWithCall  avgt   15  47347.524 ± 9310.432  ns/op
 @Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(3)
