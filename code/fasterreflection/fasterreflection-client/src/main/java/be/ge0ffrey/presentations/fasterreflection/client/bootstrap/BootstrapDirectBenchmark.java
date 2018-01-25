@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package be.ge0ffrey.presentations.fasterreflection.client.barebenchmarks;
+package be.ge0ffrey.presentations.fasterreflection.client.bootstrap;
 
 import java.lang.invoke.CallSite;
 import java.lang.invoke.LambdaConversionException;
@@ -40,25 +40,25 @@ import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Warmup;
 
 // Benchmark on Geoffrey's machine                                 Mode  Cnt      Score      Error  Units
-// BootstrapBareBenchmark._100_reflectionBootstrap                 avgt   15    111.997 ±    9.334  ns/op
-// BootstrapBareBenchmark._101_reflectionBootstrapWithCall         avgt   15    111.375 ±    3.935  ns/op
-// BootstrapBareBenchmark._200_methodHandleBootstrap               avgt   15    981.229 ±   50.187  ns/op
-// BootstrapBareBenchmark._201_methodHandleBootstrapWithCall       avgt   15    945.566 ±   38.642  ns/op
-// BootstrapBareBenchmark._300_lamdbaMetafactoryBootstrap          avgt   15  35656.313 ± 2049.546  ns/op
-// BootstrapBareBenchmark._301_lamdbaMetafactoryBootstrapWithCall  avgt   15  47347.524 ± 9310.432  ns/op
+// BootstrapDirectBenchmark._100_reflectionBootstrap                 avgt   15    111.997 ±    9.334  ns/op
+// BootstrapDirectBenchmark._101_reflectionBootstrapWithCall         avgt   15    111.375 ±    3.935  ns/op
+// BootstrapDirectBenchmark._200_methodHandleBootstrap               avgt   15    981.229 ±   50.187  ns/op
+// BootstrapDirectBenchmark._201_methodHandleBootstrapWithCall       avgt   15    945.566 ±   38.642  ns/op
+// BootstrapDirectBenchmark._300_lamdbaMetafactoryBootstrap          avgt   15  35656.313 ± 2049.546  ns/op
+// BootstrapDirectBenchmark._301_lamdbaMetafactoryBootstrapWithCall  avgt   15  47347.524 ± 9310.432  ns/op
 @Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(3)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
 @State(Scope.Thread)
-public class BootstrapBareBenchmark {
+public class BootstrapDirectBenchmark {
 
     private static final MethodHandles.Lookup LOOKUP = MethodHandles.lookup();
 
     private Object person;
 
-    public BootstrapBareBenchmark() {
+    public BootstrapDirectBenchmark() {
     }
 
     @Setup
