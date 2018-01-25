@@ -21,7 +21,10 @@ import java.util.concurrent.TimeUnit;
 import be.ge0ffrey.presentations.fasterreflection.client.model.Company;
 import be.ge0ffrey.presentations.fasterreflection.client.model.Person;
 import be.ge0ffrey.presentations.fasterreflection.framework.BeanPropertyReader;
-import be.ge0ffrey.presentations.fasterreflection.framework.*;
+import be.ge0ffrey.presentations.fasterreflection.framework.JavaCompilerBeanPropertyReaderFactory;
+import be.ge0ffrey.presentations.fasterreflection.framework.LambdaMetafactoryBeanPropertyReader;
+import be.ge0ffrey.presentations.fasterreflection.framework.MethodHandleBeanPropertyReader;
+import be.ge0ffrey.presentations.fasterreflection.framework.ReflectionBeanPropertyReader;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.Fork;
@@ -96,7 +99,7 @@ public class MegamorphicFasterReflectionClientBenchmark {
     }
 
     @Benchmark
-    public void _400_LamdbaMetafactory(Blackhole bh) {
+    public void _400_LambdaMetafactory(Blackhole bh) {
         bh.consume(workWith(lmf_personName,  person));
         bh.consume(workWith(lmf_personAge,   person));
         bh.consume(workWith(lmf_companyName, company));

@@ -67,7 +67,7 @@ public class MultiGetterFasterReflectionClientBenchmark {
     }
 
     @Benchmark
-    public void _400_LamdbaMetafactory(Blackhole blackhole) {
+    public void _400_LambdaMetafactory(Blackhole blackhole) {
         blackhole.consume(personNameLambdaReader.executeGetter(person1));
         blackhole.consume(personAgeLambdaReader.executeGetter(person1));
         blackhole.consume(personNameLambdaReader.executeGetter(person2));

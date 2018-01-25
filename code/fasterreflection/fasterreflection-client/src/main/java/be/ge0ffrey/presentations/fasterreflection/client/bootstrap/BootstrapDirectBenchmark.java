@@ -44,8 +44,8 @@ import org.openjdk.jmh.annotations.Warmup;
 // BootstrapDirectBenchmark._101_reflectionBootstrapWithCall         avgt   15    111.375 ±    3.935  ns/op
 // BootstrapDirectBenchmark._200_methodHandleBootstrap               avgt   15    981.229 ±   50.187  ns/op
 // BootstrapDirectBenchmark._201_methodHandleBootstrapWithCall       avgt   15    945.566 ±   38.642  ns/op
-// BootstrapDirectBenchmark._300_lamdbaMetafactoryBootstrap          avgt   15  35656.313 ± 2049.546  ns/op
-// BootstrapDirectBenchmark._301_lamdbaMetafactoryBootstrapWithCall  avgt   15  47347.524 ± 9310.432  ns/op
+// BootstrapDirectBenchmark._300_lambdaMetafactoryBootstrap          avgt   15  35656.313 ± 2049.546  ns/op
+// BootstrapDirectBenchmark._301_lambdaMetafactoryBootstrapWithCall  avgt   15  47347.524 ± 9310.432  ns/op
 @Warmup(iterations = 3, time = 1, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(3)
@@ -117,7 +117,7 @@ public class BootstrapDirectBenchmark {
     }
 
     @Benchmark
-    public Object _300_lamdbaMetafactoryBootstrap() {
+    public Object _300_lambdaMetafactoryBootstrap() {
         CallSite site;
         try {
             site = LambdaMetafactory.metafactory(LOOKUP,
@@ -137,7 +137,7 @@ public class BootstrapDirectBenchmark {
     }
 
     @Benchmark
-    public Object _301_lamdbaMetafactoryBootstrapWithCall() {
+    public Object _301_lambdaMetafactoryBootstrapWithCall() {
         Function getterFunction;
         CallSite site;
         try {

@@ -92,7 +92,7 @@ public class FasterReflectionClientBenchmark {
     }
 
     @Benchmark
-    public String _400_LamdbaMetafactory() {
+    public String _400_LambdaMetafactory() {
         return (String) lambdaMetafactoryBeanPropertyReader.executeGetter(person);
     }
 

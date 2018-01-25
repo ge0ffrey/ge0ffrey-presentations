@@ -37,7 +37,7 @@ import org.openjdk.jmh.annotations.Warmup;
 // BootstrapWrapperBenchmark._100_ReflectionBootstrap         avgt   60      268.510 ±     25.271  ns/op
 // BootstrapWrapperBenchmark._200_MethodHandleBootstrap       avgt   60     1519.177 ±     46.644  ns/op
 // BootstrapWrapperBenchmark._300_JavaCompilerBootstrap       avgt   60  4814526.314 ± 503770.574  ns/op
-// BootstrapWrapperBenchmark._400_LamdbaMetafactoryBootstrap  avgt   60    38904.287 ±   1330.080  ns/op
+// BootstrapWrapperBenchmark._400_LambdaMetafactoryBootstrap  avgt   60    38904.287 ±   1330.080  ns/op
 @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 20, time = 1, timeUnit = TimeUnit.SECONDS)
 @Fork(3)
@@ -62,7 +62,7 @@ public class BootstrapWrapperBenchmark {
     }
 
     @Benchmark
-    public Object _400_LamdbaMetafactoryBootstrap() {
+    public Object _400_LambdaMetafactoryBootstrap() {
         return new LambdaMetafactoryBeanPropertyReader(Person.class, "name");
     }
 
