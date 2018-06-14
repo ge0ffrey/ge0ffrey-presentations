@@ -1,0 +1,269 @@
+<!doctype html>
+<!--
+  ~ Copyright 2018 Red Hat, Inc. and/or its affiliates.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Contributing to KIE docs</title>
+    <meta name="description" content="Introduction to Open Source">
+    <link href="https://ge0ffrey.github.io/ge0ffrey-presentations/contributingToKieWebsites/" rel="canonical">
+
+    <link rel="stylesheet" href="../website/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../website/reveal/css/reveal.min.css">
+    <link rel="stylesheet" href="../website/reveal/css/theme/simple.css" id="theme">
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            document.write('<link rel="stylesheet" href="../website/reveal/css/print/pdf.css">');
+        }
+    </script>
+    <link rel="stylesheet" href="../website/highlight/highlight.css">
+    <link rel="stylesheet" href="../website/ge0ffreyPresentation.css">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="reveal">
+<div class="watermark watermark-left">
+    <p>
+        <img src="../common/twitterLogo.png"/>
+        @GeoffreyDeSmet
+    </p>
+</div>
+<div class="slides">
+
+    <section>
+        <h2>
+            Contributing to KIE docs
+        </h2>
+        <div style="margin-top: 80px;">
+            <p>
+                <span style="font-size: smaller">by</span> Geoffrey De Smet<br/>
+                <span style="font-size: smaller">OptaPlanner lead</span>
+            </p>
+        </div>
+    </section>
+    <section>
+        <p>According to the Definition of Done</p>
+        <h3>Every PR for a new feature<br/> contains unit tests and documentation</h3>
+        <p class="fragment">Yea, right...</p>
+    </section>
+    <section>
+        <p>Yet, few engineers touch the docs regularly</p>
+        <p><a href="https://github.com/kiegroup/kie-docs/graphs/contributors?from=2017-06-01&to=2018-06-01&type=c">See a year of contribution frequency.</a></p>
+        <br/>
+        <p class="fragment">Why?</p>
+        <p class="fragment">We cannot see the forrest for the trees.</p>
+        <p class="fragment">(nor can our users)</p>
+    </section>
+    <section>
+        <h3>Table of Content (TOC)</h3>
+        <ol>
+            <li>Introduction</li>
+            <li>Release Notes</li>
+            <li class="negative">Compatibility matrix</li>
+            <li class="negative">KIE</li>
+            <li>Hybrid Reasoning</li>
+            <li class="negative">User Guide</li>
+            <li class="negative">Running</li>
+            <li class="positive">Rule Language Reference</li>
+            <li class="positive">Complex Event Processing</li>
+            <li class="positive">Decision Model and Notation</li>
+            <li>...</li>
+        </ol>
+        <p class="fragment">Someone needs to champion this issue (not me)</p>
+    </section>
+    <section>
+        <p>What documentation is every new user looking for?</p>
+        <h3 class="fragment">Getting started</h3>
+        <p class="fragment">We have 5 minutes to win them over.</p>
+    </section>
+    <section>
+        <h3>Where do I get started?</h3>
+        <ol>
+            <li>Introduction (no, talks about contributing)</li>
+            <li>Release Notes (no)</li>
+            <li>Compatibility matrix (no)</li>
+            <li>KIE (maybe, but no, it's too complex)</li>
+            <li>Hybrid Reasoning (PHD's only)</li>
+            <li>User Guide (yes, maybe)</li>
+            <li>Running</li>
+            <li>Rule Language Reference</li>
+            <li>Complex Event Processing</li>
+            <li>Decision Model and Notation</li>
+            <li>...</li>
+        </ol>
+        <p class="fragment">Solution: Put yourself in the user's shoes.</p>
+    </section>
+    <section>
+        <h3>Current file structure</h3>
+        <p><a href="https://github.com/kiegroup/kie-docs/tree/master/docs">https://github.com/kiegroup/kie-docs/tree/master/docs</a></p>
+        <p>DEMO</p>
+    </section>
+    <section>
+        <h2>Writing</h2>
+    </section>
+    <section>
+        <h3>Writing style</h3>
+        <p><a href="http://pressgang.jboss.org/">Pressgang is dead</a></p>
+        <p><a href="https://developers.google.com/style/voice">Google Documentation guide?</a></p>
+        <ul>
+            <li>Active voice</li>
+            <li>Second person</li>
+            <li>Present tense</li>
+            <li>Clause order</li>
+        </ul>
+    </section>
+    <section>
+        <h3>Writing style<br/>compatibility with product docs</h3>
+        <ul>
+            <li>Titles Should Use a Capital for Almost Every Word</li>
+            <li class="fragment">Avoid mentioning "Drools", "OptaPlanner", ...<br/>
+                because in product docs that would be "Decision Manager", "Business Optimizer", ...
+                <ul>
+                    <li>Use an asciidoc attribute <code>{drools}</code>?</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+    <section>
+        <h3>Know your asciidoc</h3>
+        <p><a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/">Asciidoc quick reference</a></p>
+        <ul>
+            <li>Use only NOTE, WARNING and IMPORTANT</li>
+            <li>Highlight source code</li>
+            <li>Use internal cross references</li>
+        </ul>
+    </section>
+    <section>
+        <h3>Images</h3>
+        <p>Put images in the same directory as the section adoc file.</p>
+        <p>Unless they are directly used by multiple sections (logo, icons)</p>
+        <p>Avoid reusing images, reuse sections instead.</p>
+    </section>
+    <section>
+        <h2>Dirt</h2>
+        <p>And how to avoid it</p>
+    </section>
+    <section>
+        <img src="dirt/KnowledgeBase.png"/>
+        <p class="fragment">Solution: When refactoring, find and replace in docs too.</p>
+        <p class="fragment">Document only the latest and greatest API.</p>
+    </section>
+    <section>
+        <img src="dirt/springIntegration.png"/>
+        <p class="fragment">Solution:<br/>
+            Don't put version changes in normal documentation,<br/>
+            put them in the release notes.</p>
+        <p class="fragment">Document only the latest and greatest API.</p>
+    </section>
+    <section>
+        <h3>Document the concepts and how to use the API's</h3>
+        <ul>
+            <li>Explain a concept visually.</li>
+            <li>Then show example code that uses it (= copy paste friendly).</li>
+        </ul>
+    </section>
+    <section>
+        <img src="dirt/startAndStopContainerText.png" class="fullImage"/>
+    </section>
+    <section>
+        <h3>A picture is worth a thousand words...</h3>
+    </section>
+    <section>
+        <img src="dirt/startAndStopContainerDiagram.png" class="fullImage"/>
+    </section>
+    <section>
+        <h3>How to create diagrams</h3>
+        <ul>
+            <li>Learn to use Inkscape</li>
+            <li>Set color palette to "Tango Icons"</li>
+            <li>Create images of size 800*600 at 96dpi</li>
+            <li>Expert to png</li>
+            <li>Reuse in documentation and in slides</li>
+        </ul>
+        <p>DEMO</p>
+    </section>
+    <section>
+        <p>Discussion</p>
+        <h3>Is 1 repo for all docs<br/> a design pattern<br/> or an anti pattern?</h3>
+        <ul class="fragment">
+            <li>Good: share docs files easily</li>
+            <li>Bad: docs in different repo than code, easily forgotten</li>
+            <li>Bad: contributors can't find our docs</li>
+        </ul>
+    </section>
+    <section>
+        <img src="discussion/replaceInPath.png" class="fullImage"/>
+    </section>
+    <section>
+        <h3>Q &amp; A</h3>
+        <table class="links">
+            <tr>
+                <th>Slides</th>
+                <td><a href="https://ge0ffrey.github.io/ge0ffrey-presentations/">ge0ffrey.github.io/ge0ffrey-presentations/</a></td>
+            </tr>
+            <tr>
+                <th>OptaPlanner</th>
+                <td><a href="http://www.optaplanner.org">www.optaplanner.org</a></td>
+            </tr>
+            <tr>
+                <th>Red Hat</th>
+                <td><a href="http://www.redhat.com">www.redhat.com</a></td>
+            </tr>
+            <tr>
+                <th>Feedback</th>
+                <td><img src="../common/twitterLogo64x64.png"/><a href="https://twitter.com/GeoffreyDeSmet">@GeoffreyDeSmet</a></td>
+            </tr>
+        </table>
+    </section>
+
+</div></div>
+
+    <script src="../website/reveal/js/reveal.min.js"></script>
+
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var slides = document.querySelector('.reveal .slides');
+            var excludeFromPrintPdfSlide = slides.querySelector('section.excludeFromPrintPdf');
+            slides.removeChild(excludeFromPrintPdfSlide);
+        }
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: false,
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'linear', // page/linear/fade/none
+
+            margin: 0.05,
+            minScale: 0.2,
+            maxScale: 100.0
+        });
+    </script>
+    <script src="../website/highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
