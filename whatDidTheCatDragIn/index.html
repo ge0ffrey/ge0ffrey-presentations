@@ -1,0 +1,400 @@
+<!doctype html>
+<!--
+  ~ Copyright 2018 JBoss Inc
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>What did the cat drag in?</title>
+    <meta name="description" content="Introduction to Open Source">
+    <link href="https://ge0ffrey.github.io/ge0ffrey-presentations/contributingToKieWebsites/" rel="canonical">
+
+    <link rel="stylesheet" href="../website/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../website/reveal/css/reveal.min.css">
+    <link rel="stylesheet" href="../website/reveal/css/theme/simple.css" id="theme">
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            document.write('<link rel="stylesheet" href="../website/reveal/css/print/pdf.css">');
+        }
+    </script>
+    <link rel="stylesheet" href="../website/highlight/highlight.css">
+    <link rel="stylesheet" href="../website/ge0ffreyPresentation.css">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div class="reveal">
+<div class="watermark watermark-left">
+    <p>
+        <img src="../common/twitterLogo.png"/>
+        @GeoffreyDeSmet
+    </p>
+</div>
+<div class="slides">
+
+    <section>
+        <h2>
+            What did the cat drag in?
+        </h2>
+        <div style="margin-top: 80px;">
+            <p>
+                <span style="font-size: smaller">by</span> Jan Hrcek and Geoffrey De Smet<br/>
+            </p>
+        </div>
+    </section>
+    <section>
+        <h3>
+            Do you audit your dependency tree regularly?
+        </h3>
+        <p>When was the last time?</p>
+    </section>
+    <section>
+        <p>It's simple (well...)</p>
+        <h3>
+            mvn dependency:tree
+        </h3>
+    </section>
+    <section>
+        <h3>drools-core</h3>
+        <pre xml:space="preserve"><code>$ mvn dependency:tree
+...
+[INFO] org.drools:drools-core:bundle:7.8.0-SNAPSHOT
+[INFO] +- org.osgi:org.osgi.core:jar:4.3.1:provided
+[INFO] +- org.osgi:org.osgi.compendium:jar:4.3.1:provided
+[INFO] +- com.google.protobuf:protobuf-java:jar:2.6.0:compile (optional)
+[INFO] +- com.thoughtworks.xstream:xstream:jar:1.4.10:compile (optional)
+[INFO] |  +- xmlpull:xmlpull:jar:1.1.3.1:compile
+[INFO] |  \- xpp3:xpp3_min:jar:1.1.4c:compile
+[INFO] +- org.mvel:mvel2:jar:2.4.0.Final:compile
+[INFO] +- org.kie:kie-api:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- org.kie.soup:kie-soup-maven-support:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie:kie-internal:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie.soup:kie-soup-commons:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie.soup:kie-soup-project-datamodel-commons:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- org.kie.soup:kie-soup-project-datamodel-api:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.antlr:antlr-runtime:jar:3.5.2:test
+[INFO] +- org.antlr:antlr:jar:3.5.2:test
+[INFO] |  \- org.antlr:ST4:jar:4.0.7:test
+[INFO] +- com.sun.xml.bind:jaxb-xjc:jar:2.2.11:provided
+[INFO] +- com.sun.xml.bind:jaxb-core:jar:2.2.11:provided
+[INFO] +- com.sun.xml.bind:jaxb-impl:jar:2.2.11:provided
+[INFO] +- org.jboss.spec.javax.xml.bind:jboss-jaxb-api_2.2_spec:jar:1.0.4.Final:provided
+[INFO] +- javax.xml.stream:stax-api:jar:1.0-2:provided
+[INFO] +- javax.activation:activation:jar:1.1.1:provided
+[INFO] +- javax.inject:javax.inject:jar:1:provided
+[INFO] +- org.slf4j:slf4j-api:jar:1.7.25:compile
+[INFO] +- ch.qos.logback:logback-classic:jar:1.1.3:test
+[INFO] |  \- ch.qos.logback:logback-core:jar:1.1.3:test
+[INFO] +- commons-codec:commons-codec:jar:1.10:compile
+[INFO] +- org.apache.commons:commons-lang3:jar:3.4:test
+[INFO] +- junit:junit:jar:4.12:test
+[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] \- org.mockito:mockito-core:jar:1.10.19:test
+[INFO]    \- org.objenesis:objenesis:jar:2.1:test
+</code></pre>
+        <p>A lightweight engine...</p>
+    </section>
+    <section>
+        <h3>drools-core (compile scope)</h3>
+        <pre xml:space="preserve"><code>$ mvn dependency:tree
+...
+[INFO] org.drools:drools-core:bundle:7.8.0-SNAPSHOT
+[INFO] +- com.google.protobuf:protobuf-java:jar:2.6.0:compile (optional)
+[INFO] +- com.thoughtworks.xstream:xstream:jar:1.4.10:compile (optional)
+[INFO] |  +- xmlpull:xmlpull:jar:1.1.3.1:compile
+[INFO] |  \- xpp3:xpp3_min:jar:1.1.4c:compile
+[INFO] +- org.mvel:mvel2:jar:2.4.0.Final:compile
+[INFO] +- org.kie:kie-api:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- org.kie.soup:kie-soup-maven-support:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie:kie-internal:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie.soup:kie-soup-commons:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie.soup:kie-soup-project-datamodel-commons:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- org.kie.soup:kie-soup-project-datamodel-api:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.slf4j:slf4j-api:jar:1.7.25:compile
+[INFO] +- commons-codec:commons-codec:jar:1.10:compile
+</code></pre>
+    </section>
+    <section>
+        <h3>drools-core: xmlpull and xpp3</h3>
+        <pre xml:space="preserve"><code>$ mvn dependency:tree
+...
+[INFO] org.drools:drools-core:bundle:7.8.0-SNAPSHOT
+...
+[INFO] +- com.thoughtworks.xstream:xstream:jar:1.4.10:compile (optional)
+[INFO] |  +- <b>xmlpull:xmlpull:jar:1.1.3.1</b>:compile
+[INFO] |  \- <b>xpp3:xpp3_min:jar:1.1.4c</b>:compile
+</code></pre>
+    </section>
+    <section>
+        <h3>Cost of crappy modules</h3>
+        <ul>
+            <li>Legal implications</li>
+            <li>MEAD/BREW build from source (security fixes)</li>
+            <li>Automated tooling</li>
+            <li>Reliable builds (leftpad, ...)</li>
+        </ul>
+    </section>
+    <section>
+        <h3>Dependency requirements</h3>
+        <p><a href="https://github.com/kiegroup/droolsjbpm-build-bootstrap/blob/master/README.md#requirements-for-dependencies">README</a></p>
+    </section>
+    <section>
+        <h3>drools-core: soup</h3>
+        <pre xml:space="preserve"><code>$ mvn dependency:tree
+...
+[INFO] org.drools:drools-core:bundle:7.8.0-SNAPSHOT
+...
+[INFO] +- org.kie:kie-api:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- org.kie.soup:<b>kie-soup-maven-support</b>:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie:kie-internal:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie.soup:<b>kie-soup-commons</b>:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie.soup:<b>kie-soup-project-datamodel-commons</b>:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- org.kie.soup:<b>kie-soup-project-datamodel-api</b>:jar:7.8.0-SNAPSHOT:compile
+</code></pre>
+    </section>
+    <section>
+        <h3>Hidden cost of modules</h3>
+        <ul>
+            <li>Maven repo download time</li>
+            <li>pom.xml parsing during build</li>
+            <li>IDE configuration</li>
+            <li>more verbose classpath</li>
+            <li>Hurts lightweight reputation</li>
+        </ul>
+        <br/>
+        <p class="fragment">General experience:<br/> 1 module with 100k code<br/>is lighter than<br/>10 modules with 1k code each</p>
+    </section>
+    <section>
+        <h3>Packages vs modules</h3>
+        <p>When to use different modules for 2 classes?</p>
+        <ul>
+            <li class="fragment">Proven different deploy classpath
+            <ul>
+                <li>Example: client - shared - server</li>
+                <li>Example: drools-core - optaplanner-core - jbpm-core </li>
+            </ul></li>
+            <li class="fragment">API - impl split up (pre Java 9)
+            <ul>
+                <li>So user can put impl in runtime scope</li>
+            </ul></li>
+        </ul>
+        <br/>
+        <p class="fragment">None of the above => use packages</p>
+        <p class="fragment">YAGTNI (proof first!)</p>
+    </section>
+    <section>
+        <h3>drools-core (provided scope)</h3>
+        <pre xml:space="preserve"><code>$ mvn dependency:tree
+...
+[INFO] org.drools:drools-core:bundle:7.8.0-SNAPSHOT
+...
+[INFO] +- org.osgi:org.osgi.core:jar:4.3.1:provided
+[INFO] +- org.osgi:org.osgi.compendium:jar:4.3.1:provided
+[INFO] +- com.google.protobuf:protobuf-java:jar:2.6.0:compile (optional)
+[INFO] +- com.thoughtworks.xstream:xstream:jar:1.4.10:compile (optional)
+[INFO] |  +- xmlpull:xmlpull:jar:1.1.3.1:compile
+[INFO] |  \- xpp3:xpp3_min:jar:1.1.4c:compile
+[INFO] +- com.sun.xml.bind:jaxb-xjc:jar:2.2.11:provided
+[INFO] +- com.sun.xml.bind:jaxb-core:jar:2.2.11:provided
+[INFO] +- com.sun.xml.bind:jaxb-impl:jar:2.2.11:provided
+[INFO] +- org.jboss.spec.javax.xml.bind:jboss-jaxb-api_2.2_spec:jar:1.0.4.Final:provided
+[INFO] +- javax.xml.stream:stax-api:jar:1.0-2:provided
+[INFO] +- javax.activation:activation:jar:1.1.1:provided
+[INFO] +- javax.inject:javax.inject:jar:1:provided
+</code></pre>
+    </section>
+    <section>
+        <h3>provided vs optional</h3>
+        <p>Both allow you to import its classes</p>
+        <pre xml:space="preserve"><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.google.protobuf&lt;/groupId&gt;
+  &lt;artifactId&gt;protobuf-java&lt;/artifactId&gt;
+  &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;</code></pre>
+        <p class="fragment">provided = provided by container (WildFly, ...).<br/>Example: servlet-api</p
+        <br/>
+        <pre xml:space="preserve"><code class="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.google.protobuf&lt;/groupId&gt;
+  &lt;artifactId&gt;protobuf-java&lt;/artifactId&gt;
+  &lt;scope&gt;compile&lt;/scope&gt;
+  &lt;optional&gt;true&lt;/optional&gt;
+&lt;/dependency&gt;</code></pre>
+        <p class="fragment">optional = downstream module should not<br/>automatically get it as a transitive dependency</p>
+    </section>
+    <section>
+        <h3>drools-core (test scope)</h3>
+        <pre xml:space="preserve"><code>$ mvn dependency:tree
+...
+[INFO] org.drools:drools-core:bundle:7.8.0-SNAPSHOT
+...
+[INFO] +- org.antlr:antlr-runtime:jar:3.5.2:test
+[INFO] +- org.antlr:antlr:jar:3.5.2:test
+[INFO] |  \- org.antlr:ST4:jar:4.0.7:test
+[INFO] +- ch.qos.logback:logback-classic:jar:1.1.3:test
+[INFO] |  \- ch.qos.logback:logback-core:jar:1.1.3:test
+[INFO] +- org.apache.commons:commons-lang3:jar:3.4:test
+[INFO] +- junit:junit:jar:4.12:test
+[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] \- org.mockito:mockito-core:jar:1.10.19:test
+[INFO]    \- org.objenesis:objenesis:jar:2.1:test
+</code></pre>
+    </section>
+    <section>
+        <h3>drools-compiler</h3>
+        <pre xml:space="preserve"><code>$ mvn dependency:tree
+...
+[INFO] org.drools:drools-compiler:bundle:7.8.0-SNAPSHOT
+[INFO] +- org.drools:drools-core:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- commons-codec:commons-codec:jar:1.10:compile
+[INFO] +- org.drools:drools-core:test-jar:tests:7.8.0-SNAPSHOT:test
+[INFO] +- org.kie:kie-api:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie:kie-internal:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie.soup:kie-soup-maven-support:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie.soup:kie-soup-commons:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie.soup:kie-soup-project-datamodel-commons:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- org.kie.soup:kie-soup-project-datamodel-api:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.osgi:org.osgi.core:jar:4.3.1:provided
+[INFO] +- org.osgi:org.osgi.compendium:jar:4.3.1:provided
+[INFO] +- org.antlr:antlr:jar:3.5.2:provided
+[INFO] |  \- org.antlr:ST4:jar:4.0.7:provided
+[INFO] +- org.antlr:antlr-runtime:jar:3.5.2:compile
+[INFO] +- org.antlr:gunit:jar:3.5.2:test
+[INFO] +- org.eclipse.jdt.core.compiler:ecj:jar:4.4.2:compile
+[INFO] +- org.codehaus.janino:janino:jar:2.5.16:compile (optional)
+[INFO] +- org.mvel:mvel2:jar:2.4.0.Final:compile
+[INFO] +- com.thoughtworks.xstream:xstream:jar:1.4.10:compile
+[INFO] |  +- xmlpull:xmlpull:jar:1.1.3.1:compile
+[INFO] |  \- xpp3:xpp3_min:jar:1.1.4c:compile
+[INFO] +- com.google.protobuf:protobuf-java:jar:2.6.0:compile
+[INFO] +- com.sun.xml.bind:jaxb-xjc:jar:2.2.11:provided
+[INFO] +- com.sun.xml.bind:jaxb-core:jar:2.2.11:provided
+[INFO] +- com.sun.xml.bind:jaxb-impl:jar:2.2.11:provided
+[INFO] +- org.jboss.spec.javax.xml.bind:jboss-jaxb-api_2.2_spec:jar:1.0.4.Final:provided
+[INFO] +- javax.xml.stream:stax-api:jar:1.0-2:provided
+[INFO] +- javax.activation:activation:jar:1.1.1:provided
+[INFO] +- org.kie:kie-test-util:jar:7.8.0-SNAPSHOT:test
+[INFO] |  +- commons-collections:commons-collections:jar:3.2.2:test
+[INFO] |  +- org.jboss.spec.javax.transaction:jboss-transaction-api_1.2_spec:jar:1.0.1.Final:test
+[INFO] |  +- org.jboss.narayana.jta:narayana-jta:jar:5.6.4.Final:test
+[INFO] |  |  +- org.jboss:jboss-transaction-spi:jar:7.6.0.Final:test
+[INFO] |  |  \- org.jboss.spec.javax.resource:jboss-connector-api_1.7_spec:jar:1.0.0.Final:test
+[INFO] |  +- simple-jndi:simple-jndi:jar:0.11.4.1:test
+[INFO] |  +- ch.qos.logback:logback-core:jar:1.1.3:test
+[INFO] |  +- org.apache.maven:maven-model:jar:3.3.9:test
+[INFO] |  |  \- org.apache.commons:commons-lang3:jar:3.4:test
+[INFO] |  \- org.codehaus.plexus:plexus-utils:jar:3.0.22:test
+[INFO] +- commons-io:commons-io:jar:2.5:test
+[INFO] +- net.java.dev.glazedlists:glazedlists_java15:jar:1.8.0:test
+[INFO] +- org.assertj:assertj-core:jar:3.8.0:test
+[INFO] +- org.slf4j:slf4j-api:jar:1.7.25:compile
+[INFO] +- ch.qos.logback:logback-classic:jar:1.1.3:test
+[INFO] +- junit:junit:jar:4.12:test
+[INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test
+[INFO] \- org.mockito:mockito-core:jar:1.10.19:test
+[INFO]    \- org.objenesis:objenesis:jar:2.1:test
+
+</code></pre>
+    </section>
+    <section>
+        <h3>optaplanner-core</h3>
+        <pre xml:space="preserve"><code>$ mvn dependency:tree
+...
+[INFO] org.optaplanner:optaplanner-core:bundle:7.8.0-SNAPSHOT
+[INFO] +- org.kie:kie-api:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- org.kie.soup:kie-soup-maven-support:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.kie:kie-internal:jar:7.8.0-SNAPSHOT:compile
+[INFO] +- org.drools:drools-core:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  +- org.mvel:mvel2:jar:2.4.0.Final:compile
+[INFO] |  +- org.kie.soup:kie-soup-commons:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  +- org.kie.soup:kie-soup-project-datamodel-commons:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  |  \- org.kie.soup:kie-soup-project-datamodel-api:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  \- commons-codec:commons-codec:jar:1.10:compile
+[INFO] +- org.drools:drools-compiler:jar:7.8.0-SNAPSHOT:compile
+[INFO] |  +- org.antlr:antlr-runtime:jar:3.5.2:compile
+[INFO] |  +- org.eclipse.jdt.core.compiler:ecj:jar:4.4.2:compile
+[INFO] |  \- com.google.protobuf:protobuf-java:jar:2.6.0:compile
+[INFO] +- org.apache.commons:commons-lang3:jar:3.4:compile
+[INFO] +- org.apache.commons:commons-math3:jar:3.4.1:compile
+[INFO] +- com.google.guava:guava:jar:20.0:compile
+[INFO] +- org.slf4j:slf4j-api:jar:1.7.25:compile
+[INFO] +- org.reflections:reflections:jar:0.9.11:compile
+[INFO] |  \- org.javassist:javassist:jar:3.20.0-GA:compile
+[INFO] +- com.thoughtworks.xstream:xstream:jar:1.4.10:compile
+[INFO] |  +- xmlpull:xmlpull:jar:1.1.3.1:compile
+[INFO] |  \- xpp3:xpp3_min:jar:1.1.4c:compile
++ test scope
+</code></pre>
+        <p>Lightweight engine?</p>
+    </section>
+
+    <section>
+        <h3>Q &amp; A</h3>
+        <table class="links">
+            <tr>
+                <th>Slides</th>
+                <td><a href="https://ge0ffrey.github.io/ge0ffrey-presentations/">ge0ffrey.github.io/ge0ffrey-presentations/</a></td>
+            </tr>
+            <tr>
+                <th>OptaPlanner</th>
+                <td><a href="http://www.optaplanner.org">www.optaplanner.org</a></td>
+            </tr>
+            <tr>
+                <th>Red Hat</th>
+                <td><a href="http://www.redhat.com">www.redhat.com</a></td>
+            </tr>
+            <tr>
+                <th>Feedback</th>
+                <td><img src="../common/twitterLogo64x64.png"/><a href="https://twitter.com/GeoffreyDeSmet">@GeoffreyDeSmet</a></td>
+            </tr>
+        </table>
+    </section>
+
+</div></div>
+
+    <script src="../website/reveal/js/reveal.min.js"></script>
+
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var slides = document.querySelector('.reveal .slides');
+            var excludeFromPrintPdfSlide = slides.querySelector('section.excludeFromPrintPdf');
+            slides.removeChild(excludeFromPrintPdfSlide);
+        }
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: false,
+            theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+            transition: Reveal.getQueryHash().transition || 'linear', // page/linear/fade/none
+
+            margin: 0.05,
+            minScale: 0.2,
+            maxScale: 100.0
+        });
+    </script>
+    <script src="../website/highlight/highlight.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+</body>
+</html>
