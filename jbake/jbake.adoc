@@ -43,8 +43,11 @@ set the `jbake-type` property to reuse your template (such as `base`) and start 
 JBake supports https://asciidoctor.org[Asciidoc], Markdown and HTML.
 Writing texts and articles in Asciidoc is far productive than in HTML - or even MS Word.
 
-Treat your content and template files just like your `*.java` sources: put them in version control
-and open them in your favorite IDE.
+Treat your content and template files just like your `.java` sources:
+put them in Git and open them in your favorite IDE.
+*For an important website, use Pull Requests to review every change before merging it.*
+After all, your website probably has more users than the project or product that its selling.
+So it should adhere to at least the same quality standards, no?
 
 == Getting started with JBake
 
@@ -134,7 +137,7 @@ mvn clean generate-resources
 *It just takes a few seconds to build* - even with hundreds of content pages
 and dozens of templates.
 
-. Now add a new `*.adoc` file in the `content` directory with a new article.
+. Now add a new `.adoc` file in the `content` directory with a new article.
 Build again and open that new resulting HTML page.
 
 == Going further with JBake
@@ -146,7 +149,7 @@ The source files for our website are https://github.com/kiegroup/optaplanner-web
 
 === Macros
 
-It uses `*.adoc` content files for complex "use case" pages, such as https://www.optaplanner.org/learn/useCases/vehicleRoutingProblem.html[Vehicle Routing]
+It uses `.adoc` content files for complex "use case" pages, such as https://www.optaplanner.org/learn/useCases/vehicleRoutingProblem.html[Vehicle Routing]
 and https://www.optaplanner.org/learn/useCases/maintenanceScheduling.html[Maintenance Scheduling].
 The `useCaseBase.ftl` template uses a macro to embed YouTube videos:
 
@@ -222,7 +225,7 @@ and `<#if>` filters out the future events.
 
 Below Freemarker, it's all Java.
 Stacktraces are familiar. Date formatting follows Java APIs.
-In the `*.ftl` file, you can call any Java method, for example `.substring(...)` on a string.
+In the `.ftl` file, you can call any Java method, for example `.substring(...)` on a string.
 
 == Conclusion
 
