@@ -1,6 +1,6 @@
 = Generate your static website with Java and JBake
 
-A static website is an ideal website for a project, a product or personal blog.
+A static website is ideal for a project, a product or personal blog.
 It runs on every HTTP server (no server side code execution).
 *It's fast. It's stable. Hosting is cheap.* Or even free for projects using https://pages.github.com[Github Pages].
 
@@ -10,9 +10,9 @@ It's still error prone to copy-paste the menu and footer across multiple HTML fi
 And nobody enjoys writing articles or landing pages in pure HTML.
 
 A static website _generator_ has many of the advantages of server side code,
-without the performance, stability and hosting cost challenges.
-At build time, it combines templates (including conditional or loop statements) with content text files
-to output a static HTML website. Just upload the HTML output, and you're done.
+without the performance, stability and hosting challenges.
+At build time, it combines code templates with content texts
+to output HTML. Just upload the HTML output, and you're done.
 Or push the sources to GitHub and have Continuous Integration automatically build and publish it.
 
 == Introducing JBake
@@ -28,26 +28,30 @@ for every page of this website.
 *To add a menu link on every website page,
 you only need to adjust that one template file.*
 JBake supports https://freemarker.apache.org[Freemarker], Thymeleaf and various other technologies.
-Those can call existing Java code, iterate through lists and support `if` statements.
+Those can call existing Java code, iterate through lists and check `if` conditions.
 
 Typically, the template file(s) also have a `<head>` element that adds
 scripts (such as https://analytics.google.com[Google Analytics] to measure visitor count),
 JavaScript libraries (such as https://getbootstrap.com[Bootstrap] to build a user-friendly website)
-and icon libraries (such as https://fontawesome.com[FontAwesome] to make it pretty).
+and icon libraries (such as https://fontawesome.com[FontAwesome Free] to make it pretty).
 
 Every output HTML file starts from a content page.
-For example, `page-A.html` is generated transforming `page-A.adoc` through the `base.ftl` template.
+For example, `page-A.html` is the result of transforming `page-A.adoc` through the `base.ftl` template.
 Similarly, `page-B.adoc` transforms into `page-B.html`.
-*To create a new page for your website, write a text in a new content file.*
+To create a new page for your website, create a new content file,
+set the `jbake-type` property to reuse your template (such as `base`) and start writing text.
 JBake supports https://asciidoctor.org[Asciidoc], Markdown and HTML.
-Writing texts and articles in Asciidoc is far more time efficient than in HTML - or even MS Word.
+Writing texts and articles in Asciidoc is far productive than in HTML - or even MS Word.
+
+Treat your content and template files just like your `*.java` sources: put them in version control
+and open them in your favorite IDE.
 
 == Getting started with JBake
 
-The best part about JBake is that you don't need to install it.
-You can just build your JBake website with Maven or Gradle, by using the JBake plugin.
+*The best part about JBake is that you don't need to install it.*
+You can just build your JBake website with Maven or Gradle, with their JBake plugin.
 
-Try this out for yourself.
+Try it out for yourself:
 
 . Git clone https://github.com/jbake-org/jbake-example-project-freemarker[the JBake Freemarker example]:
 +
@@ -127,23 +131,24 @@ mvn clean generate-resources
 ----
 
 . Open `target/website/index.html` in your browser to take a look at the result.
-It just takes a few seconds to build - even with hundreds of content pages.
+*It just takes a few seconds to build* - even with hundreds of content pages
+and dozens of templates.
 
-. Now add a new `*.adoc` file in the `content` directory.
-Build again and open the new HTML page.
+. Now add a new `*.adoc` file in the `content` directory with a new article.
+Build again and open that new resulting HTML page.
 
 == Going further with JBake
 
 You can make advanced websites with JBake too.
 For example, the project website for https://www.optaplanner.org[OptaPlanner], our open source AI constraint solver,
 is completely build with JBake.
-See https://github.com/kiegroup/optaplanner-website[its source files].
+The source files for our website are https://github.com/kiegroup/optaplanner-website[here].
 
 === Macros
 
-It uses `*.adoc` content files for complex use case pages, such as https://www.optaplanner.org/learn/useCases/vehicleRoutingProblem.html[Vehicle Routing]
+It uses `*.adoc` content files for complex "use case" pages, such as https://www.optaplanner.org/learn/useCases/vehicleRoutingProblem.html[Vehicle Routing]
 and https://www.optaplanner.org/learn/useCases/maintenanceScheduling.html[Maintenance Scheduling].
-The `useCaseBase.ftl` template uses macros to embed YouTube videos:
+The `useCaseBase.ftl` template uses a macro to embed YouTube videos:
 
 ----
 <h1>${content.title}</h1>
@@ -154,7 +159,7 @@ ${content.body}
 ----
 
 Each use case content page defines their own YouTube video to show,
-for example `maintenanceScheduling.adoc`:
+for example in `maintenanceScheduling.adoc`:
 
 ----
 = Maintenance scheduling and inspection planning
@@ -164,7 +169,7 @@ for example `maintenanceScheduling.adoc`:
 Machinery and other types of equipment in use ...
 ----
 
-The macro then renders it (using Bootstrap underneath):
+The Freemarker macro then renders it (using Bootstrap underneath):
 
 ----
 <#macro videoCard youtubeId>
@@ -174,8 +179,8 @@ The macro then renders it (using Bootstrap underneath):
 
 === Data files
 
-The latest JBake RC versions also supports `yml` data files.
-These are useful to hold a list of all latest releases, team members, videos, events, customers, etc.
+JBake 2.7+ (currently RC-5) also supports `yml` data files.
+These are useful to list all latest releases, team members, videos, events, customers, etc.
 Freemarker can then iterate through those lists to render HTML for each entry.
 
 For example, on that OptaPlanner website, all public speaking events go into the `data/events.yml` file:
@@ -194,29 +199,38 @@ For example, on that OptaPlanner website, all public speaking events go into the
   ...
 ----
 
-The `latestEvents` macro - which is shown on most pages - renders those in HTML:
+The `latestEvents` macro - which is shown on most pages - renders those events as HTML:
 
 ----
 <#assign events = data.get('events.yml').data>
 <#macro latestEvents>
-    <#list events?reverse as event>
-        <#if .now?date <= event.date?date>
-            <li>
-               <a href="${event.eventUrl}">${event.eventOrganization}</a>
-               ${event.location} - ${event.date?string("EEE d MMMM yyyy")}
-            </li>
-        </#if>
-    </#list>
+    <ul>
+        <#list events?reverse as event>
+            <#if .now?date <= event.date?date>
+                <li>
+                   <a href="${event.eventUrl}">${event.eventOrganization}</a><br/>
+                   ${event.location} - ${event.date?string("EEE d MMMM yyyy")}
+                </li>
+            </#if>
+        </#list>
+    </ul>
 </#macro>
 ----
+
+There is some Freemarker magic in here: `<#list>` iterates through all events
+and `<#if>` filters out the future events.
+
+Below Freemarker, it's all Java.
+Stacktraces are familiar. Date formatting follows Java APIs.
+In the `*.ftl` file, you can call any Java method, for example `.substring(...)` on a string.
 
 == Conclusion
 
 A static website generator is quite powerful.
-Without paying to run server side code, you can still automate much logic at build time.
+Without paying to run server side code, you can still automate much logic, at build time.
 The sources go in version control (such as git).
 Continuous Integration can publish it on every change.
 
-Thanks to JBake, the Java ecosystem now has a pretty good open source static website generator too.
-It runs from Maven or Gradle. That makes it easier to integrate with CI.
+Thanks to JBake, the Java ecosystem has a pretty good open source static website generator too.
+It runs from Maven or Gradle. That's easy to integrate with CI.
 It also ensures everyone uses the same JBake version. https://jbake.org[Try it out.]
