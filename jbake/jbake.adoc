@@ -17,8 +17,8 @@ Or push the sources to GitHub and have Continuous Integration automatically buil
 
 == Introducing JBake
 
-https://jbake.org[JBake] is an open source, static website generator written in Java.
-It's lead by Jonathan Bullock.
+https://jbake.org[JBake] is an open source, static website generator written in Java,
+led by Jonathan Bullock.
 It transforms content and template files into HTML files. For example:
 
 image:jbakeStaticWebsiteGenerator.png[]
