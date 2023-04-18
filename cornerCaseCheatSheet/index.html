@@ -57,13 +57,10 @@
         <br/>
         <br/>
         <h2>
+            1 + 9 == 10<br/>
+            but<br/>
             0.01 + 0.09 != 0.10
         </h2>
-        <p>
-            <br/>
-            A corner case cheat sheet<br/>
-            for Java and JVM languages
-        </p>
         <div style="margin-top: 80px;">
             <p>
                 <span style="font-size: smaller">by</span> Geoffrey De Smet<br/>
@@ -74,28 +71,58 @@
     <section>
         <h3>Who am I?</h3>
         <ul>
-            <li>Java developer (graduated in 2003)</li>
-            <li>Founder/lead of <b>OptaPlanner</b>
+            <li>Creator of <b>OptaPlanner</b>
                 <ul>
-                    <li>Leading Open Source Constraint Solver in Java</li>
+                    <li>Open Source Solver AI for Java</li>
                 </ul>
             </li>
-            <li>Contributor to 23+ Open Source projects</li>
+            <li>Contributor to 30+ Open Source projects</li>
         </ul>
     </section>
 
     <section>
-        <h2>Definition</h2>
-        <p style="margin-top: 50px;">
-            <i>A <b>corner case</b> is a bug<br/>
-            that only manifests itself<br/>
-            with a specific combination of input values.</i>
-        </p>
-        <p class="fragment" style="margin-top: 50px;">
-            A <b>corner case cheat sheet</b> is a list of input values<br/>
-            that tend to trigger corner cases,<br/>
-            useful for automated and manual testing.
-        </p>
+        <h2>Human languages</h2>
+    </section>
+
+    <section>
+        <h2>English</h2>
+        <ul>
+            <li class="fragment">Ear</li>
+            <li class="fragment">Bear</li>
+            <li class="fragment">Hear</li>
+            <li class="fragment">Here</li>
+            <li class="fragment">There</li>
+        </ul>
+        <p style="font-size: xx-small; margin-top:10rem">Credits: @loicsuberville</p>
+    </section>
+
+    <section>
+        <h2>Dutch</h2>
+        <ul>
+            <li class="fragment">de man</li>
+            <li class="fragment">de vrouw</li>
+            <li class="fragment">de jongen</li>
+            <li class="fragment"><i>het</i> meisje</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>French</h2>
+    </section>
+
+    <section>
+        <h2>Math</h2>
+        <ul>
+            <li class="fragment">1 + 9 = 10</li>
+            <li class="fragment">10 + 90 = 100</li>
+            <li class="fragment">0.01 + 0.09 = 0.10</li>
+        </ul>
+        <p class="fragment">Math is perfect</p>
+    </section>
+
+    <section>
+        <h2>Computer languages</h2>
+        <p class="fragment">~ math?</p>
     </section>
 
     <section>
@@ -112,8 +139,8 @@
 <span class="fragment">1500</span></code></pre>
         <pre class="fragment"><code class="java">average(1000000, 2000000)
 <span class="fragment">1500000</span></code></pre>
-        <pre class="fragment"><code class="java">average(1000000000, 2000000000) <span class="fragment">// Corner case
--647483648 // Overflow on a + b</span></code></pre>
+        <pre class="fragment"><code class="java">average(1000000000, 2000000000)
+<span class="fragment">-647483648 <span class="fragment">// Overflow on a + b</span></span></code></pre>
     </section>
     <section>
         <h3>Ariane 5 (1996)</h3>
@@ -163,8 +190,8 @@
 <span class="fragment">10.0</span></code></pre>
         <pre class="fragment"><code class="java">0.1 + 0.9
 <span class="fragment">1.0</span></code></pre>
-        <pre class="fragment"><code class="java">0.01 + 0.09 <span class="fragment">// Corner case
-0.09999999999999999 // Compound rounding error</span></code></pre>
+        <pre class="fragment"><code class="java">0.01 + 0.09
+<span class="fragment">0.09999999999999999 <span class="fragment">// Compound rounding error</span></span></code></pre>
     </section>
     <section>
         <figure>
@@ -266,18 +293,22 @@ for (int i = 0; i < 1000000; i++) {
 <span class="fragment">9000.0</span></code></pre>
         <pre class="fragment"><code class="java">double a = 9000000000L;
 <span class="fragment">9000000000.0</span></code></pre>
-        <pre class="fragment"><code class="java">double a = 9007199254740993L; <span class="fragment">// Corner case, no casting needed
-900719925474099<span class="negative">2</span>.0 // Rounding error</span></code></pre>
+        <pre class="fragment"><code class="java">double a = 9007199254740993L;
+<span class="fragment">900719925474099<span class="negative">2</span>.0 <span class="fragment">// Rounding error</span></span></code></pre>
         <pre class="fragment"><code class="java">double a = 9007199254740992.0;
-a == a + 1.0 <span class="fragment">// Corner case
-true // Wrong</span></code></pre>
+a == a + 1.0
+<span class="fragment">true <span class="fragment">// Wrong</span></span></code></pre>
     </section>
 
     <section>
         <img src="numbers/doubleArithmeticIssues.png" class="fullImage"/>
     </section>
+
     <section>
-        <h2>Cheat sheet numbers</h2>
+        <h2>How do I make my code safe?</h2>
+    </section>
+    <section>
+        <h2>QA cheat sheet numbers</h2>
         <table>
             <tr>
                 <th>Expression</th>
@@ -375,7 +406,12 @@ true</code></pre>
         <h3>Default encoding</h3>
         <ul>
             <li>Linux: UTF-8</li>
-            <li>Windows (Western Europe): windows-1252</li>
+            <li>Mac: UTF-8</li>
+            <li>Windows (Western Europe): windows-1252
+                <ul>
+                   <li class="fragment">Windows JDK 18+: UTF-8 (JEP 400)</li>
+                </ul>
+            </li>
         </ul>
     </section>
     <section>
@@ -385,7 +421,8 @@ true</code></pre>
         <img src="text/writtenUtf8ReadWindows1252.png" class="fullImage"/>
     </section>
     <section>
-        <img src="text/dutchIdeasGoogle.png" class="fullImage"/>
+        <img src="text/dutchIdeasGoogleEmpty.png" class="fullImage"/>
+        <img src="text/dutchIdeasGoogle.png" class="fullImage fragment"/>
     </section>
     <section>
         <img src="text/dutchIdeasAmazon.png" class="fullImage"/>
@@ -408,6 +445,7 @@ true</code></pre>
         </p>
         <ul class="fragment" style="margin-top: 50px;">
             <li>Java string literal: \ (backslash)</li>
+            <li>JSON: \ (backslash)</li>
             <li>XML: &amp; (ampersand)</li>
         </ul>
         <p class="fragment" style="margin-top: 50px;">
@@ -424,7 +462,7 @@ true</code></pre>
     </section>
 
     <section>
-        <h2>Cheat sheet text</h2>
+        <h2>QA cheat sheet text</h2>
         <table>
             <tr>
                 <th>String</th>
@@ -533,7 +571,7 @@ daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
     </section>
 
     <section>
-        <h2>Cheat sheet dates and time</h2>
+        <h2>QA cheat sheet dates and time</h2>
         <table>
             <tr>
                 <th>Expression</th>
@@ -564,20 +602,13 @@ daysBetween(LocalDate.of(2017, 3, 26), LocalDate.of(2017, 3, 27))
 
     <section>
         <h3>Q &amp; A</h3>
-        <table class="links">
-            <tr>
-                <th>Slides</th>
-                <td><a href="https://ge0ffrey.github.io/ge0ffrey-presentations/">ge0ffrey.github.io/ge0ffrey-presentations/</a></td>
-            </tr>
-            <tr>
-                <th>Cheat Sheet</th>
-                <td><a href="https://ge0ffrey.github.io/ge0ffrey-presentations/cornerCaseCheatSheet/cheatSheetJava.html">.../cornerCaseCheatSheet/cheatSheetJava.html</a></td>
-            </tr>
-            <tr>
-                <th>Feedback</th>
-                <td><img src="../common/twitterLogo64x64.png"/><a href="https://twitter.com/GeoffreyDeSmet">@GeoffreyDeSmet</a></td>
-            </tr>
-        </table>
+        <figure>
+            <p style="margin-top: 3rem">QA cheat sheet</p>
+            <a href="https://ge0ffrey.github.io/ge0ffrey-presentations/cornerCaseCheatSheet/cheatSheetJava.html">
+                <img src="cheetSheetJavaQRCode.png" alt="QR code"/>
+            </a>
+            <p style="margin-top: 2rem"><img style="vertical-align: middle;" src="../common/twitterLogo64x64.png"/><a href="https://twitter.com/GeoffreyDeSmet">@GeoffreyDeSmet</a></p>
+        </figure>
     </section>
 
 </div></div>
